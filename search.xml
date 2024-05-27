@@ -1248,4 +1248,48 @@ w:Rock-y did-nt like that</div>
         <tag>WPF从入门到入坟</tag>
       </tags>
   </entry>
+  <entry>
+    <title>git通过ssh连接github</title>
+    <url>/2024/05/27/git%E9%80%9A%E8%BF%87ssh%E8%BF%9E%E6%8E%A5github/</url>
+    <content><![CDATA[<h2 id="Git简介"><a href="#Git简介" class="headerlink" title="Git简介"></a>Git简介</h2><p>&emsp;&emsp;Git是一个分布式版本控制系统，用于跟踪文件的变化并协调多个人在同一个项目上的工作。它最初由Linus Torvalds创建，用于管理Linux内核开发，现已成为许多软件开发团队和项目的标准工具之一。</p>
+<center>git版本管理流程</center>
+
+<p><img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527200903.png"></p>
+<h2 id="SSH简介"><a href="#SSH简介" class="headerlink" title="SSH简介"></a>SSH简介</h2><p>&emsp;&emsp;SSH（Secure Shell）是一种网络协议，用于在不安全的网络上安全地进行远程登录和执行命令。它提供了加密的通信机制，可以确保在客户端和服务器之间传输的数据是安全的，不会被窃听或篡改。</p>
+<pre><code>SSH的主要特点包括：
+</code></pre>
+<ul>
+<li>加密通信：SSH使用加密算法对通信数据进行加密，防止数据被第三方窃听或篡改。</li>
+<li>认证机制：SSH支持多种认证方式，包括基于密码的认证、基于公钥的认证以及基于身份证书的认证，以确保用户身份的安全性。</li>
+<li>安全性：SSH设计时考虑了各种安全问题，包括密码猜测、中间人攻击等，并提供了相应的安全机制和措施来保护系统免受这些攻击。</li>
+<li>远程访问：SSH允许用户通过网络远程登录到其他计算机，并在远程计算机上执行命令或访问文件。</li>
+<li>文件传输：除了远程登录，SSH还支持安全地传输文件，通过SCP（Secure Copy Protocol）或SFTP（SSH File Transfer Protocol）等方式。</li>
+</ul>
+<div class="note info flat"><p>SSH已经成为了许多操作系统和网络设备的标准远程登录协议，广泛用于系统管理、远程开发、数据传输等场景。</p>
+</div>
+
+<h2 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h2><h3 id="配置用户名和邮箱"><a href="#配置用户名和邮箱" class="headerlink" title="配置用户名和邮箱"></a>配置用户名和邮箱</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;username&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;email&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="生成SSH-Key"><a href="#生成SSH-Key" class="headerlink" title="生成SSH Key"></a>生成SSH Key</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 你的Github绑定的邮箱</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;email&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取SSH-Key"><a href="#获取SSH-Key" class="headerlink" title="获取SSH Key"></a>获取SSH Key</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 打开目录 %userprofile%/.ssh</span></span><br><span class="line"><span class="built_in">cd</span> %userprofile%/.ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制 id_rsa.pub 文件内容</span></span><br><span class="line"><span class="built_in">cat</span> id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<h3 id="Github配置SSH"><a href="#Github配置SSH" class="headerlink" title="Github配置SSH"></a>Github配置SSH</h3><ol>
+<li>进入<a href="github.com">Github</a> &gt; 点击头像 &gt; 点击Settings</li>
+<li>点击<code>SSH and GPG keys</code> &gt; 点击<code>New SSH Key</code><br> <img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527202143.png"></li>
+<li>输入公钥 &gt; 点击<code>Add SSH Key</code><br> <img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527202249.png"></li>
+</ol>
+<h3 id="检测是否配置成功"><a href="#检测是否配置成功" class="headerlink" title="检测是否配置成功"></a>检测是否配置成功</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<center>显示如下，表示配置成功</center>
+
+<p><img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527202613.png"></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
 </search>
