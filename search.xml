@@ -855,7 +855,126 @@ w:Rock-y did-nt like that</div>
   <entry>
     <title>WPF从入门到入坟 - 04依赖属性</title>
     <url>/2024/05/25/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/04%E4%BE%9D%E8%B5%96%E5%B1%9E%E6%80%A7/</url>
-    <content><![CDATA[<h2 id="依赖项属性"><a href="#依赖项属性" class="headerlink" title="依赖项属性"></a>依赖项属性</h2>]]></content>
+    <content><![CDATA[<h2 id="依赖项属性"><a href="#依赖项属性" class="headerlink" title="依赖项属性"></a>依赖项属性</h2><p>&emsp;&emsp;依赖项属性是标准.NET属性的全新实现--具有大量新增价值。在 WPF的核心特性(如动画、数据绑定以及样式)中需要嵌入依赖项属性。WPF 元素提供的大多数属性都是依赖项属性。依赖项属性的用法和普通属性是相同的。</p>
+<div class="note warning flat"><p>只能为依赖对象（继承自<code>DependencyObject</code>的类）添加依赖属性。幸运的是，WPF基础结构的关键部分中的大部分都简介继承自<code>DependencyObject</code>类，最明显的例子就是元素</p>
+</div>
+
+<h3 id="定义依赖项属性"><a href="#定义依赖项属性" class="headerlink" title="定义依赖项属性"></a>定义依赖项属性</h3><p>&emsp;&emsp;第一步是定义表示属性的对象，它是<code>DependencyProperty</code>类的实例。属性信息应该始终保持可用，甚至可能需要在多个类之间共享这些信息。因此，必须将<code>DependencyProperty</code>对象定义为与其相关联的类的静态字段。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FrameworkElement</span> : <span class="title">UIElement</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> DependencyProperty MarginProperty;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note info flat"><p>根据约定，定义依赖属性项属性的字段的每次是在普通属性的末尾处加上单词“<code>Property</code>”。根据这种命名方式，可从实际属性的名称中区分出依赖项属性的定义。字段的定义使用了readonly关键字，这意味着只能在<code>FrameworkElement</code>类的静态构造函数中对其进行设置</p>
+</div>
+
+<h3 id="注册依赖项属性"><a href="#注册依赖项属性" class="headerlink" title="注册依赖项属性"></a>注册依赖项属性</h3><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">FrameworkElement</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    FrameworkPropertyMetadata metadata = <span class="keyword">new</span> FrameworkPropertyMetadata(</span><br><span class="line">        defaultValue: <span class="keyword">new</span> Thickness(),</span><br><span class="line">        flags: FrameworkPropertyMetadataOptions.AffectsMeasure);</span><br><span class="line"></span><br><span class="line">    MarginProperty = DependencyProperty.Register(</span><br><span class="line">        name: <span class="string">&quot;Margin&quot;</span>,</span><br><span class="line">        propertyType: <span class="keyword">typeof</span>(Thickness),</span><br><span class="line">        ownerType: <span class="keyword">typeof</span>(FrameworkElement),</span><br><span class="line">        typeMetadata: metadata,</span><br><span class="line">        validateValueCallback: <span class="keyword">new</span> ValidateValueCallback(FrameworkElement.IsMarginValid));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;注册依赖项属性需要经历两个步骤。首先创建<code>FrameworkPropertyMetadata</code>对象，该对象指示希望通过依赖项属性使用什么服务（如支持数据绑定&#x2F;动画以及日志）。接下来通过调用<code>DependencyProperty.Register()</code>静态方法注册属性。在这一步骤中，需要提供以下几个要素：</p>
+<ul>
+<li>name: 属性名 </li>
+<li>propertyType: 属性使用的数据类型</li>
+<li>ownerType: 拥有该属性的类型</li>
+<li>typeMetadata: 一个具有附加属性设置的<code>FrameworkPropertyMetadata</code>对象，该要素是可选的</li>
+<li>validateValueCallback: 一个用于验证属性的回调函数，该要素是可选的</li>
+</ul>
+<center>FrameworkPropertyMetadata类的属性</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AffectsArrange、AffectsMeasure、AffectsParentArrange和AffectsParentMeasure</td>
+<td>如果为true，依赖项属性会影响在布局操作的测量过程和排列过程中如何放置相邻的元素或父元素。</td>
+</tr>
+<tr>
+<td>AffectsRender</td>
+<td>如果为true，依赖项属性会对属性的绘制方式造成一定的影响，要求重新绘制元素</td>
+</tr>
+<tr>
+<td>BindsTwoWayByDefault</td>
+<td>如果为true，默认情况下，依赖项属性将使用双向数据绑定而不是单向数据绑定，不过，但创建数据绑定时，可以明确指定所需的绑定行为</td>
+</tr>
+<tr>
+<td>Inherits</td>
+<td>如果为true，就通过元素树传播该依赖项属性值，并且可以被嵌套的元素继承</td>
+</tr>
+<tr>
+<td>IsAnimationProhibited</td>
+<td>如果为true，就不能将依赖项属性用于动画</td>
+</tr>
+<tr>
+<td>IsNotDataBindable</td>
+<td>如果为true，就不能使用绑定表达式设置依赖项属性</td>
+</tr>
+<tr>
+<td>Journal</td>
+<td>如果为true，在基于页面的应用程序中，依赖项属性将被保存到日志（浏览过的页面的历史纪录）中</td>
+</tr>
+<tr>
+<td>SubPropertiesDoNotAffectRender</td>
+<td>如果为true，并且对象的某个指数型（属性的属性）发生了变化，WPF将不会重新渲染该对象</td>
+</tr>
+<tr>
+<td><code>DefaultUpdateSourceTrigger</code></td>
+<td>但该属性用于绑定表达式时，该属性用于为Binding.UpdateSourceTrigger属性设置默认值。UpdateSourceTrigger属性决定了 数据绑定值在何时应用自身的变化。但创建绑定时，可以手动设置UpdateSourceTrigger属性</td>
+</tr>
+<tr>
+<td><code>DefaultValue</code></td>
+<td>该属性用于为依赖项属性设置默认值</td>
+</tr>
+<tr>
+<td>CoerceValueCallback</td>
+<td>该属性提供了一个回调函数，用于在验证依赖项属性之前尝试“纠正”属性值</td>
+</tr>
+<tr>
+<td><code>PropertyChangedCallback</code></td>
+<td>该属性提供了一个回调函数，当依赖项属性的值发生变化时调用该回调函数</td>
+</tr>
+</tbody></table>
+<h3 id="添加属性包装器"><a href="#添加属性包装器" class="headerlink" title="添加属性包装器"></a>添加属性包装器</h3><p>&emsp;&emsp;创建依赖项属性的最后一个步骤是使用传统的.NET属性封装 WPF 依赖项属性。但典型的属性过程是检索或设置某个私有字段的值,而 WPF 属性的属性过程是使用在 DependencyObiec基类中定义的 GetValue()和 SetValue()方法，删除值使用ClearValue()方法</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> Thickness Margin</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">set</span> &#123;SetValue(MarginProperty,<span class="keyword">value</span>);&#125;</span><br><span class="line">    <span class="keyword">get</span> &#123;<span class="keyword">return</span> (Thickness)GetValue(MarginProperty);&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>属性封装器不是验证数据或引发事件的正确位置。不过WPF的确提供了用于进行这些工作的地方——技巧是使用依赖项属性回调函数<code>DependencyProperty.ValidateValueCallback</code>回调函数进行验证操作；<code>FrameworkPropertyMetadata.PropertyChangedCallback</code>回调函数进行监听操作</p>
+</div>
+
+<h3 id="WPF使用依赖项属性的方式"><a href="#WPF使用依赖项属性的方式" class="headerlink" title="WPF使用依赖项属性的方式"></a>WPF使用依赖项属性的方式</h3><p>&emsp;&emsp;从依赖项属性检索值时，WPF需要考虑多个方面。依赖项属性因该行为得名--本质上，依赖项属性依赖于多个属性提供者,每个提供者都有各自的优先级。当从属性检索值时，WPF属性系统会通过一系列步骤获取最终值。首先通过考虑以下因素(按优先级从低到高的顺序排列)来决定基本值(base value):</p>
+<ol>
+<li>默认值（由FeameworkPropertyMetadata对象设置的值）</li>
+<li>继承而来（假设设置FrameworkPropertyMetadata.Inherits标志，并为包含层次中的某个元素提供了值）</li>
+<li>来自主题样式的值</li>
+<li>来自项目样式的值</li>
+<li>本地值（使用代码或XAML直接为对象设置的值）</li>
+</ol>
+<h3 id="共享的依赖项属性"><a href="#共享的依赖项属性" class="headerlink" title="共享的依赖项属性"></a>共享的依赖项属性</h3><p>&emsp;&emsp;尽管一些具有不同的继承层次，但它们会共享同一依赖属性，例如TextBlock.FontFamily属性和Control.FontFamily属性指向同一个静态的依赖项属性，该属性实际上是在 TextElemen类中定义的 TextElement.FontFamilyProperty 依赖项属性。TextElement 类的静态构造函数注册该属性,而TextBlock类和 Control类的静态构造函数只是通过调用DependencyProperty.AddOwner()方法重用该属性:</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">TextBlock.FontFamilyProperty = </span><br><span class="line">    TextElement.FontFamilyProperty.AddOwner(<span class="keyword">typeof</span>(TextBlock));</span><br></pre></td></tr></table></figure>
+
+<h3 id="附加的依赖项属性"><a href="#附加的依赖项属性" class="headerlink" title="附加的依赖项属性"></a>附加的依赖项属性</h3><p>&emsp;&emsp;附加属性时一种依赖项属性，由WPF属性系统管理。不同之处在于附加属性被引用到的类并非定义附加属性的那个类。例如，Grid类定义了Row和Column附加属性，这两个属性被用于设置Gird面板包含的元素，以指明这些元素应被放到哪个单元格中</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">FrameworkPropertyMetadata metadata = <span class="keyword">new</span> FrameworkPropertyMetadata(</span><br><span class="line">    <span class="number">0</span>, <span class="keyword">new</span> PropertyChangedCallback(Grid.OnCellAttachedPropertyChanged));</span><br><span class="line"></span><br><span class="line">Grid.RowProperty = DependencyProperty.RegisterAttached(<span class="string">&quot;Row&quot;</span>, <span class="keyword">typeof</span>(<span class="built_in">int</span>),</span><br><span class="line">    <span class="keyword">typeof</span>(Grid),metadata,<span class="keyword">new</span> ValidateValueCall(Grid.IsIntValueNotNegative));</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;当创建附加属性时，不必定义.NET 属性封装器。这是因为附加属性可以被用于任何依赖对象。例如，Grid.Row 属性可能被用于 Grid 对象(如果在 Grid 控件中嵌套了另一个 Grid 控件),也可能被用于其他元素。实际上，Grid.Row属性甚至可以被用于并不位于 Grid 控件中的元素甚至在元素树中根本就不存在 Grid 对象。</p>
+<p>&emsp;&emsp;不是使用.NET属性封装器，反而附加属性需要调用两个静态方法来设置和获取属性值，这两个方法使用为人熟知的 SetValue()和 GetValue()方法(继承自 DependencyObiect 类)。这两个静态方法应当命名为SetPropertyName()和GetPropertyName()</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> <span class="title">GetRow</span>(<span class="params">UIElement element</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(element == <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(...);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">int</span>)element.GetValue(Grid.RowProperty);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SetRow</span>(<span class="params">UIElement element, <span class="built_in">int</span> <span class="keyword">value</span></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(element == <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(...);</span><br><span class="line">    &#125;</span><br><span class="line">    element.SetValue(Grid.RowProperty,<span class="keyword">value</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="属性验证"><a href="#属性验证" class="headerlink" title="属性验证"></a>属性验证</h2><p>&emsp;&emsp;在定义任何类型的属性时，都需要面对错误设置属性的可能性。对于传统的.NET属性，可尝试在属性设置器中捕获这类问题。但对于依赖项属性而言，这种方法不合适，因为可能通过WPF属性系统使用SetValue()方法直接设置属性。</p>
+<p>&emsp;&emsp;作为代替，WPF 提供了两种方法来阻止非法值:</p>
+<ul>
+<li>ValidateVaalueCallback: 该回调函数可接受或拒绝新值。通常，该回调函数用于驳货违反了属性约束的明显错误。可作为DependencyProperty.Register()方法的一个参数提供该回调函数</li>
+<li>CoerceValueCallback: 该回调函数可将新值修改为更能被接受的值。该回调函数通常用于处理为相同对象设置的依赖项属性值相互冲突的问题。这些值本身可能时合法的，但当同时应用时它们时不相容的。为了使用这个回调函数，但创建FrameworkPropetyMetadata对象时（然后对该对象将被传递到DependencyProperty.Register()方法），作为构造函数的一个参数提供回调函数</li>
+</ul>
+<p>&emsp;&emsp;下面是当应用程序试图设置依赖项属性时，所有这些内容的作用过程:</p>
+<ol>
+<li>首先，CoerceValueCallback方法有机会修改提供的值(通常，使提供的值和其他属性相容)，或者返回 DependencyProperty.UnsetValue，这会完全拒绝修改。</li>
+<li>接下来激活 ValidateValueCallback方法。该方法返回 true 以接受一个值作为合法值，或者返回 false 拒绝值。与 CoerceValueCallback 方法不同，ValidateValueCallback 方法不能访问设置属性的实际对象，这意味着您不能检查其他属性值。</li>
+<li>最后，如果前两个阶段都获得成功，就会触发 PropertyChangedCallback 方法。此时如果希望为其他类提供通知，可以引发更改事件。</li>
+</ol>
+<h3 id="验证回调"><a href="#验证回调" class="headerlink" title="验证回调"></a>验证回调</h3><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">MarginProperty = DependencyProperty.Register(</span><br><span class="line">        name: <span class="string">&quot;Margin&quot;</span>,</span><br><span class="line">        propertyType: <span class="keyword">typeof</span>(Thickness),</span><br><span class="line">        ownerType: <span class="keyword">typeof</span>(FrameworkElement),</span><br><span class="line">        typeMetadata: metadata,</span><br><span class="line">        validateValueCallback: <span class="keyword">new</span> ValidateValueCallback(FrameworkElement.IsMarginValid));</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;可使用这个回调函数加强验证，验证通常应被添加到属性过程的设置部分。提供的回调函数必须指向一个接受对象参数并返回 Boolean 值的方法。返回 true 以接受对象是合法的，返回false 拒绝对象。</p>
+<h3 id="强制回调"><a href="#强制回调" class="headerlink" title="强制回调"></a>强制回调</h3><p>&emsp;&emsp;通过 FrameworkPropertyMetadata对象使用 CoerceValueCallback 回调函数。下面是示例:</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">RangeBase</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    FrameworkPropertyMetadata metadata = <span class="keyword">new</span> FrameworkPropertyMetadata();</span><br><span class="line">    metadata.CoerceValueCallback = <span class="keyword">new</span> CoerceValueCallback(CoerceMaximum);</span><br><span class="line"></span><br><span class="line">    DependencyProperty.Register(<span class="string">&quot;Maximum&quot;</span>,<span class="keyword">typeof</span>(<span class="built_in">double</span>),</span><br><span class="line">        <span class="keyword">typeof</span>(RangeBase),metadata);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">object</span> <span class="title">CoerceMaximum</span>(<span class="params">DependencyObject d, <span class="built_in">object</span> <span class="keyword">value</span></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">RangeBase <span class="title">base1</span> (<span class="params">RangeBase</span>)d</span>;</span><br><span class="line">    <span class="keyword">if</span>((<span class="built_in">double</span>)<span class="keyword">value</span> &lt; base1.Minimum) <span class="comment">// 最大值不能小于最小值</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> base1.Minimum; <span class="comment">// 强制回调可以自定义一个更合理的值返回</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>C#</category>
         <category>WPF</category>
@@ -1287,9 +1406,905 @@ w:Rock-y did-nt like that</div>
 ]]></content>
       <categories>
         <category>工具</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>git</tag>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WPF从入门到入坟 - 05路由事件</title>
+    <url>/2024/05/28/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/05%E8%B7%AF%E7%94%B1%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<h2 id="路由事件"><a href="#路由事件" class="headerlink" title="路由事件"></a>路由事件</h2><p>&emsp;&emsp;路由事件时具有更强传播能力的事件——它们可在元素树中向上冒泡和向下隧道传播，并且沿着传播路径被事件处理程序处理。路由事件允许事件在某个元素上被处理（如标签），即使该事件源自另一个元素（如标签内部的一幅图像）也是如此。与依赖项属性一样，可通过传统的方式使用路由事件——通过关联具有正确签名的事件处理程序——但为了使用路由事件的所有功能，需要理解其工作原理。</p>
+<h3 id="理解路由事件"><a href="#理解路由事件" class="headerlink" title="理解路由事件"></a>理解路由事件</h3><p>&emsp;&emsp;每个.NET开发人员都熟悉“事件”的思想--当有意义的事情发生时,由对象(如WPF元素)发送的用于通知代码的消息。WPF通过事件路由(event routing)的概念增强了.NET事件模型。事件路由允许源自某个元素的事件由另一个元素引发。例如,使用事件路由,来自工具栏按钮的单击事件可在被代码处理之前上传到工具栏,然后上传到包含工具栏的窗口。</p>
+<h3 id="定义-注册和封装路由事件"><a href="#定义-注册和封装路由事件" class="headerlink" title="定义&#x2F;注册和封装路由事件"></a>定义&#x2F;注册和封装路由事件</h3><p>&emsp;&emsp;WPF事件模型和WPF属性模型非常类似。与依赖项属性一样,路由事件由只读的静态字段表示,在静态构造函数中注册,并通过标准的.NET事件定义进行封装。</p>
+<pre><code>例如,WPF 的Button类提供了大家熟悉的Click事件,该事件继承自抽象的ButtonBase基类。下面的代码说明了该事件是如何被定义和注册的:
+</code></pre>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">ButtonBase</span> : <span class="title">ContentControl</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 定义路由事件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> RoutedEvent ClickEvent;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册路由事件</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="title">ButtonBase</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        ButtonBase.ClickEvent = EventManager.RegisterRoutedEvent(</span><br><span class="line">            <span class="string">&quot;Click&quot;</span>, <span class="comment">// 事件名称</span></span><br><span class="line">            RoutingStrategy.Bubble, <span class="comment">// 路由类型</span></span><br><span class="line">            <span class="keyword">typeof</span>(RoutedEventHandler), <span class="comment">// 事件处理程序语法的委托</span></span><br><span class="line">            <span class="keyword">typeof</span>(ButtonBase) <span class="comment">// 拥有事件的类</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 封装路由事件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> RoutedEventHandler Click</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">add</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">base</span>.AddHandler(ButtonBase.ClickEvent,<span class="keyword">value</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">remove</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">base</span>.RemoveHandler(ButtonBase.ClickEvent,<span class="keyword">value</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note info flat"><p>依赖项属性是使用DependencyProperty. Register()方法注册的,而路由事件是使用EventManager.RegisterRoutedEvent()方法注册的。</p>
+</div>
+
+<h3 id="共享路由事件"><a href="#共享路由事件" class="headerlink" title="共享路由事件"></a>共享路由事件</h3><p>&emsp;&emsp;与依赖项属性一样，可在类之间共享路由事件的定义。例如，UIElement(该类是所有普通WPF 元素的起点)和ContentElement(该类是所有内容元素的起点，内容元素是可以被放入流文档中的单独内容片段)这两个基类都使用了MouseUp事件。MouseUp事件是由SvstemWindows.Input,.Mouse类定义的。UElement 类和 ContentElement类只通过Routed- Event.AddOwner()方法重用MouseUp事件:</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">UIElement.MouseUpEvent = Mouse.MouseUpEvent.AddOwner(<span class="keyword">typeof</span>(UIElement));</span><br></pre></td></tr></table></figure>
+
+<h3 id="引发路由事件"><a href="#引发路由事件" class="headerlink" title="引发路由事件"></a>引发路由事件</h3><p>&emsp;&emsp;路由事件不是通过传统的.NET事件封装器引发的，而是使用RaiseEvent()方法引发事件，所有元素都从UIElement类继承了该方法。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">RoutedEventArgs e = <span class="keyword">new</span> RoutedEventArgs(ButtonBase.ClickEvent,<span class="keyword">this</span>);</span><br><span class="line"><span class="keyword">base</span>.RaiseEvent(e); <span class="comment">// RaiseEvent()方法负责为每个已经通过 AddHandler()方法注册的调用程序引发事件。</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;所有WPF事件都为事件签名使用熟悉的.NET约定。每个事件处理程序的第一个参数（sender参数）都提供引发事件的对象的引用。第二个参数时EventArgs对象，该独显与其他所有可能很重要的附加细节绑定在一起。例如，MouseUp事件提供了一个MouseEventArgs对象，用于指示但事件发生时按下了哪些鼠标键：</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">img_MouseUp</span>(<span class="params"><span class="built_in">object</span> sender,MouseButtonEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note info flat"><p>在WPF 中,如果事件不需要传递任何额外细节,可使用RoutedEventArgs类,该类包含了有关如何传递事件的一些细节。如果事件确实需要传递额外的信息,那么需要使用更特殊的继承自RoutedEventArgs的对象(如上面示例中的MouseButtonEventArgs)。因为每个WPF事件参数类都继承自RoutedEventArgs类,所以每个WPF事件处理程序都可访问与事件路由相关的信息。</p>
+</div>
+
+<h3 id="处理路由事件"><a href="#处理路由事件" class="headerlink" title="处理路由事件"></a>处理路由事件</h3><h4 id="XAML标记"><a href="#XAML标记" class="headerlink" title="XAML标记"></a>XAML标记</h4><p>&emsp;&emsp;最常用的方法是为XAML标记天机事件特性。通常约定“元素名_事件名”的形式明明事件处理程序方法。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Image</span> <span class="attr">x:Name</span>=<span class="string">&quot;img&quot;</span> <span class="attr">Source</span>=<span class="string">&quot;happyface.jpg&quot;</span> <span class="attr">Stretch</span>=<span class="string">&quot;None&quot;</span> <span class="attr">MouseUp</span>=<span class="string">&quot;img_MouseUp&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="代码连接"><a href="#代码连接" class="headerlink" title="代码连接"></a>代码连接</h4><p>&emsp;&emsp;如果需要动态创建控件,并在窗口生命周期的某一时刻关联事件处理程序,代码方法是非常有用的。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">img.MouseUp += <span class="keyword">new</span> MouseButtonEventHandler(img_Mouseup); <span class="comment">// 完整写法</span></span><br><span class="line">img.MouseUp += img_MouseUp; <span class="comment">// 简写</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="事件封装器"><a href="#事件封装器" class="headerlink" title="事件封装器"></a>事件封装器</h4><p>&emsp;&emsp;当使用这种方法时，始终需要创建合适的委托类型，而不是能隐式地创建委托对象。这是因为UIElement.AddHandler()方法支持所有WPF事件，并且他不知道您要使用的委托类型</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">img.AddHandler(UIElement.MouseUpEvent,<span class="keyword">new</span> MouseButtonEventHandler(img_MouseUp));</span><br></pre></td></tr></table></figure>
+
+<h4 id="断开事件处理程序"><a href="#断开事件处理程序" class="headerlink" title="断开事件处理程序"></a>断开事件处理程序</h4><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">img.MouseUp -= img_MouseUp;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">img.RemoveHandler(Imgae.MouseUpEvent,<span class="keyword">new</span> MouseButtonEventHandler(img_MouseUp));</span><br></pre></td></tr></table></figure>
+
+<h2 id="事件路由"><a href="#事件路由" class="headerlink" title="事件路由"></a>事件路由</h2><p>&emsp;&emsp;WPF中的许多空间都是内容控件，而内容控件可包含任何类型以及大量的嵌套内容，因此恰当的事件标记处理可以避免处理程序变得杂乱无章。</p>
+<pre><code>路由手机将实际上以下列三种方式出现：
+</code></pre>
+<ul>
+<li><strong>直接路由事件（direct event）</strong>：与普通.NET事件类似，它们源于一个元素，不传递给其他元素，例如，MouseEnter事件（当鼠标指针移到元素上时发生）</li>
+<li><strong>冒泡路由事件（bubbling event）</strong>：在包含层次中向上传递的，<code>通常鼠标事件都是冒泡路由事件</code>，例如，MouseDown事件，该事件首先由被单击的元素引发，接下来被该元素的父元素引发，然后被父元素的父元素引发，以此类推，直到WPF到达元素树顶部为止</li>
+<li><strong>隧道路由事件（tunneling event）</strong>：在包含层次中向下传递，<code>通常以Preview开头的事件</code>，隧道路由事件在事件到达恰当的控件之前为预览事件（甚至终止事件）提供了机会，例如，通过PreviewKeyDown事件可截获时候按下了某个键。首先在窗口级别上，然后时更具体的容器，直到到达但按下键时具有焦点的元素。</li>
+</ul>
+<h3 id="RoutedEventArgs类"><a href="#RoutedEventArgs类" class="headerlink" title="RoutedEventArgs类"></a>RoutedEventArgs类</h3><p>&emsp;&emsp;在处理冒泡路由事件时，sender参数提供了对整个链条上最后那个链接的引用</p>
+<center>RoutedEventArgs类的属性</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Source</td>
+<td>指示引发了事件的对象</td>
+</tr>
+<tr>
+<td>OriginalSource</td>
+<td>指示最初时什么对象引发了事件</td>
+</tr>
+<tr>
+<td>RoutedEvent</td>
+<td>通过事件处理程序为出发的事件提供RoutedEvent对象</td>
+</tr>
+<tr>
+<td>Handled</td>
+<td>该属性允许终止事件的冒泡或隧道过程。如果控件将Handled属性设为true，那么事件就不会继续传递，也不会为其他任何元素引发该事件</td>
+</tr>
+</tbody></table>
+<h3 id="处理挂起的事件"><a href="#处理挂起的事件" class="headerlink" title="处理挂起的事件"></a>处理挂起的事件</h3><p>&emsp;&emsp;AddHandler()方法提供了一个重载版本,该版本可以接收一个Boolean值作为它的第三个参数。如果将该参数设置为true,那么即使设置了Handled标志,也将接收到事件:</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">cmdClear.AddHandler(UIElement.MouseUpEvent,<span class="keyword">new</span> MouseButtonEventHandler(cmdClear_MouseUp),<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>这通常不是正确的设计决策。为防止可能造成的困惑，按钮被设计为会挂起MouseUp事件</p>
+</div>
+
+<h3 id="附加事件"><a href="#附加事件" class="headerlink" title="附加事件"></a>附加事件</h3><p>&emsp;&emsp;假设在StackPanel面板中封装了一堆按钮，并希望在一个事件处理程序中处理所有这些按钮的单击事件。。粗略的方法是将每个按钮的Click事件关联到同一个事件处理程序。但Click事件支持事件冒泡,从而提供了一种更好的选择。可通过处理更高层次元素的Click事件(如包含按钮的StackPanel面板)来处理所有按钮的Click事件。</p>
+<div class="tabs" id="note"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="note-1">XML</button><button type="button" class="tab " data-href="note-2">C#</button></ul><div class="tab-contents"><div class="tab-item-content active" id="note-1"><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">StackPanel</span> <span class="attr">Button.Click</span> = <span class="string">&quot;DoSomething&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Name</span>=<span class="string">&quot;cmd1&quot;</span> <span class="attr">Content</span>=<span class="string">&quot;Button&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Name</span>=<span class="string">&quot;cmd2&quot;</span> <span class="attr">Content</span>=<span class="string">&quot;Button&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Name</span>=<span class="string">&quot;cmd3&quot;</span> <span class="attr">Content</span>=<span class="string">&quot;Button&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Name</span>=<span class="string">&quot;cmd4&quot;</span> <span class="attr">Content</span>=<span class="string">&quot;Button&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Name</span>=<span class="string">&quot;cmd5&quot;</span> <span class="attr">Content</span>=<span class="string">&quot;Button&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="note-2"><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">DoSomething</span>(<span class="params"><span class="built_in">object</span> sender, RoutedEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(sender == cmd1)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(sender == cmd2)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h3 id="隧道路由事件"><a href="#隧道路由事件" class="headerlink" title="隧道路由事件"></a>隧道路由事件</h3><p>&emsp;&emsp;隧道路由事件的工作方式和冒泡路由事件相同，但方向相反。隧道路由事件易于识别，它们都以单词 Preview开头。而且，WPF通常成对地定义冒泡路由事件和隧道路由事件。这意味着如果发现冒泡的MouseUp事件，就还可以找到PreviewMouseUp 隧道事件。隧道路由事件总在冒泡路由事件之前被触发</p>
+<center>隧道路由事件和冒泡路由事件</center>
+
+<img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240528212303.png" width="50%">
+
+<div class="note blue icon-padding simple"><i class="note-icon fas fa-bullhorn"></i><p>如果准备将隧道路由事件标记为处理过，务必要谨慎从事。根据编写控件的方式，这有可能阻止控件处理自己的事件(相关的冒泡路由事件)，从而阻止执行某些任务或阻止更新控件自身的状态。</p>
+</div>
+
+<h2 id="WPF事件"><a href="#WPF事件" class="headerlink" title="WPF事件"></a>WPF事件</h2><p>&emsp;&emsp;尽管每个元素都提供了许多事件，但最重要的事件童话参观包括以下5类：</p>
+<ul>
+<li><strong>生命周期事件</strong>：在元素被初始化、加载或卸载时发生这些事件</li>
+<li><strong>鼠标事件</strong>：这些事件时鼠标动作的结果</li>
+<li><strong>键盘事件</strong>：这些事件时键盘动作（如按下键盘上的键）的结果</li>
+<li><strong>手写笔事件</strong>：这些事件时使用类似钢笔的手写笔的结果，在平板电脑上用手写笔代替鼠标</li>
+<li><strong>多点触控事件</strong>：这些事件时一根或多根手指在多点触控屏幕上触摸的结果。仅在Widdows7中支持这些事件</li>
+</ul>
+<h3 id="生命周期事件"><a href="#生命周期事件" class="headerlink" title="生命周期事件"></a>生命周期事件</h3><p>&emsp;&emsp;但首次创建以及释放所有元素时都会引发事件，可使用这些事件初始化窗口。</p>
+<center>所有元素的生命周期事件</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Initialized</td>
+<td>但元素被实例化，并已根据XAML标记设置了元素的属性之后发生。这是元素已经初始化，但窗口的其他部分可能尚未初始化。此外，尚未应用样式和数据绑定。这是，IsInitialized属性为true。Initialized事件时普通的.NET事件——并未路由事件</td>
+</tr>
+<tr>
+<td>Loaded</td>
+<td>当整个窗口已经初始化并应用了样式和数据绑定时，该事件发生。这是在元素被呈现之前的最后一站。这是，IsLoaded属性为true</td>
+</tr>
+<tr>
+<td>Unloaded</td>
+<td>当元素被释放时，该事件发生，原因时包含元素的窗口被关闭或特定的元素被从窗口中删除</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;为了弄清Initialized 事件和Loaded 事件之间的关系，分析一下呈现过程是有帮助的。FrameworkElement 类实现了 ISupportInitialize 接口，该接口提供了两个用于控制初始化过程的方法。</p>
+<ol>
+<li>第一个方法是 BeginInit()，在实例化元素后会立即调用该方法。调用 BeginInit( )方法后,XAML 解析器设置所有元素的属性(并添加内容)。</li>
+<li>第二个方法是Endnit()，完成初始化后，将调用该方法，此时引发Initialized 事件。</li>
+</ol>
+<center>Window类的生命周期事件</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SourceInitialized</td>
+<td>当取得窗口的HwndSource属性时（当在窗口可见之前）发生。HwndSource时窗口句柄，如果调用Win32 API中的遗留函数，就可能需要使用该句柄</td>
+</tr>
+<tr>
+<td>ContentRendered</td>
+<td>当窗口首次呈现后立即发生。对于执行任何可能会影响窗口可视外观的更改操作，这不是一个好位置，否则将会强制进行第二次呈现（改用Loaded事件）。然而，ContentRendered事件表明窗口已经完成可见，并且已经准备好接收输入</td>
+</tr>
+<tr>
+<td>Activated</td>
+<td>当用户切换到该窗口时发生(例如，从应用程序的其他窗口或从其他应用程序切换到该窗口)。当窗口第一次加载时也会引发 Activated 事件。从概念上讲，窗口的 Activated 事件相当于控件的 GotFocus 事件</td>
+</tr>
+<tr>
+<td>Deactivated</td>
+<td>当用户从该窗口切换到其他窗口时发生(例如，切换到应用程序的其他窗口或切换到其他应用程序)。当用户关闭窗口时也会发生该事件，该事件在Cosing事件之后，但在Closcd事件之前发生。从概念上讲，窗口的Deactivated 事件相当于控件的LostFocus事件</td>
+</tr>
+<tr>
+<td>Closing</td>
+<td>当关闭窗口时发生，不管是用户关闭窗口还是通过代码调用Window.Close()或Application.Shutdown()方法关闭窗口。Closing 事件提供了取消操作并保持打开状态的机会，具体通过将CancelEventArgs.Cancel 属性设置为true 实现该目标。但是，如果是因为用户关闭或注销计算机而导致应用程序被关闭，就不能接收到Closing事件。为应对这种情况，需要处理Application.SessionEnding 事件</td>
+</tr>
+<tr>
+<td>Closed</td>
+<td>当窗口已经关闭后发生。但是，此时仍可以访问元素对象，当然是在Unoaded.事件尚未发生之前。在此，可以执行一些清理工作，向永久存储位置(如配置文件或 Windows 注册表)写入设置信息等</td>
+</tr>
+</tbody></table>
+<div class="note danger simple"><p>也可以使用窗口构造函数进行初始化(在紧跟 ImitializeComponent()调用之后,添加自己的代码)。<code>但使用Loaded 事件总是更好的选择</code>。这是因为如果在 Window 类的构造函数中发生异常，就会在 XAML解析器解析页面时抛出该异常。因此，该异常将与 InnerException 属性中的原始异常一起被封装到一个没有用处的XamlParseException 对象中。</p>
+</div>
+
+<h3 id="输入事件"><a href="#输入事件" class="headerlink" title="输入事件"></a>输入事件</h3><p>&emsp;&emsp;输入事件是当用户使用某些种类的外设硬件进行交互时发生的事件，例如鼠标、键盘、手写笔或多点触控屏。输入事件可通过继承自InputEventArgs 的自定义事件参数类传递额外的信息。下图显示了继承层次。</p>
+<center>输入事件的EventArgs类</center>
+
+<p><img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240528214735.png"></p>
+<p>&emsp;&emsp;InputEventArgs 类只增加了两个属性:Timestamp和 Device。Timestamp 属性提供了一个整数，指示事件何时发生的毫秒数(它所代表的实际时间并不重要，但可比较不同的时间戳值以确定哪个事件先发生。时间戳值大的事件是在更近发生的)。Device 属性返回一个对象，该对象提供与触发事件的设备相关的更多信息，设备可以是鼠标、键盘或手写笔。这三种可能的设备由不同的类表示，所有这些类都继承自抽象类System.Windows.Input.InputDevice。</p>
+<h3 id="键盘输入"><a href="#键盘输入" class="headerlink" title="键盘输入"></a>键盘输入</h3><p>&emsp;&emsp;当用户按下键盘上的一个键时，就会发生一系列事件。下面根据它们发生的顺序列出了这些事件。</p>
+<center>所有元素的键盘事件（按顺序）</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>路由类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PreviewKeyDown</td>
+<td>隧道</td>
+<td>当按下一个键时发生</td>
+</tr>
+<tr>
+<td>KeyDown</td>
+<td>冒泡</td>
+<td>当按下一个键时发生</td>
+</tr>
+<tr>
+<td>PreviewTextInput</td>
+<td>隧道</td>
+<td>当按键完成并且元素正在接收文本输入时发生。对于那些不会产生文本“输入”的按键(如 Ctr1键、Shif 键、Backspace 键、方向键和功能键等)，不会引发该事件</td>
+</tr>
+<tr>
+<td>TextInput</td>
+<td>冒泡</td>
+<td>当按键完成并且元素正在接收文本输入时发生。对于那些不会产生文本的按键，不会引发该事件</td>
+</tr>
+<tr>
+<td>PreviewKeyUp</td>
+<td>隧道</td>
+<td>当释放一个按键时发生</td>
+</tr>
+<tr>
+<td>KeyUp</td>
+<td>冒泡</td>
+<td>当释放一个按键时发生</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;键盘处理永远不会像上面看到的这么简单。一些控件可能会挂起这些事件中的某些事件，从而可执行自己更特殊的键盘处理。最明显的例子是 TextBox 控件，它挂起了TextInput 事件。对于一些按键，TextBox 控件还挂起了KeyDown 事件，如方向键。对于此类情形，通常仍可使用隧道路由事件(PreviewTextInput和PreviewKeyDown 事件)。<br>&emsp;&emsp;TextBox 控件还添加了名为 TextChanged 的新事件。在按键导致文本框中的文本发生改变之后会立即引发该事件。这时，在文本框中已经可以看到新的文本，所以阻止不需要的按键已为时太晚。</p>
+<h4 id="获取键盘状态"><a href="#获取键盘状态" class="headerlink" title="获取键盘状态"></a>获取键盘状态</h4><center>KeyboardDevice属性提供的方法</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IsKeyDown()</td>
+<td>当事件发生时，通知时候按下了该键</td>
+</tr>
+<tr>
+<td>IsKeyUp()</td>
+<td>当事件发生时，通知时候释放了该键</td>
+</tr>
+<tr>
+<td>IsKeyToggled()</td>
+<td>当事件发生时，通知该键是否处于“打开”状态。该方法只对那些能够打开、关闭的键有意义，如 Caps Lock 键、Scroll Lock 键以及 Num Lock 键</td>
+</tr>
+<tr>
+<td>GetKeyStates()</td>
+<td>返回一个或多个 KeyStates 枚举值，指明该键当前是否被释放了、按下了或处于切换状态。该方法本质上和为同一个键同时调用IsKeyDown()方法和IsKeyToggled()方法相同</td>
+</tr>
+</tbody></table>
+<div class="note info flat"><p>使用KeyConverter类将Key值转换为更有用的字符串。例如，使用KeyConverter.ConverterToString( )方法，Key.D9 和 Dey.NumPad9 都返回字符串“9”。如果只使用 Key.ToString()方法，将得到不那么有用的枚举名称(D9 或 NumPad9)</p>
+</div>
+
+<h3 id="鼠标输入"><a href="#鼠标输入" class="headerlink" title="鼠标输入"></a>鼠标输入</h3><p>&emsp;&emsp;鼠标事件执行几个关联的任务。当鼠标移到某个元素上时，可通过最基本的鼠标事件进行响应。这些事件是 MouseEnter(当鼠标指针移到元素上时引发该事件)和 MoseLeave(当鼠标指针离开元素时引发该事件)。这两个事件都是直接事件，这意味着它们不使用冒泡和隧道过程，而是源自一个元素并且只被该元素引发。考虑到控件嵌入到 WPF窗口的方式，这是合理的。</p>
+<div class="note info flat"><p>UIElement 类还包含两个有用的属性，这两个属性能帮助进行鼠标命中测试。可使用IsMouseOver 属性确定当前鼠标是否位于某个元素及其子元素上面,还可以使用 IsMouseDirectlyOver属性检查鼠标是否位于某个元素上面，但未位于其子元素上面。通常不会在代码中读取和使用这些值，反而会使用它们构建样式触发器，从而当鼠标移到元素上时，自动修改元素。</p>
+</div>
+
+<h4 id="鼠标单击"><a href="#鼠标单击" class="headerlink" title="鼠标单击"></a>鼠标单击</h4><p>&emsp;&emsp;鼠标单击事件的引发方式和按键事件的引发方式有类似之处。区别是对于鼠标左键和鼠标右键引发不同的事件</p>
+<center>所有元素的鼠标当单击事件（按顺序排列）</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>路由类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PreviewMouseLeftButtonDown、PreviewMouseRightButtonDown</td>
+<td>隧道</td>
+<td>当按下鼠标键时发生</td>
+</tr>
+<tr>
+<td>MouseLeftButtonDown、MouseRightButtonDown</td>
+<td>冒泡</td>
+<td>当按下鼠标键时发生</td>
+</tr>
+<tr>
+<td>PreviewMouseLeftButtonUp、PreivewMouseRightButtonUp</td>
+<td>隧道</td>
+<td>当释放鼠标键时发生</td>
+</tr>
+<tr>
+<td>MouseLeftButtonUp、MouseRightButtonUp</td>
+<td>冒泡</td>
+<td>当释放鼠标键时发生</td>
+</tr>
+</tbody></table>
+<div class="note info flat"><p>某些元素添加了更高级的鼠标事件。例如，Control类添加了PreviewMouseDoubleClick事件和 MouseDoubleClick 事件，这两个事件代替了MouseLeftButtonUp 事件。与此类似，对于Button类，通过鼠标或键盘可触发 Click事件。</p>
+</div>
+
+<h3 id="捕获鼠标"><a href="#捕获鼠标" class="headerlink" title="捕获鼠标"></a>捕获鼠标</h3><p>&emsp;&emsp;通常，元素每次接收到鼠标键“按下”事件后，不久后就会接收到对应的鼠标键“释放”事件。但情况不见得总是如此。例如，如果单击一个元素，保持按下鼠标键，然后移动鼠标指针离开该元素，这时该元素就不会接收到鼠标键释放事件。<br>&emsp;&emsp;某些情况下，可能希望通知鼠标键释放事件，即使鼠标键释放事件是在鼠标已经离开了原来的元素之后发生的。为此，需要调用Mouse.Capture()方法并传递恰当的元素以捕获鼠标。此后就会接收到鼠标键按下事件和释放事件，直到再次调用Mouse.Capture()方法并传递空引用为止。当鼠标被一个元素捕获后，其他元素就不会接收到鼠标事件。这意味着用户不能单击窗口中其他位置的按钮，不能单击文本框的内部。鼠标捕获有时用于可以被拖放并可以改变尺寸的元素。</p>
+<div class="note info flat"><p>当调用 Mouse.Capture()方法时，可传递可选的 CaptureMode 值作为第二个参数。通常，当调用 Mouse.Capture()方法时，使用 CaptureMode.Element值，这表示元素总是接收鼠标事件。然而如果使用 CaptureMode.SubTree,鼠标事件就可以经过已单击的元素(假定这个元素是执行捕获的元素的子元素)。如果在子元素中已经使用了事件冒泡或隧道特性来监视鼠标事件,这是非常合理的。</p>
+</div>
+
+<p>&emsp;&emsp;有些情况下，可能由于其他原因(不是您的错)丢失鼠标捕获。例如，如果需要显示系统对话框，Windows 可能会释放鼠标捕获。如果当鼠标键释放事件发生后没有释放鼠标，并且用户单击了另一个应用程序中的窗口，也可能丢失鼠标捕获。无论哪种情况，都可以通过处理元素的 <code>LostMouseCapture</code> 事件来响应鼠标捕获的丢失。<br>&emsp;&emsp;当鼠标被一个元素捕获时，就不能与其他元素进行交互(例如，不能单击窗口中的其他元鼠标捕获通常用于短时间的操作，如拖放。素)。</p>
+<div class="note warning simple"><p>不是使用 Mouse.Capture( )方法，而是改用 UIElement类提供的两个方法:CaptureMouse()和 ReleaseMouseCapture()。只在合适的元素上调用这些方法。这种方法的唯一限制是不允许使<br>用 CaptureMode.SubTree 选项。</p>
+</div>
+
+<h3 id="鼠标拖放"><a href="#鼠标拖放" class="headerlink" title="鼠标拖放"></a>鼠标拖放</h3><p>&emsp;&emsp;本质上，拖放操作通过以下三个步骤进行：</p>
+<ol>
+<li>用户点击元素（或选择元素中的一块特定区域），并保持鼠标键为按下状态。这是，某些信息被搁置起来，并且拖放操作开始</li>
+<li>用户键鼠标移到其他元素上。如果该元素可接受正在拖动的内容的类型，鼠标指针会变成拖放图标，否则鼠标指针会变成内部有一条线的圆形</li>
+<li>当用户释放鼠标键时，元素接受信息并决定如何处理接收到的信息。在没有释放鼠标键时，可按下Esc键取消该操作</li>
+</ol>
+<h2 id="多点触控输入"><a href="#多点触控输入" class="headerlink" title="多点触控输入"></a>多点触控输入</h2><p>&emsp;&emsp;多点触控(multi-touch)是通过触摸屏幕与应用程序进行交互的一种方式。多点触控输入和更传统的基于笔(pen-based)的输入的区别是多点触控识别手势(gesture)---用户可移动多根手指以执行常见操作的特殊方式。</p>
+<div class="note info flat"><p>要获得 Windows7 能够识别的标准多点触控手势列表,请参阅  <a class="btn-beautify green small" href="http://tinyurl.com/yawwhw2" 
+  title="多点触控"><i class="far fa-hand-point-right"></i><span>多点触控</span></a></p>
+</div>
+
+<h3 id="多点触控的输入层级"><a href="#多点触控的输入层级" class="headerlink" title="多点触控的输入层级"></a>多点触控的输入层级</h3><p>&emsp;&emsp;WPF提供了三个独立的层次：</p>
+<ul>
+<li><strong>原始触控（raw touch）</strong>：这是最低级的支持，可访问用户执行的每个触控。缺点是由您的应用程序负责将单独的触控消息组合到一起，并对它们进行解释。如果不准备识别标准触摸手势，反而希望创建以独特方式响应多点触控输入的应用程序，使用原始触控是合理的。一个例子是绘图程序，例如 Windows7画图程序，该程序允许用户同时使用多根手指在触摸屏上绘图。</li>
+<li><strong>操作（manipulation）</strong>：操作(manipulation):这是一个简便的抽象层，该层将原始的多点触控输入转换成更有意义的手势，与WPF控件将一系列MouseDown和MouseUp 事件解释为更高级的MouseDoubleClick事件很相似。WPF 支持的通用手势包括移动(pan)、缩放(zoom)、旋转(rotate)以及轻按(tap)。</li>
+<li><strong>内置的元素支持（built-in element support）</strong>：内置的元素支持(built-in element support):有些元素已对多点触控事件提供了内置支持，从而不需要再编写代码。例如，可滚动的控件支持触控移动，如 ListBox、ListView、DataGrid、TextBox 以及 ScrollViewer.</li>
+</ul>
+<h3 id="原始触控"><a href="#原始触控" class="headerlink" title="原始触控"></a>原始触控</h3><p>&emsp;&emsp;与基本的鼠标和键盘事件一样，触控事件被内置到低级的UIElement以及ContentElement类。</p>
+<center>所有元素的原始触控事件</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>路由类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PreiviewTouchDown</td>
+<td>隧道</td>
+<td>当用户触摸元素时发生</td>
+</tr>
+<tr>
+<td>TouchDown</td>
+<td>冒泡</td>
+<td>当用户触摸元素时发生</td>
+</tr>
+<tr>
+<td>PreviewTouchMove</td>
+<td>隧道</td>
+<td>当用户移动放到触摸屏上的手指时发生</td>
+</tr>
+<tr>
+<td>TouchMove</td>
+<td>冒泡</td>
+<td>当用户移动放到触摸屏上的手指时发生</td>
+</tr>
+<tr>
+<td>PreiviewTouchUp</td>
+<td>隧道</td>
+<td>当用户一开手指，结束触摸时发生</td>
+</tr>
+<tr>
+<td>TouchUp</td>
+<td>冒泡</td>
+<td>当用户一开手指，结束触摸时发生</td>
+</tr>
+<tr>
+<td>TouchEnter</td>
+<td>无</td>
+<td>当触点从元素外进入元素内时发生</td>
+</tr>
+<tr>
+<td>TouchLeave</td>
+<td>无</td>
+<td>当触点离开元素时发生</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;所有这些事件都提供了一个 TouchEventArgs对象，该对象提供了两个重要成员。</p>
+<ol>
+<li>第一个是GetTouchPoint()方法，该方法返回触控事件发生位置的屏幕坐标(还有一些不怎么常用的数据例如触点的大小)。</li>
+<li>第二个是 TouchDevice 属性，该属性返回一个 TouchDevice 对象。这里的技巧是将每个触点都视为单独设备。因此，如果用户在不同的位置按下了两根手指(同时按下或者先按下一根再按下另一根)，WPF将它们作为两个触控设备，并为每个触控设备指定唯一的ID。当用户移动这些手指，并且触控事件发生时，代码可以通过 TouchDevice.Id 属性区分两个触点</li>
+</ol>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>&emsp;&emsp;WPF为手势提供了更高级别的支持，称为触控操作(manipulation)。通过将元素的 IsManipulationEnabled 属性设为 True，将元素配置为接受触控操作。然后可响应4个操作事件:ManipulationStarting、ManipulationStartedManipulationDelta 以及ManipulationCompleted.</p>
+<h3 id="惯性"><a href="#惯性" class="headerlink" title="惯性"></a>惯性</h3><p>&emsp;&emsp;WPF 还有一层构建在基本操作支持之上的特性，称为惯性(intertia)。本质上，通过惯性可以更逼真、更流畅地操作元素。<br>&emsp;&emsp;只需处理 ManipulationInertiaStarting 事件。当用户结束手势并抬起手指释放元素时，触发 ManipulationInertiaStarting 事件。这时，可使用 ManipulationInertiaStartingEventsArgs 对象确定当前速度--当操作结束时元素的移动速度--并设置希望的减速度。下面的示例为移动、缩放以及旋转手势添加了惯性:</p>
+<p>&emsp;&emsp;为使元素从障碍物自然地被弹回，需要在 ManipulationDelta 事件中检查是否将元素拖到了错误的位置。如果穿过了一条边界，那么由您负责通过调用ManipulationDeltaEventArgsReportBoundaryFeedback()方法进行报告。</p>
+<div class="note info flat"><p>当参阅 <a href="http://multitouch.codeplex.com/">multitouch</a> 上的 WPF Multi-Touch项目。该项目提供了两种方便的方式，通过这两种方式可以为容器添加操作支持，而不需要自己编写代码--使用会自动应用的</p>
+</div>]]></content>
+      <categories>
+        <category>C#</category>
+        <category>WPF</category>
+      </categories>
+      <tags>
+        <tag>WPF从入门到入坟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WPF从入门到入坟 - 06控件</title>
+    <url>/2024/05/29/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/06%E6%8E%A7%E4%BB%B6/</url>
+    <content><![CDATA[<h2 id="控件类"><a href="#控件类" class="headerlink" title="控件类"></a>控件类</h2><p>&emsp;&emsp;所有控件都继承自<code>System.Windows.Control</code>类，该类添加了一小部分基本的基础结构：</p>
+<ul>
+<li>设置控件内容对其方式的能力</li>
+<li>设置Tab键顺序的能力</li>
+<li>支持绘制背景、前景和边框</li>
+<li>支持格式化文本内容的尺寸和字体</li>
+</ul>
+<h3 id="Brush"><a href="#Brush" class="headerlink" title="Brush"></a>Brush</h3><p>&emsp;&emsp;WPF设置前景色和背景色不是采用简单的颜色值，而是采用更强大的Brush对象，WPF提供了三种画刷：</p>
+<ul>
+<li><strong>SolidColorBrush(实心画刷)</strong>  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid.Background</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">SolidColorBrush</span> <span class="attr">Color</span>=<span class="string">&quot;LightGreen&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid.Background</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>LinearGradientBrush(线性渐变画刷)</strong>  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid.Background</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 起点(0,0) 终点(1,1) 表示渐变方向为左上角 → 右下角 --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Offset 表示偏移 ，取值0~1 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">LinearGradientBrush</span> <span class="attr">StartPoint</span>=<span class="string">&quot;0 0&quot;</span> <span class="attr">EndPoint</span>=<span class="string">&quot;1 1&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">GradientStop</span> <span class="attr">Color</span>=<span class="string">&quot;LightGreen&quot;</span> <span class="attr">Offset</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">GradientStop</span> <span class="attr">Color</span>=<span class="string">&quot;LightPink&quot;</span> <span class="attr">Offset</span>=<span class="string">&quot;0.5&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">GradientStop</span> <span class="attr">Color</span>=<span class="string">&quot;LightBlue&quot;</span> <span class="attr">Offset</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">LinearGradientBrush</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid.Background</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>RadialGradientBrush(径向渐变画刷)</strong>  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid.Background</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- GradientOrigin 表示径向渐变的圆心位置取值0~1 (0.5,0.5)表示正中心 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RadialGradientBrush</span> <span class="attr">GradientOrigin</span>=<span class="string">&quot;0.5 0.5&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">GradientStop</span> <span class="attr">Color</span>=<span class="string">&quot;LightGreen&quot;</span> <span class="attr">Offset</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">GradientStop</span> <span class="attr">Color</span>=<span class="string">&quot;LightPink&quot;</span> <span class="attr">Offset</span>=<span class="string">&quot;0.5&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">GradientStop</span> <span class="attr">Color</span>=<span class="string">&quot;LightBlue&quot;</span> <span class="attr">Offset</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">RadialGradientBrush</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid.Background</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>ImageBrush(图像画刷)</strong>  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid.Background</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ImageBrush</span> <span class="attr">ImageSource</span>=<span class="string">&quot;https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid.Background</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>VisualBrush(可视化画刷)</strong>  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Rectangle</span> <span class="attr">x:Name</span>=<span class="string">&quot;myRectangle&quot;</span> <span class="attr">Width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">Fill</span>=<span class="string">&quot;Red&quot;</span> <span class="attr">Stroke</span>=<span class="string">&quot;Black&quot;</span> <span class="attr">StrokeThickness</span>=<span class="string">&quot;2&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Ellipse</span> <span class="attr">Width</span>=<span class="string">&quot;150&quot;</span> <span class="attr">Height</span>=<span class="string">&quot;150&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Ellipse.Fill</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--使用其他元素作为填充或背景--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">VisualBrush</span> <span class="attr">Visual</span>=<span class="string">&quot;&#123;Binding ElementName=myRectangle&#125;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Ellipse.Fill</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Ellipse</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>DrawingBrush(绘图画刷)</strong>  <div class="tabs" id="note"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="note-1">GeometryDrawing</button><button type="button" class="tab " data-href="note-2">ImageDrawing</button></ul><div class="tab-contents"><div class="tab-item-content active" id="note-1"><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Rectangle</span> <span class="attr">Width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Rectangle.Fill</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">DrawingBrush</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">DrawingBrush.Drawing</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">GeometryDrawing</span> <span class="attr">Brush</span>=<span class="string">&quot;Blue&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">GeometryDrawing.Geometry</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">RectangleGeometry</span> <span class="attr">Rect</span>=<span class="string">&quot;0,0,50,50&quot;</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">GeometryDrawing.Geometry</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">GeometryDrawing</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">DrawingBrush.Drawing</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">DrawingBrush</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Rectangle.Fill</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Rectangle</span>&gt;</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="note-2"><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Rectangle</span> <span class="attr">Width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Rectangle.Fill</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">DrawingBrush</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">DrawingBrush.Drawing</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ImageDrawing</span> <span class="attr">ImageSource</span>=<span class="string">&quot;image.jpg&quot;</span> <span class="attr">Rect</span>=<span class="string">&quot;0,0,100,100&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">DrawingBrush.Drawing</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">DrawingBrush</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Rectangle.Fill</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Rectangle</span>&gt;</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></li>
+</ul>
+<h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><p>&emsp;&emsp;Control类定义了一小部分与字体相关的属性，这些属性确定文本在控件中的显示方式</p>
+<center>Control类中与字体有关的属性</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FontFamily</td>
+<td>希望使用的字体的名称</td>
+</tr>
+<tr>
+<td>FontSize</td>
+<td>字体的设备无关单位尺寸(每单位表示1&#x2F;96英寸)</td>
+</tr>
+<tr>
+<td>FontStyle</td>
+<td>由FontStyle对象表示的文本角度，包括Normal、Italic或Oblique</td>
+</tr>
+<tr>
+<td>FontWeight</td>
+<td>由FontWeight对象表示的文本粗细</td>
+</tr>
+<tr>
+<td>FontStretch</td>
+<td>字体的拉伸或压缩程度</td>
+</tr>
+<tr>
+<td>TextDecorations</td>
+<td>文本装饰和排版</td>
+</tr>
+</tbody></table>
+<h4 id="引入自定义字体"><a href="#引入自定义字体" class="headerlink" title="引入自定义字体"></a>引入自定义字体</h4><ol>
+<li><p>下载并导入<code>.tff</code>字体文件，并修改文件属性<br> <img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240529211532.png"></p>
+</li>
+<li><p>在App.xaml中声明全局字体，对于字体的名称可通过双击<code>.tff</code>字体文件进行安装查看<br> <img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240529211202.png"></p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Application.Resources</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入自定义字体 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">FontFamily</span> <span class="attr">x:Key</span>=<span class="string">&quot;DSDigital&quot;</span>&gt;</span>/Fonts/#DS-Digital<span class="tag">&lt;/<span class="name">FontFamily</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 全局设置字体类型【可选】 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Style</span> <span class="attr">TargetType</span>=<span class="string">&quot;&#123;x:Type Control&#125;&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;FontFamily&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">Value</span>=<span class="string">&quot;&#123;StaticResource DSDigital&#125;&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">Style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Application.Resources</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>引用自定义字体</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">FontFamily</span>=<span class="string">&quot;&#123;StaticResource DSDigital&#125;&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">Text</span>=<span class="string">&quot;1314&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">FontSize</span>=<span class="string">&quot;50&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">VerticalAlignment</span>=<span class="string">&quot;Center&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="内容控件"><a href="#内容控件" class="headerlink" title="内容控件"></a>内容控件</h2><div class="note info flat"><p>所有内容控件都继承自抽象类ContentControl</p>
+</div>
+
+<p>&emsp;&emsp;内容控件(content control)是更特殊的控件类型，它们可包含并显示一块内容。从技术角度看，内容控件是可以包含单个嵌套元素的控件。与布局容器不同的是，内容控件只能包含一个子元素，而布局容器只要愿意可以包含任意多个嵌套元素。下图显示了ContentControl类的层次结构</p>
+<img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240529213324.png" width="50%"/>
+
+<p>&emsp;&emsp;还有继承自<code>HeaderedContentControl</code>类的内容控件子集。这些控件同时具有内容区域和标题区域两部分，标题区域用于显示一些标题。这些控件包括GroupBox、TabItem以及Expander控件</p>
+<h3 id="Content属性"><a href="#Content属性" class="headerlink" title="Content属性"></a>Content属性</h3><p>&emsp;&emsp;与 Panel 类提供 Children 集合来保存嵌套的元素不同，Control类添加了 Content 属性，该属性只接受单一对象。Content属性支持任何类型的对象,但可将该属性支持的对象分为两大类针对每一类进行不同的处理:</p>
+<ul>
+<li><strong>未继承自UIElement类的对象</strong>：内容控件调用这些控件的ToString()方法获取文本，然后显示该文本</li>
+<li><strong>继承自UIElement类的对象</strong>：这些对象（包括所有可视化元素，它们时WPF的组成部分）使用UIElement.OnRender()方法在内容控件的内部进行展示</li>
+</ul>
+<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><p>&emsp;&emsp;在所有内容控件中，最简单的是Label控件。与其他任意内容控件类似，Label控件接受希望放入其中的单一内容。但不同的是 Label控件支持记忆符(mnemonics)---本质上，记忆符是能够为链接的控件设置焦点的快捷键。<br>&emsp;&emsp;为支持此功能，Label控件添加了Target 属性。为了设置 Target 属性，需要使用指向另个控件的绑定表达式。下面是必须遵循的语法:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Label</span> <span class="attr">Target</span>=<span class="string">&quot;&#123;Binding ElementName=txtA&#125;&quot;</span>&gt;</span>Choose _A<span class="tag">&lt;/<span class="name">Label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextBox</span> <span class="attr">Name</span>=<span class="string">&quot;txtA&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Label</span> <span class="attr">Target</span>=<span class="string">&quot;&#123;Binding ElementName=txtB&#125;&quot;</span>&gt;</span>Choose _B<span class="tag">&lt;/<span class="name">Label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextBox</span> <span class="attr">Name</span>=<span class="string">&quot;txtB&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;标签文本中的下划线指示快捷键(如果确实需要在标签中显示下划线，必须添加两个下划线)。所有记忆符都使用 Alt 键和已经确定的快捷键工作。例如在该例中，如果用户按下了 A1t+A 组合键，第一个标签会将焦点传递给链接的控件，即txtA。同样，如果按下了 Alt+B 组合键，会将焦点传递给txtB文本框。</p>
+<h3 id="按钮"><a href="#按钮" class="headerlink" title="按钮"></a>按钮</h3><p>&emsp;&emsp;WPF 提供了三种类型的按钮控件:熟悉的Button控件、CheckBox控件和RadioButton控件。所有这些控件都是继承自 ButtonBase 类的内容控件。</p>
+<h4 id="Button"><a href="#Button" class="headerlink" title="Button"></a>Button</h4><p>&emsp;&emsp;Button类表示一直使用的 Windows下压按钮。它添加了两个可写属性:IsCancel和IsDefault。</p>
+<ul>
+<li>如果将 IsCancel 属性设置为tue，按钮就成为窗口的取消按钮。在当前窗口的任何位置如果按下 Esc 键，就会触发该按钮。</li>
+<li>如果将 IsDefault 属性设置为 true，按钮就成为默认按钮(也就是接受按钮)。其行为取决于焦点在窗口中的当前位置。如果焦点位于某个非按钮控件上(如TextBox控件RadioButton 控件和 CheckBox 控件等)，默认按钮具有蓝色阴影，几乎像是具有焦点。如果按下 Enter 键，就会触发默认按钮。但如果焦点位于另一个按钮控件上，当前有焦点的按钮就具有蓝色阴影，而且按下 Enter键会触发当前按钮而不是默认按钮。</li>
+</ul>
+<h4 id="ToggleButton"><a href="#ToggleButton" class="headerlink" title="ToggleButton"></a>ToggleButton</h4><p>&emsp;&emsp;ToggleButton类，该类表示具有两个状态(按下状态和未按下状态)的按钮。当单击ToggleButtonToggleButton 按钮时，它会保持按下状态，直到再次单击该按钮以释放它为止。这有时称为“粘贴单击”(sticky click)行为。</p>
+<h4 id="RepeatButton"><a href="#RepeatButton" class="headerlink" title="RepeatButton"></a>RepeatButton</h4><p>&emsp;&emsp;RepeatButton类，只要按钮保持按下状态，该类就不断地触发Click 事件。对于普通按钮，用户每次单击只触发一个 Click 事件。</p>
+<h4 id="CheckBox"><a href="#CheckBox" class="headerlink" title="CheckBox"></a>CheckBox</h4><p>&emsp;&emsp;CheckBox 控件和 RadioButton 控件是不同类型的按钮。它们继承自ToggleButton 类，这意味着用户可切换它们的开关状态，即它们的“开关”行为。对于CheckBox 控件，切换到控件的“开”状态，意味着在其中放置复选标记。</p>
+<h4 id="RadioButton"><a href="#RadioButton" class="headerlink" title="RadioButton"></a>RadioButton</h4><p>&emsp;&emsp;RadioButton 类也继承自 ToggleButton 类，并使用相同的 IsChecked 属性和相同的 Checked、Unchecked 以及 Indeterminate 事件。此外，RadioButton 类还增加了GroupName 属性，该属性用于控制如何对单选按钮进行分组。</p>
+<h3 id="工具提示"><a href="#工具提示" class="headerlink" title="工具提示"></a>工具提示</h3><p>&emsp;&emsp;WPF 为工具提示(当在一些感兴趣的内容上悬停鼠标时，就会弹出的那些臭名昭著的黄色方框)提供了一个灵活模型。因为在 WPF 中工具提示是内容控件，所以可在工具提示中放置任何可视化元素。还可改变各种时间设置来控制工具提示的显示和隐藏速度。</p>
+<h4 id="设置ToolTip对象的属性"><a href="#设置ToolTip对象的属性" class="headerlink" title="设置ToolTip对象的属性"></a>设置ToolTip对象的属性</h4><center>ToolTip对象的属性</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HasDropShadow</td>
+<td>决定工具提示时候具有扩散的黑色阴影，使其和背后的窗口区别开来</td>
+</tr>
+<tr>
+<td>Placement</td>
+<td>使用PlacementMode枚举值决定如何放置工具提示。默认值是Mouse，表示工具提示方框的左上角与当前鼠标的位置相关(根据HorizontalOffset 和VerticalOffset 属性的值，工具提示的实际位置可能会偏离这个起始点)。其他枚举值使用绝对屏幕坐标来设置工具提示的位置，或相对于其他元素(通过使用PlacementTarget属性指定该元素)设置工具提示的位置</td>
+</tr>
+<tr>
+<td>HorizontalOffset、VerticalOffset</td>
+<td>将工具提示跳到所希望的准确位置。可使用正值或负值</td>
+</tr>
+<tr>
+<td>PlacementTarget</td>
+<td>允许相对于另一个元素定位工具提示。为使用该属性，Placement属性必须设置为 Left、Right、Top、Bottom或 Center(这些值指定了工具提示和指定元素的哪个边缘对齐)</td>
+</tr>
+<tr>
+<td>PlacementRectange</td>
+<td>用于偏移工具提示的位置。该属性的工作方式与HorizontalOffset 和VerticalOffset属性相同。如果Placement属性被设置为Mouse，该属性无效</td>
+</tr>
+<tr>
+<td>CustomPopupPlacementCallback</td>
+<td>允许使用代码动态地定位工具提示。如果Placcmcnt属性被设置为Custom，此属性确定由ToolTip 调用来获取 ToolTip 对象放置位置的方法。回调方法接收三部分信息--popupSize(ToolTip的大小)、targetSize(PlaccmentTarget的大小如果使用的话)和 offset(根据 HorizontalOffset和 VerticalOffset 属性创建的一个点)。该方法返回一个 CustomPopupPlacement对象，该对象告诉WPF 将工具提示放在哪个位置</td>
+</tr>
+<tr>
+<td>StaysOpen</td>
+<td>该属性实际上不起作用。它的目的是让您创建一直保持打开状态的工具提示直到用户在其他地方单击鼠标才关闭该提示。然而，ToolTipService.ShowDuration属性重写了StaysOpen属性。因此，在经历了设置的时间之后(通常约5秒)或当用户移开鼠标时，工具提示总是会消失。如果希望创建始终保持打开状态的类似工具提示的窗口，最简单的方法是使用Popup 控件</td>
+</tr>
+<tr>
+<td>IsEnabled、IsOpen</td>
+<td>允许使用代码控制工具提示。通过IsEnabled属性可暂时禁用工具提示，而通过IsOpen属性可使用代码显示或隐藏工具提示(或者只是检查是否打开了工具提示)</td>
+</tr>
+</tbody></table>
+<h4 id="设置ToolTipService"><a href="#设置ToolTipService" class="headerlink" title="设置ToolTipService"></a>设置ToolTipService</h4><p>&emsp;&emsp;有几个工具提示属性不能通过 ToolTip 类的属性进行配置。在这种情况下，需要使用另个类，即 TooITipService 类。使用 ToolTipService 类可以配置显示工具提示的相关延迟时间。ToolTipService 类的所有属性都是附加属性，所以可在控件标签中直接设置它们，如下所示:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">ToolTip</span>=<span class="string">&quot;this is a button&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">ToolTipService.InitialShowDelay</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">ToolTipService.Placement</span>=<span class="string">&quot;Bottom&quot;</span>&gt;</span>Button<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<div class="note danger flat"><p>为几个控件复制相同的工具提示设置几乎没有任何意义。如果准备对整个应用程序中的工具提示的处理方式进行调整，可通过使用样式自动应用设置，但 ToolTipService 属性值是不能继承的，这意味着如果在窗口和容器级别上设置了属性值，它们不能到达嵌套的元素。</p>
+</div>
+
+<center>ToolTipService类的属性</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>InitialShowDelay</td>
+<td>设置鼠标悬停在元素上时，工具提示显示之前的延迟时间（单位为毫秒）</td>
+</tr>
+<tr>
+<td>ShowDuration</td>
+<td>设置如果用户不移动鼠标，在工具提示消失之前显示的时间（单位为毫秒）</td>
+</tr>
+<tr>
+<td>BetweenShowDelay</td>
+<td>设置时间间隔(单位为毫秒)，在该期间用户可以在工具提示之间移动而不用经历InitialShowDelay 属性设置的延迟时间。例如，如果BetweenShowDelay属性设置为5000毫秒，用户就具有5秒的时间移到另一个具有工具提示的控件。如果用户在此期间移到另一个控件，新的工具提示就会立即显示。如果用户超出了这一期间，BetweenShowDelay属性将失去作用，并且会使用InitialShowDelay属性。在这种情况下，直到经历了InitialShowDelay属性设置的时间后，才会显示第二个工具提示</td>
+</tr>
+<tr>
+<td>ToolTip</td>
+<td>为工具提示设置内容。设置ToolTipService.ToolTip 属性相当于设置元素的FrameworkElement.ToolTip 属性</td>
+</tr>
+<tr>
+<td>HasDropShadow</td>
+<td>确定工具提示是否具有扩散的黑色阴影，从而使其与背后的窗口区别开来</td>
+</tr>
+<tr>
+<td>ShowOnDisabled</td>
+<td>确定当相关联的元素被禁用后是否显示工具提示。如果该属性为tue，将为禁用的元素(元素的IsEnabled 属性被设置为false)显示工具提示。默认值为false,即只有启用了相关联的元素后才会显示工具提示</td>
+</tr>
+<tr>
+<td>Placement、PlacementTarget、PlacementRectangle以及VerticalOffset</td>
+<td>这些属性用来控制工具提示的位置。这些属性和ToolTipIorizontalOffset 类的对应属性的工作方式相同</td>
+</tr>
+</tbody></table>
+<h4 id="Popup"><a href="#Popup" class="headerlink" title="Popup"></a>Popup</h4><p>&emsp;&emsp;Popup 控件在许多方面与 ToolTip 控件相同,尽管它们之间没有相互继承的关系。与 TooITip类似，Popup也只能包含单一内容，该单一内容可以包含任何WPF元素(该内容存储在Popup.Child 属性中,而不像 ToolTip 内容那样存储在 ToolTip.Content属性中)。另外，与 ToolTip控件一样，Popup控件也可延伸出窗口的边界。最后，可使用相同的布局属性放置Popup控件，并且可使用相同的 IsOpen 属性显示或隐藏 Popup 控件。</p>
+<p>&emsp;&emsp;Popup控件和ToolTop控件之间的区域更重要。这些区别包括：</p>
+<ul>
+<li>Popup控件永远不会自动显示。为显示Popup，必须设置IsOpen属性</li>
+<li>默认情况下，Popup.StaysOpen属性被设置为true，并且Popup控件会一直显示，直到明确地将 IsOpen属性设置为false 为止。<code>如果将Popup.StaysOpen属性设置为false，那么当用户在其他地方单击鼠标时，Popup控件将消失</code>。</li>
+<li>Popup控件提供了PopupAnimation属性，当把IsOpen 属性设置为 true 时，通过该属性可控制 Popup 控件进入视野的方式。可以选择 None(默认值)、Fade(弹出窗口的透明度逐渐增加)、Scro11(如果空间允许，弹出窗口将从窗口的左上角滑入)以及Slide(如果空间允许，弹出窗口将从上向下滑进其位置)。为使用这些动画中的任意一个，还必须将AllowsTransparency属性设置为true。</li>
+<li>Popup 控件可接收焦点。因此，可在其内部放置与用户交互的控件，如按钮。该功能是使用 Popup 控件(而不使用 ToolTip 控件)的主要原因之一。</li>
+<li>Popup 控件在 System.Windows.Controls.Primitive 名称空间中定义，因为它的最常见用法是用作更复杂控件的构件。在外观修饰方面可发现Popup控件和其他控件的区别很大。特别是，如果希望看到内容，就必须设置Background属性，因为Popup控件不会从包含它的窗口继承背景设置，而且您需要自行添加边框(对于这个目的，Border 元素的效果堪称完美)。</li>
+</ul>
+<h2 id="特殊容器"><a href="#特殊容器" class="headerlink" title="特殊容器"></a>特殊容器</h2><p>&emsp;&emsp;ScrollViewer控件，该控件直接继承ContentControl 类，提供了虚拟界面，允许用户围绕更大的元素滚动。与所有内容控件一样ScrollViewer 只能包含单个元素，虽然如此，您仍可在内部放置布局容器来保存自己需要的<br>意类型的元素。</p>
+<h3 id="ScrollViewer"><a href="#ScrollViewer" class="headerlink" title="ScrollViewer"></a>ScrollViewer</h3><p>&emsp;&emsp;如果希望让大量内容适应有限的空间，滚动是重要特性之一。在WPF中为了获得滚动支持，需要在 ScrollViewer控件中封装希望滚动的内容。可通过设置HorizontalScrollBarVisibility和VerticalScrollBarVisibility控制滚动条的显示状态：</p>
+<ul>
+<li>Visible(默认)：总是显示</li>
+<li>Auto：自动根据内容判断时候需要显示滚动条</li>
+<li>Disable：不显示滚动条，无法滚动</li>
+<li>Hidden：不显示滚动条，可以滚动</li>
+</ul>
+<h4 id="通过代码进行滚动"><a href="#通过代码进行滚动" class="headerlink" title="通过代码进行滚动"></a>通过代码进行滚动</h4><ul>
+<li>LineUp()和LineDown()：向上和向下移动的效果相当于单击一次垂直滚动条两端的箭头按钮</li>
+<li>PageUp()和PageDown()：向上和向下滚动一整屏，相当于在滚动滑块的上面或下面单击滚动条</li>
+<li>用于水平滚动的类似方法，包括LineLeft()、LineRight()、PageLeft()和PageRight()</li>
+<li>最后，还可使用 ScrollToXxrx()这一类方法，从而滚动到任何特定位置。对于垂直滚动，包括 ScrollToEnd()和 ScrollToHome()，这两个方法可以滚动到内容的顶部和底部。还有 ScrollToVerticalOffset(),该方法可滚动到特定位置。对于水平滚动也有类似的方法包括ScrollToLefEnd0、ScroliToRightEnd( )和 ScrollToHorizontalOffset( )。</li>
+</ul>
+<h4 id="自定义滚动"><a href="#自定义滚动" class="headerlink" title="自定义滚动"></a>自定义滚动</h4><p>&emsp;&emsp;ScrollViewer 控件内置的滚动功能是很有用的。该功能允许缓慢滚动任何内容，从复杂的矢量图形乃至元素网格。不过，ScrollViewer 控件最奇特的特征是允许其包含的内容参与滚动过程。下面是工作原理:</p>
+<ol>
+<li>在ScrollViewer控件中放置能够滚动的元素,可以是实现了IScrollInfo 接口的任意元素。</li>
+<li>通过将 ScrollViewer,CanContentScroll属性设置为 true,告诉 ScrollViewer 控件其内容知道如何进行滚动。</li>
+<li>当和ScrollViewer控件进行交互时(通过使用滚动条、鼠标轮和滚动方法等)，ScrollViewer 控件通过 IScrollnfo 接口来调用元素的恰当方法。元素接着执行它自己的自定义滚动功能。</li>
+</ol>
+<div class="note info flat"><p>IScrollInfo 接口定义了一套方法,这套方法响应不同的滚动动作。例如,它包含了 ScrollViewer控件提供的许多滚动方法，如LineUp()、LimeDowm()、PageUp()以及PageDown()。它还定义了一些处理鼠标滚轮的方法。</p>
+</div>
+
+<p>&emsp;&emsp;如果在ScrollViewer控件中放置StackPanel面板，而且不设置CanCOntentScroll属性，将得到普通的滚动行为。一次可向上或向下滚动几个像素。但如果将CanContentScroll属性设置为true，那么每次单击时会滚动到下一个元素的开头</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ScrollViewer</span> <span class="attr">CanContentScroll</span>=<span class="string">&quot;True&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>4<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>5<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>6<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>7<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>8<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ScrollViewer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="GroupBox"><a href="#GroupBox" class="headerlink" title="GroupBox"></a>GroupBox</h3><p>&emsp;&emsp;GroupBox是这三个继承自HeaderedContentControl类的控件中最简单的一个。它显示为具有圆角和标题的方框。</p>
+<img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240531202029.png"/>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">GroupBox</span> <span class="attr">Header</span>=<span class="string">&quot;A GroupBox Text&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">Padding</span>=<span class="string">&quot;5&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">Width</span>=<span class="string">&quot;200&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">Height</span>=<span class="string">&quot;150&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RadioButton</span> <span class="attr">Margin</span>=<span class="string">&quot;3&quot;</span>&gt;</span>One<span class="tag">&lt;/<span class="name">RadioButton</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RadioButton</span> <span class="attr">Margin</span>=<span class="string">&quot;3&quot;</span>&gt;</span>Two<span class="tag">&lt;/<span class="name">RadioButton</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RadioButton</span> <span class="attr">Margin</span>=<span class="string">&quot;3&quot;</span>&gt;</span>Three<span class="tag">&lt;/<span class="name">RadioButton</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Margin</span>=<span class="string">&quot;3&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Save&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">GroupBox</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="TabItem"><a href="#TabItem" class="headerlink" title="TabItem"></a>TabItem</h3><p>&emsp;&emsp;TabItem 表示 TabControl控件中的一页。TabItem 类添加的唯一有意义的属性是 IsSelected,该属性指示选项卡(tab)当前是否显示在 TabControl 控件中。</p>
+<h3 id="Expander"><a href="#Expander" class="headerlink" title="Expander"></a>Expander</h3><p>&emsp;&emsp;使用 Expander 控件是十分简单的--只需在该控件内部包装希望使其能够折叠的内容。通常，每个 Expander 控件开始时都是折叠的，但可在标记中(或代码中)通过设置IsExpanded 属性</p>
+<h2 id="文本控件"><a href="#文本控件" class="headerlink" title="文本控件"></a>文本控件</h2><p>&emsp;&emsp;WPF 提供了三个用于输入文本的控件:TextBox、RichTextBox和PasswordBox。PasswordBox控件直接继承自 Control类。TextBox和 RichTextBox 控件间接继承自 TextBoxBase 类。</p>
+<h3 id="多行文本"><a href="#多行文本" class="headerlink" title="多行文本"></a>多行文本</h3><p>&emsp;&emsp;TextBox控件通常存储单行文本，可将<code>TextWrapping</code>属性设置为<code>Wrap</code>或<code>WrapWithOverflow</code></p>
+<h3 id="选择文本"><a href="#选择文本" class="headerlink" title="选择文本"></a>选择文本</h3><p>&emsp;&emsp;正如您已经了解到的，在任何文本框中都可以通过单击并拖动鼠标，或按住 Shif 键并使用方向键在文本中移动来选择文本。TextBox类还提供了使用SelectionStart、SelectionLength 以及SelectedText属性，通过编程决定选择哪些文本或改变当前所选文本的能力。</p>
+<h3 id="拼写检查"><a href="#拼写检查" class="headerlink" title="拼写检查"></a>拼写检查</h3><p>&emsp;&emsp;TextBox提供了一个更特殊的功能——集成的拼写检查，该功能会在文本中无法识别的单词下面添加红色波浪线。用户可右击不能识别的单词，并从可能正确的单词列表中进行选择。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextBox</span> <span class="attr">SpellCheck.IsEnabled</span>=<span class="string">&quot;True&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="PasswordBox"><a href="#PasswordBox" class="headerlink" title="PasswordBox"></a>PasswordBox</h3><p>&emsp;&emsp;与TextBox类相比，PasswordBox的用户界面更加精简。与TextBox 类非常相似，它提供了 MaxLength 属性;Clear()、Paste()以及 SelectAll()方法;并且提供了当文本发生变化时触发的事件(PasswordChanged 事件)。TextBox类和PasswordBox 类最重要的区别在于内部的工作方式。尽管可使用Password属性作为普通字符串读取和设置文本，但在内部 PasswordBox 类只使用System.Security.SecureString 对象。</p>
+<h2 id="列表控件"><a href="#列表控件" class="headerlink" title="列表控件"></a>列表控件</h2><p>&emsp;&emsp;所有的列表控件全都继承值ItemsControl类，在WPF中常见的列表控件主要包括：</p>
+<ul>
+<li>ListBox</li>
+<li>ComboBox</li>
+<li>ListView</li>
+<li>TreeView</li>
+<li>ToolBar</li>
+</ul>
+<h2 id="基于范围的控件"><a href="#基于范围的控件" class="headerlink" title="基于范围的控件"></a>基于范围的控件</h2><p>&emsp;&emsp;WPF提供了三个使用范围概念的控件。这些控件使用在特定最小值和最大值之间的数值。这些控件--ScrollBar、ProgressBar以及 Slider--都继承自RangeBase类(该类又继承自 Control类)。尽管它们使用相同的抽象概念(范围)，但工作方式却有很大的区别。</p>
+<center>RangeBase类的属性</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Value</td>
+<td>控件的当前值</td>
+</tr>
+<tr>
+<td>Maximum</td>
+<td>上限</td>
+</tr>
+<tr>
+<td>Minimum</td>
+<td>下限</td>
+</tr>
+<tr>
+<td>SmallChange</td>
+<td>Value属性为“小变化”调整的数量</td>
+</tr>
+<tr>
+<td>LargeChange</td>
+<td>Value属性为“大变化”调整的数量</td>
+</tr>
+</tbody></table>
+<h2 id="日期控件"><a href="#日期控件" class="headerlink" title="日期控件"></a>日期控件</h2><p>&emsp;&emsp;WPF包含两个日期控件,Calendar和DatePicker。这两个控件都被设计为允许用户选择日期</p>
+<center>Calendar和DatePicker类的属性</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DisplayDateStart、DisplayDateEnd</td>
+<td>设置在日日试图中显示的日期范围</td>
+</tr>
+<tr>
+<td>BlackoutDates</td>
+<td>保存在日历中将被禁用或不能选择的日期集合</td>
+</tr>
+<tr>
+<td>SelectedDate</td>
+<td>作为DateTime对象提供选择的日期</td>
+</tr>
+<tr>
+<td>SelectedDates</td>
+<td>作为DateTime对象的集合提供选择的日期</td>
+</tr>
+<tr>
+<td>DisplayDate</td>
+<td>使用Datetime对象确定在日日试图中最初显示的日期</td>
+</tr>
+<tr>
+<td>FirstDayOfWeek</td>
+<td>确定在日日中美方的开始位置（最左边的位置）显示一星期中的哪一天</td>
+</tr>
+<tr>
+<td>IsTodayHighlighted</td>
+<td>确定日历视图时候通过突出显示指出当前日期</td>
+</tr>
+<tr>
+<td>DisplayMode(只适用于Calendar)</td>
+<td>确定日日最初的月份显示模式</td>
+</tr>
+<tr>
+<td>SelectionMode(只适用于Calendar)</td>
+<td>确定允许的日期选择类型，默认时SingleDate</td>
+</tr>
+<tr>
+<td>IsDaropDownOpen</td>
+<td>确定时候打开DatePicker控件中的下拉日历视图</td>
+</tr>
+<tr>
+<td>SelectedDateFormat(只适用于DatePicker)</td>
+<td>确定在DatePicker控件的文本部分显示选择的日期的方式</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>C#</category>
+        <category>WPF</category>
+      </categories>
+      <tags>
+        <tag>WPF从入门到入坟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WPF从入门到入坟 - 07Application类</title>
+    <url>/2024/05/31/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/07Application%E7%B1%BB/</url>
+    <content><![CDATA[<h2 id="应用程序的生命周期"><a href="#应用程序的生命周期" class="headerlink" title="应用程序的生命周期"></a>应用程序的生命周期</h2><p>&emsp;&emsp;在 WPF 中，应用程序会经历简单的生命周期。在应用程序启动后，将立即创建应用程序对象。在应用程序运行时触发各种应用程序事件，您可以选择监视其中的某些事件。最后，当释放应用程序对象时，应用程序将结束。</p>
+<h3 id="创建Application对象"><a href="#创建Application对象" class="headerlink" title="创建Application对象"></a>创建Application对象</h3><p>&emsp;&emsp;手动创建Application对象启动Wpf应用</p>
+<ol>
+<li><p>设置项目属性的<code>EnableDefaultApplicationDefinition</code>属性为false使WPF应用不自动生成Main函数</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">&lt;!-- +++ --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EnableDefaultApplicationDefinition</span>&gt;</span>false<span class="tag">&lt;/<span class="name">EnableDefaultApplicationDefinition</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- +++ --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>新建自己的文件</p>
+ <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">STAThread</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        App app = <span class="keyword">new</span> App();</span><br><span class="line">        MainWindow mainWindow = <span class="keyword">new</span> MainWindow();</span><br><span class="line">        app.Run(mainWindow);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="应用程序的关闭方式"><a href="#应用程序的关闭方式" class="headerlink" title="应用程序的关闭方式"></a>应用程序的关闭方式</h3><p>&emsp;&emsp;通常，只要还有窗口尚未关闭，Application类就保持应用程序处于有效状态。如果这不是期望的行为，可调整<code>Application.ShutdownMode</code>属性和。如果手动实例化Application对象，就需要在调用Run()方法之前设置ShutdownMode属性。如果使用App.xaml文件，那么可在XAML文件中简单设置ShutdownMode属性</p>
+<center>ShutdownMode枚举值</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OnLastWindowClose</td>
+<td>这是默认行为——只要至少还有一个窗口存在，应用程序就保持运行状态</td>
+</tr>
+<tr>
+<td>OnMainWindowClose</td>
+<td>这是传统方式——只要主窗口还处于打开状态，应用程序就保持运行状态</td>
+</tr>
+<tr>
+<td>OnExplicitShutdown</td>
+<td>除非调用<code>Application.Shutdown()</code>，否则应用程序就不会结束</td>
+</tr>
+</tbody></table>
+<h3 id="应用程序事件"><a href="#应用程序事件" class="headerlink" title="应用程序事件"></a>应用程序事件</h3><center>应用程序事件</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Startup</td>
+<td>该事件在调用<code>Application.Run()</code>之后，并且在主窗口显示之前发生。可使用该事件检查所有命令行参数，命令行参数时通过<code>StartupEventArg.Args</code>属性作为数组提供的</td>
+</tr>
+<tr>
+<td>Exit</td>
+<td>该事件在应用关闭时，并在<code>Run()</code>即将返回之前发生。此时不能取消关闭</td>
+</tr>
+<tr>
+<td>SessionEnding</td>
+<td>该事件在Windows对话结束时发生——例如，当用户注销或关闭计算机时（通过检查<code>SesstionEndingCancelEventArgs.ReasonSessionEnding</code>属性可以确定原因）。也可以通过将<code>SessionEndingEventArgs.Cancel</code>属性设置为true来取消关闭应用程序。否则，当事件处理程序结束时，WPF将调用<code>Application.Shutdown()</code>方法</td>
+</tr>
+<tr>
+<td>Activated</td>
+<td>当激活应用程序中的窗口时发生该事件。当从另一个Windows程序切换到该应用时会发生该事件。当第一次显示窗口时也会发生该事件</td>
+</tr>
+<tr>
+<td>Deactivated</td>
+<td>当取消激活应用程序中的窗口时发生该事件。当切换到另一个Windows程序时耶夫一发生该事件</td>
+</tr>
+<tr>
+<td>DispatcherUnhandledException</td>
+<td>在应用程序（主应用程序线程）中的任何位置，只要发生未处理的异常，就会发生该事件（应用程序会驳货这些异常）。通过响应该事件，可记录重要错误，甚至可选择不处理这些异常，并通过将<code>DispatcherUnhandledExceptionEventArgs.Handled</code>属性设置为true继续运行应用程序。只有当可以确保应用程序仍然处于合法状态时可以继续运行时，才这样处理</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;下面时一个自定义的应用程序类，他重写了<code>OnSessionEnding()</code>方法，并且给如果设置了相应的标志，该方法会阻止关闭系统和应用程序自身</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">App</span> : <span class="title">Application</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">bool</span> _unsavedData = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">bool</span> UnsavedData</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> _unsavedData; &#125;</span><br><span class="line">        <span class="keyword">set</span> &#123; _unsavedData = <span class="keyword">value</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnStartup</span>(<span class="params">StartupEventArgs e</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">base</span>.OnStartup(e);</span><br><span class="line"></span><br><span class="line">        UnsavedData = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnSessionEnding</span>(<span class="params">SessionEndingCancelEventArgs e</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">base</span>.OnSessionEnding(e);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (UnsavedData)</span><br><span class="line">        &#123;</span><br><span class="line">            e.Cancel = <span class="literal">true</span>;</span><br><span class="line">            MessageBox.Show(<span class="string">$&quot;The application attempted to be closed as a result of <span class="subst">&#123;e.ReasonSessionEnding.ToString()&#125;</span>. This is not allowed, as you have unsaved data.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Application类的任务"><a href="#Application类的任务" class="headerlink" title="Application类的任务"></a>Application类的任务</h2><h3 id="显示初始界面"><a href="#显示初始界面" class="headerlink" title="显示初始界面"></a>显示初始界面</h3><p>&emsp;&emsp;使用WPF提供的简单初始界面特性：</p>
+<ol>
+<li>为项目添加图像文件（通常时.bmp、.png或.jpg文件）</li>
+<li>在Solution Explorer 中选择图像文件</li>
+<li>将Build Action修改为<code>SplashScreen</code></li>
+</ol>
+<p>&emsp;&emsp;下次运行应用程序时，图像会立即在屏幕中央显示出来。一旦准备好运行时环境，而且<code>Application_Startup</code>方法执行完毕，应用程序的第一个窗口就将显示出来，这是初始界面图形会很快消失。以上添加初始界面的朝族哟，WPF编译器为自动生成的App.g.cs文件添加与下面类似的代码：</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">SplashScreen splashScreen = <span class="keyword">new</span> SplashScreen(<span class="string">&quot;splashScreenImage.png&quot;</span>);</span><br><span class="line">splashScreen.Show(<span class="literal">true</span>); <span class="comment">// 设置为false后，初始界面不会自动关闭，需要手动调用splashScreen.Close()进行关闭</span></span><br><span class="line"></span><br><span class="line">MyApplication.App app = <span class="keyword">new</span> MyApplication.App();</span><br><span class="line">app.InitializeComponent();</span><br><span class="line">app.Run();</span><br></pre></td></tr></table></figure>
+<h3 id="处理命令行参数"><a href="#处理命令行参数" class="headerlink" title="处理命令行参数"></a>处理命令行参数</h3><p>&emsp;&emsp;为处理命令行参数，需要相应<code>Aplication.Startup</code>事件。命令行参数时通过<code>StartupEventArgs.Args</code>属性作为字符串数组提供的</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnStartup</span>(<span class="params">StartupEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">base</span>.OnStartup(e);</span><br><span class="line"></span><br><span class="line">    UnsavedData = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> win = <span class="keyword">new</span> FileViewer();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (e.Args.Length &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> file = e.Args[<span class="number">0</span>]; <span class="comment">// 获取命令行参数</span></span><br><span class="line">        <span class="keyword">if</span> (System.IO.File.Exists(file))</span><br><span class="line">        &#123;</span><br><span class="line">            win.LoadFile(file);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="访问当前Application对象"><a href="#访问当前Application对象" class="headerlink" title="访问当前Application对象"></a>访问当前Application对象</h3><p>&emsp;&emsp;通过静态的<code>Application.Current</code>属性，可在应用程序的任何位置获取当前应用程序实例，从而在窗口之间进行基本交付，因为任何窗口都有可以访问当前Application对象，并通过Application对象获取主窗口的应用：</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">Window mainWindow = Application.Current.MainWindow;</span><br><span class="line">MessageBox.Show(<span class="string">&quot;The main window is &quot;</span> + mainWindow.Title);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;子啊窗口中还可以检查<code>Application.Windows</code>集合的内容，该集合提供了所有当前打开窗口的引用：</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(Window window <span class="keyword">in</span> Application.Current.Windows)</span><br><span class="line">&#123;</span><br><span class="line">    MessageBox.Show(window.Title + <span class="string">&quot; is open.&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在窗口之间进行交互"><a href="#在窗口之间进行交互" class="headerlink" title="在窗口之间进行交互"></a>在窗口之间进行交互</h3><p>&emsp;&emsp;正如在前面已经看到的，自定义应用程序类是放置响应不同应用程序事件的代码的好地方。应用程序类还可以很好地达到另一个目的:保存重要窗口的引用，使一个窗口可访问另一个窗口。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">App</span> : <span class="title">Application</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 可存储整个应用程序的文档，达到每个窗口共享的效果</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Document&gt; documents = <span class="keyword">new</span> List&lt;Document&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;Document&gt; Documents</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123;<span class="keyword">return</span> documents;&#125;</span><br><span class="line">        <span class="keyword">set</span> &#123;documents = <span class="keyword">value</span>;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="单实例应用程序"><a href="#单实例应用程序" class="headerlink" title="单实例应用程序"></a>单实例应用程序</h3><p>&emsp;&emsp;通常，只要愿意就可以加载 WPF 应用程序的任意多个副本。某些情况下，这种设计是非常合理的。但在另外一些情况下，这可能会成为问题，当构建基于文档的应用程序时更是如此。</p>
+<div class="note info flat"><p>对于单实例应用程序，WPF本身并未提供自带的解决方法，但可使用几种变通方法。基本技术时当出发<code>Application.Startup</code>事件时，检查另一个应用程序实例时候已在运行。最简单的方法时使用<code>全局的mutex对象</code>（mutex对象时操作系统提供的用于进程间通信的同步对象）。这种方法很简单，但功能有限。最重要的是，应用程序的新实例无法与已经存在的应用程序实例进行通信。</p>
+</div>
+
+<div class="note danger flat"><p>第一种方法较为简单直接，适合大多数场景。第二种方法更为复杂，但可以处理一些特定的需求，例如在已有实例中显示新的内容。</p>
+</div>
+
+<h4 id="使用Mutex"><a href="#使用Mutex" class="headerlink" title="使用Mutex"></a>使用Mutex</h4><p>&emsp;&emsp;使用Mutex可以确保只有一个实例在运行。如果尝试启动第二个实例，新的实例将检测已有的实例在运行并退出</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">App</span> : <span class="title">Application</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Mutex? _mutex = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnStartup</span>(<span class="params">StartupEventArgs e</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">string</span> appName = <span class="string">&quot;SingleInstanceApp&quot;</span>;</span><br><span class="line">        <span class="built_in">bool</span> createdNew;</span><br><span class="line"></span><br><span class="line">        _mutex = <span class="keyword">new</span> Mutex(<span class="literal">true</span>, appName, <span class="keyword">out</span> createdNew);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!createdNew)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 应用程序已在运行！退出新实例</span></span><br><span class="line">            MessageBox.Show(<span class="string">&quot;应用程序已在运行!&quot;</span>);</span><br><span class="line">            Application.Current.Shutdown();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">base</span>.OnStartup(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用Windows-API"><a href="#使用Windows-API" class="headerlink" title="使用Windows API"></a>使用Windows API</h4><p>&emsp;&emsp;通过P&#x2F;Invoke使用Windows API来实现单实例</p>
+<ol>
+<li><p>创建一个<code>NativeMethods</code>类</p>
+ <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">NativeMethods</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> <span class="built_in">int</span> HWND_BROADCAST = <span class="number">0xffff</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> <span class="built_in">int</span> WM_SHOWFIRSTINSTANCE = RegisterWindowMessage(<span class="string">&quot;WM_SHOWFIRSTINSTANCE|&quot;</span> + App.AppGuid);</span><br><span class="line"></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;user32&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">RegisterWindowMessage</span>(<span class="params"><span class="built_in">string</span> message</span>)</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;user32&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">bool</span> <span class="title">PostMessage</span>(<span class="params">IntPtr hwnd, <span class="built_in">int</span> msg, IntPtr wparam, IntPtr lparam</span>)</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;user32&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">FindWindow</span>(<span class="params"><span class="built_in">string</span> classname, <span class="built_in">string</span> windowname</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>更新<code>App.xaml.cs</code></p>
+ <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">App</span> : <span class="title">Application</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Mutex _mutex = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> <span class="built_in">string</span> AppGuid = <span class="string">&quot;your-app-guid-here&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnStartup</span>(<span class="params">StartupEventArgs e</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">bool</span> createdNew;</span><br><span class="line">        _mutex = <span class="keyword">new</span> Mutex(<span class="literal">true</span>, <span class="string">&quot;Global\\&quot;</span> + AppGuid, <span class="keyword">out</span> createdNew);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!createdNew)</span><br><span class="line">        &#123;</span><br><span class="line">            NativeMethods.PostMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_SHOWFIRSTINSTANCE, IntPtr.Zero, IntPtr.Zero);</span><br><span class="line">            Application.Current.Shutdown();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">base</span>.OnStartup(e);</span><br><span class="line">        ShowMainWindow();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ShowMainWindow</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        MainWindow mainWindow = <span class="keyword">new</span> MainWindow();</span><br><span class="line">        mainWindow.Show();</span><br><span class="line"></span><br><span class="line">        IntPtr handle = (<span class="keyword">new</span> WindowInteropHelper(mainWindow)).Handle;</span><br><span class="line">        HwndSource source = HwndSource.FromHwnd(handle);</span><br><span class="line">        source.AddHook(<span class="keyword">new</span> HwndSourceHook(WndProc));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> IntPtr <span class="title">WndProc</span>(<span class="params">IntPtr hwnd, <span class="built_in">int</span> msg, IntPtr wParam, IntPtr lParam, <span class="keyword">ref</span> <span class="built_in">bool</span> handled</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (msg == NativeMethods.WM_SHOWFIRSTINSTANCE)</span><br><span class="line">        &#123;</span><br><span class="line">            ShowMainWindow();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> IntPtr.Zero;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="程序集资源"><a href="#程序集资源" class="headerlink" title="程序集资源"></a>程序集资源</h2><div class="note info flat"><p>程序集资源又称为二进制资源，因为它们作为不透明的二进制数据被嵌入到已编译的程序集中</p>
+</div>
+
+<h3 id="添加资源"><a href="#添加资源" class="headerlink" title="添加资源"></a>添加资源</h3><p>&emsp;&emsp;可同构项目添加文件，并在Properties窗口中将其Build Action属性设置为Resource来添加自己的资源。为成功地使用程序集资源，无比注意以下两点：</p>
+<ul>
+<li>不能将Build Action属性错误地设置为 Embedded Resource。尽管所有程序集资源都被定义为嵌入的资源，当Embedded Resource生成操作会在另一个更难访问的位置放置二进制数据。在WPF应用程序中，假定总是使用Resource生成类型</li>
+<li>不要在Propect Properties窗口中使用Resource选项卡。WPF不支持这种类型的资源URI</li>
+</ul>
+<div class="note info flat"><p>WPF将程序集资源和其他BAML资源合并到单独的流中。单独的资源流是哟个以下格式命名：<code>AssemblyName.g.resources</code></p>
+</div>
+
+<h3 id="检索资源"><a href="#检索资源" class="headerlink" title="检索资源"></a>检索资源</h3><p>&emsp;&emsp;显然，添加资源非常容易，但到底如何使用它们了？可以采用多种方法来使用资源</p>
+<ul>
+<li><p>通过静态方法<code>Application.GetResourceStream()</code></p>
+  <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">StreamResourceInfo sri = Application.GetResourceStream(<span class="keyword">new</span> Uri(<span class="string">&quot;images/winter.jpg&quot;</span>,UriKind.Relative));</span><br></pre></td></tr></table></figure></li>
+<li><p>自行访问<code>AssemblyName.g.resource</code>资源流，并查询所需的对象</p>
+  <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">Assembly assembly = Assembly.GetAssembly(<span class="keyword">this</span>.GetType());</span><br><span class="line"><span class="built_in">string</span> resourceName =assembly.GetName().Name + <span class="string">&quot;.g&quot;</span>;</span><br><span class="line">ResourceManager rm = <span class="keyword">new</span> ResourceManager(resourceName,assembly);</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span>(ResourceSet <span class="keyword">set</span> = rm.GetResourceSet(CaltureInfo.CurrentCulture,<span class="literal">true</span>,<span class="literal">true</span>))</span><br><span class="line">&#123;</span><br><span class="line">    UnmanageMemoryStream s = (UnmanageMemoryStream)<span class="keyword">set</span>.GetObject(<span class="string">&quot;images/winter.jpg&quot;</span>,<span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="pack-URI"><a href="#pack-URI" class="headerlink" title="pack URI"></a>pack URI</h3><p>&emsp;&emsp;WPF使用pack URI语法寻址编译过的资源，其完整语法如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">pack://application:,,,/AssemblyName;component/ResourceName</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<ul>
+<li>当前程序集下</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 以下写法等价 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Image</span> <span class="attr">Source</span>=<span class="string">&quot;images/winter.jpg&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Image</span> <span class="attr">Source</span>=<span class="string">&quot;pack://application:,,,/images/winter.jpg&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>其他程序集下</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 资源图片位于WpfResources程序集的images目录下 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Image</span> <span class="attr">Source</span>=<span class="string">&quot;pack://application:,,,/WpfResources;component/images/winter.jpg&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="内容文件"><a href="#内容文件" class="headerlink" title="内容文件"></a>内容文件</h3><p>&emsp;&emsp;当嵌入文件作为资源时，会将文件放到编译过的程序集中，并且可以确保文件总是可用的。对于部署而言这是理想选择，并且可避免可能存在的问题。然而在有些情况下，使用这种方法并不方便：</p>
+<ul>
+<li>希望改变资源文件，又不想重新编译应用程序</li>
+<li>资源文件非常大</li>
+<li>资源文件是可选的，并且可以不随程序集一起部署</li>
+<li>资源是声音文件</li>
+</ul>
+<div class="note warning flat"><p>WPF声音不支持程序集资源。因此，无法从资源流中析取音频文件并播放它们——至少，如果没有首先保存音频文件，就不能播放它们。这一局限是由于这些类使用的技术基础（Win32API和媒体播放器）造成的</p>
+</div>
+
+<p>&emsp;&emsp;显然，可使用应用程序部署文件，并为应用程序添加代码，进而从硬盘驱动器中读取这些文件来解决该问题。然而，WPF还有更方便的选择，使这一过程更加容易管理。可将这些未编译的文件专门标记为内容文件。<br>&emsp;&emsp;不能将内容文件嵌入到程序集中。然而，WPF为程序集添加了AssemblyAssociated-ContentFile 特性，公告每个内容文件的存在。该特性还记录了每个内容文件相对于可执行文件的位置(指示内容文件是否和可执行文件位于同一个文件夹中，或者位于某个子文件夹中)。最方便的是，当为能够理解资源的元素(如 Image 类)使用内容文件时，可使用相同的 URI 系统。<br>&emsp;&emsp;为测试该技术，为项目添加声音文件，在SolutionExplorer 中选择该文件，并在Properties窗口中<code>将 Build Action 属性改为 Content</code>。确保<code>将 Copy to Output Directory 属性设置为 CopyAlways</code>，以保证当生成项目时将声音文件复制到输出目录中。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">MediaELement</span> <span class="attr">Name</span>=<span class="string">&quot;Sound&quot;</span> <span class="attr">Source</span>=<span class="string">&quot;Sounds/start.wav&quot;</span> <span class="attr">LoadedBehavior</span>=<span class="string">&quot;Manual&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="本地化"><a href="#本地化" class="headerlink" title="本地化"></a>本地化</h2><p>&emsp;&emsp;当需要本地化窗口时，程序集资源也可以提供方便。使用资源，可根据 Windows操作系统的当前文化设置改变控件。对于需要翻译为不同语言的文本标签和图像，这尤其有用。</p>
+<h3 id="构建能够本地化的用户界面"><a href="#构建能够本地化的用户界面" class="headerlink" title="构建能够本地化的用户界面"></a>构建能够本地化的用户界面</h3><p>&emsp;&emsp;在开始翻译任何内容前，首先需要考虑应用程序会如何响应内容变化。用户界面应当能够调整自身以适应动态的内容。下面列出建议采用的一些原则：</p>
+<ul>
+<li>不使用硬编码的宽度或高度(或至少对那些包含不能滚动的文本内容的元素不使用硬编码的宽度和高度)。</li>
+<li>将 Window.SizeToContent 属性设置为 Width、Height 或 WidthAndHeight，使窗口尺寸能够根据需要扩大(根据窗口结构的不同，并不总是需要这样，但有时是很有用的)。</li>
+<li>使用 ScrollViewer 控件封装大量文本。</li>
+</ul>
+<h3 id="使应用程序为本地化做好准备"><a href="#使应用程序为本地化做好准备" class="headerlink" title="使应用程序为本地化做好准备"></a>使应用程序为本地化做好准备</h3><p>&emsp;&emsp;在第一个<code>&lt;PropertyGroup&gt;</code>元素中的任意地方添加以下元素：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">	<span class="tag">&lt;<span class="name">UICulture</span>&gt;</span>en-US<span class="tag">&lt;/<span class="name">UICulture</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;上面的标记告诉编译器，应用程序的默认文化是美式英语(显然，也可选择其他合适的文化)。一旦进行了这一修改，生成过程就会发生变化。下次编译应用程序时，最后会生成名为en-US 的子文件夹。在该文件夹中包含的是附属程序集，附属程序集与应用程序同名，而且扩展名为.resources.dll(如 LocalizableApplication.resources.dl)。附属程序集包含了应用程序的所有编译过的 BAML资源，以前这些资源保存在主应用程序的程序集中。</p>
+]]></content>
+      <categories>
+        <category>C#</category>
+        <category>WPF</category>
+      </categories>
+      <tags>
+        <tag>WPF从入门到入坟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>清除Widnows更新缓存文件</title>
+    <url>/2024/06/01/%E6%B8%85%E9%99%A4Widnows%E6%9B%B4%E6%96%B0%E7%BC%93%E5%AD%98%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<h2 id="通过-命令提示符-删除Windows更新缓存文件"><a href="#通过-命令提示符-删除Windows更新缓存文件" class="headerlink" title="通过[命令提示符]删除Windows更新缓存文件"></a>通过[命令提示符]删除Windows更新缓存文件</h2><ol>
+<li><p>使用<code>Windows + R</code>快捷键打开[运行]对话框，输入<code>cmd</code>，然后按<code>Ctrl + Shift + Enter</code>以管理员权限打开[命令提示符]</p>
+</li>
+<li><p>执行以下命令停止[Windows Update]服务</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">net stop wuauserv</span><br></pre></td></tr></table></figure></li>
+<li><p>执行以下命令进入到<code>SoftwareDistribution</code>目录</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> %Windir%\SoftwareDistribution</span><br></pre></td></tr></table></figure></li>
+<li><p>执行以下命令，强制删除<code>Download</code>文件夹及其子文件夹中的所有文件</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">del /f /s /q Download</span><br></pre></td></tr></table></figure></li>
+<li><p>执行以下命令，强制删除<code>DataStore</code>文件夹及其子文件夹中的所有文件</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">del /f /s /q DataStore</span><br></pre></td></tr></table></figure></li>
+<li><p>执行以下命令重新启动[Windows Update]服务</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">net start wuauserv</span><br></pre></td></tr></table></figure></li>
+</ol>
+<img src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240601120301.png"/>
+]]></content>
+      <categories>
+        <category>工具</category>
+        <category>WindowsUpdate</category>
+      </categories>
+      <tags>
+        <tag>WindowsUpdate</tag>
       </tags>
   </entry>
 </search>
