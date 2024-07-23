@@ -1,0 +1,383 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>WPF从入门到入坟 - 17控件模板 | 生活中的tree</title><meta name="author" content="大白"><meta name="copyright" content="大白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="理解逻辑树和可视化树&emsp;&emsp;下图显示了一个非常简单的窗口，该窗口包含两个按钮。为创建该窗口，在窗口中嵌套了一个StackPanel控件。在StackPaenl控件中，放置了两个Button控件，并且在每个按钮中可以添加所选择的内容   1234&lt;StackPanel Margin&#x3D;&quot;5&quot;&gt;    &lt;Button Margin&#x3D;&quot;5&amp;q">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WPF从入门到入坟 - 17控件模板">
+<meta property="og:url" content="http://bootree.cn/2024/07/22/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/17%E6%8E%A7%E4%BB%B6%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:site_name" content="生活中的tree">
+<meta property="og:description" content="理解逻辑树和可视化树&emsp;&emsp;下图显示了一个非常简单的窗口，该窗口包含两个按钮。为创建该窗口，在窗口中嵌套了一个StackPanel控件。在StackPaenl控件中，放置了两个Button控件，并且在每个按钮中可以添加所选择的内容   1234&lt;StackPanel Margin&#x3D;&quot;5&quot;&gt;    &lt;Button Margin&#x3D;&quot;5&amp;q">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png">
+<meta property="article:published_time" content="2024-07-22T12:49:31.000Z">
+<meta property="article:modified_time" content="2024-07-23T13:57:55.883Z">
+<meta property="article:author" content="大白">
+<meta property="article:tag" content="WPF从入门到入坟">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://bootree.cn/2024/07/22/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/17%E6%8E%A7%E4%BB%B6%E6%A8%A1%E6%9D%BF/index.html"><link rel="preconnect" href="https://jsd.012700.xyz"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="NdIUXAOVyGnnBhcrip0ksCawbdAzT0hlBZDE9u4jx6k"/><meta name="msvalidate.01" content="567E47D75E8DCF1282B9623AD914701E"/><meta name="baidu-site-verification" content="code-pE5rnuxcfD"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: 大白","link":"链接: ","source":"来源: 生活中的tree","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://jsd.012700.xyz/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'WPF从入门到入坟 - 17控件模板',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-23 21:57:55'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="preconnect" href="https://jsd.012700.xyz"><link href="/self/btf.css" rel="stylesheet"><link rel="alternate" href="/atom.xml" title="生活中的tree" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png')"><nav id="nav"><span id="blog-info"><a href="/" title="生活中的tree"><span class="site-name">生活中的tree</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">WPF从入门到入坟 - 17控件模板<a class="post-edit-link" href="https://github.com/cnlicm/HexoBlog/tree/main/source/_posts/WPF从入门到入坟/17控件模板.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-07-22T12:49:31.000Z" title="发表于 2024-07-22 20:49:31">2024-07-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C#</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/WPF/">WPF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="WPF从入门到入坟 - 17控件模板"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="理解逻辑树和可视化树"><a href="#理解逻辑树和可视化树" class="headerlink" title="理解逻辑树和可视化树"></a>理解逻辑树和可视化树</h2><p>&emsp;&emsp;下图显示了一个非常简单的窗口，该窗口包含两个按钮。为创建该窗口，在窗口中嵌套了一个StackPanel控件。在StackPaenl控件中，放置了两个Button控件，并且在每个按钮中可以添加所选择的内容</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240722210339.png" width="50%" style="border:1px solid gray"/>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">StackPanel</span> <span class="attr">Margin</span>=<span class="string">&quot;5&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Margin</span>=<span class="string">&quot;5&quot;</span> <span class="attr">Padding</span>=<span class="string">&quot;5&quot;</span>&gt;</span>First Button<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Margin</span>=<span class="string">&quot;5&quot;</span> <span class="attr">Padding</span>=<span class="string">&quot;5&quot;</span>&gt;</span>Second Button<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;添加的元素分类成为逻辑树，下图显示了逻辑树。WPF编程人员需要耗费大部分时间构建逻辑树，然后使用事件处理代码支持它们。实际上，到目前为止介绍的所有WPF特性（如属性值继承、事件路由以及样式）都是通过逻辑树进行工作的。</p>
+<center>简单窗口的逻辑树</center>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240722210724.png" width="60%"/>
+
+<p>&emsp;&emsp;然而，如果希望自定义元素，逻辑树起不到多大帮助作用。显然，可使用另一个元素替换整个元素(例如，可使用自定义的 FancyButton 类替换当前的 Buton 类)，但这需要做更多工作，并且可能扰乱应用程序的用户界面或代码。因此，<strong>WPF通过可视化树进入更深层次</strong>。</p>
+<p>&emsp;&emsp;可视化树是逻辑树的扩展版本。它将元素分成更小的部分。换句话说，它并不查看被精心封装到一起的黑色方框，如按钮，而是查看按钮的可视化元素--使按钮具有阴影背景特性的边框(由 ButtonChrome 类表示)、内部的容器(ContentPresenter 对象)以及存储按钮文本的块(由大家熟悉的 TextBlock 表示)。下图显示了上例的可视化树。</p>
+<center>简单窗口的可视化树</center>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240722211001.png" width="60%"/>
+
+<blockquote>
+<p>所有这些细节本身都是元素——换句话说，控件(如按钮)中的每个单独的细节都是由FrameworkElement类的派生类表示的。</p>
+</blockquote>
+<div class="note info flat"><p>可采用多种方法将一棵逻辑树扩展成一棵可视化树，认识到这一点是很重要的。使用的样式和设置的属性等细节都可能影响可视化树的构成。</p>
+</div>
+
+<p>&emsp;&emsp;通过可视化树可以完成以下两项非常有用的工作：</p>
+<ul>
+<li>可使用样式改变可视化树中的元素。可使用Style.TargetType 属性选择希望修改的特定元素。甚至当控件属性发生变化时，可使用触发器自动完成更改。不过，某些特定的细节很难甚至无法修改。</li>
+<li>可为控件创建新模板。对于这种情况，控件模板将被用于按期望的方式构建可视化树。</li>
+</ul>
+<div class="note info flat"><p>WPF提供了用于浏览逻辑树和可视化树的两个类：<code>System.Windows.LogicalTreeHelper</code>和<code>System.Windows.Media.VisualTreeHelper</code></p>
+</div>
+
+<p>&emsp;&emsp;<strong>LogicalTreeHelper</strong>类，该类允许通过动态加载的XAML文档在WPF应用程序中关联事件处理程序,<code>LogicTreeHelper</code>类提供了较少的方法，下表列出了这些方法，尽管这些方法偶尔很有用，但大多数情况下会改用特定的FrameworkElement类中的方法。</p>
+<center>LogicalTreeHelper类的方法</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FindLogicalNode()</td>
+<td>根据名称查找特定元素，从指定的元素开始并向下查找逻辑树</td>
+</tr>
+<tr>
+<td>BringIntoView()</td>
+<td>如果元素在可滚动的容器中，并且当前不可见，就将元素滚动到视图中。<code>FrameworkElement.BegIntoView()</code>方法执行相同的工作</td>
+</tr>
+<tr>
+<td>GetParent()</td>
+<td>获取指定元素的父元素</td>
+</tr>
+<tr>
+<td>GetChildren()</td>
+<td>获取指定元素的子元素。不同元素支持不同的内容型。例如，面板支持多个子元素，而内容控件只支持一个子元素。然而，GetChildren()方法抽象了这一区别，并且可使用任何类型的元素进行工作</td>
+</tr>
+</tbody></table>
+<div class="note info flat"><p><code>VisualTreeHelper</code>类提供的方法于<code>LogicalTreeHelper</code>类提供的方法类似，也提供了<code>GetChildrenCount()</code>、<code>GetChild()</code>以及<code>GetParent()</code>方法</p>
+</div>
+
+<p>&emsp;&emsp;VisualTreeHelper 类还提供了一种研究应用程序中可视化树的有趣方法。使用 GetChild()方法，可以遍历任意窗口的可视化树，并且为了进行分析可以将它们显示出来。这是一个非常好的学习工具，只需要使用一些递归的代码就可以实现。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">VisualTreeDisplay</span> : <span class="title">Window</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">VisualTreeDisplay</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        InitializeComponent();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShowVisualTree</span>(<span class="params">DependencyObject element</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Clear the tree</span></span><br><span class="line">        treeElements.Items.Clear();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Start processing elements,begin at the root.</span></span><br><span class="line">        ProcessElement(element, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ProcessElement</span>(<span class="params">DependencyObject element, TreeViewItem previousItem</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Create a TreeViewItem for the current element</span></span><br><span class="line">        TreeViewItem item = <span class="keyword">new</span> TreeViewItem();</span><br><span class="line">        item.Header = element.GetType().Name;</span><br><span class="line">        item.IsExpanded = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check whether this item should be added to the root of the tree</span></span><br><span class="line">        <span class="comment">// (if it&#x27;s the first item), or nested under another item.</span></span><br><span class="line">        <span class="keyword">if</span> (previousItem == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            treeElements.Items.Add(item);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            previousItem.Items.Add(item);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check whether this element contains other elements.</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; VisualTreeHelper.GetChildrenCount(element); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// Process each contained element recursively.</span></span><br><span class="line">            ProcessElement(VisualTreeHelper.GetChild(element, i), item);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;一旦为项目添加这棵树，就可以使用其他任何窗口的代码显示其可视化树：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">VisualTreeDisplay treeDisplay = <span class="keyword">new</span> VisualTreeDisplay();</span><br><span class="line">treeDisplay.ShowVisualTree(<span class="keyword">this</span>);</span><br><span class="line">treeDisplay.Show();</span><br></pre></td></tr></table></figure>
+
+<h2 id="理解模板"><a href="#理解模板" class="headerlink" title="理解模板"></a>理解模板</h2><blockquote>
+<p>控件如何从逻辑树表示扩展成可视化树表示？</p>
+</blockquote>
+<p>&emsp;&emsp;每隔控件都有一个内置的方法，用于确定如何渲染控件（作为一组更基础的元素）。该方法称为控件模板（<code>Control Template</code>），是用XAML标记块定义的。</p>
+<p>&emsp;&emsp;下面是普通<code>Button</code>类的模板的简化版本。该版本省略了XML名车行空间声明、为嵌套的元素设置属性的特性，以及当按钮被禁用、取得焦点或单击时确定按钮行为的触发器。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://i.imgur.com/5oaUq4i.gif">
+
+<!-- 静态图 -->
+<!-- <img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240723203437.png"/> -->
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Window</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:themes</span>=<span class="string">&quot;clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Content</span>=<span class="string">&quot;Button&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button.Template</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ControlTemplate</span> <span class="attr">TargetType</span>=<span class="string">&quot;&#123;x:Type Button&#125;&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">themes:ButtonChrome</span> <span class="attr">x:Name</span>=<span class="string">&quot;Chrome&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">ContentPresenter</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">VerticalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">Content</span>=<span class="string">&quot;&#123;TemplateBinding ContentControl.Content&#125;&quot;</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">themes:ButtonChrome</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ControlTemplate.Triggers</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Trigger</span> <span class="attr">Property</span>=<span class="string">&quot;UIElement.IsKeyboardFocused&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;True&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">TargetName</span>=<span class="string">&quot;Chrome&quot;</span> <span class="attr">Property</span>=<span class="string">&quot;themes:ButtonChrome.RenderDefaulted&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;True&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">Trigger</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Trigger</span> <span class="attr">Property</span>=<span class="string">&quot;ToggleButton.IsChecked&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;True&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">TargetName</span>=<span class="string">&quot;Chrome&quot;</span> <span class="attr">Property</span>=<span class="string">&quot;themes:ButtonChrome.RenderPressed&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;True&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">Trigger</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Trigger</span> <span class="attr">Property</span>=<span class="string">&quot;UIElement.IsEnabled&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;False&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;TextElement.Foreground&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;#FFADADAD&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">Trigger</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ControlTemplate.Triggers</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ControlTemplate</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Button.Template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Window</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;尽管尚未研究<code>ButtonChrome</code>和<code>ContentPresenter</code>类，但很容易就能联想到：控件模板提供了在可视化树中看到的扩展内容。<code>ButtonChrome</code>类定义按钮的标准可视化外观，而<code>ContentPresenter</code>类存储了提供的所有内容。如果希望构建全新按钮，只需要创建新的控件模板。除<code>ButtonChrome</code>类之外，还使用了其他一些内容——可能是自定义元素，也可能某个绘制形状的元素。</p>
+<div class="note info flat"><p><code>ButtonChrome</code>类继承自<code>Decorator</code>类（于<code>Border</code>类非常类似）。这意味着这些类是为了在其他元素周围添加图形装饰而设计的——用于在按钮内容的周围添加图形装饰</p>
+</div>
+
+<p>&emsp;&emsp;当构建自己的控件模板时将看到同样的职责分离。如果足够幸运，可直接使用触发器完成所有工作，可能不需要创建自定义类并添加代码。另一方面，如果需要提供更复杂的可视化设计，可能需要继承自定义的修饰类。ButtonChrome类本身不提供定制功能--该类专门用于渲染标准按钮的特定主题外观。</p>
+<div class="note warning flat"><p>所有的模板都继承自<code>FrameworkTeamplate</code>基类，模板类型除了控件模板(<code>ControlTeamplate</code>)之外，还有数据模板(<code>DataTeamplate</code>和<code>HierarchicalDataTeamplate</code>)，以及很特殊的用于<code>ItemsControl</code>控件的面板模板(由<code>ItemsPanTeamplate</code>类表示)</p>
+</div>
+
+
+<h3 id="修饰类"><a href="#修饰类" class="headerlink" title="修饰类"></a>修饰类</h3><p>&emsp;&emsp;<code>ButtonChrome</code>类是在<strong>Microsoft.Windows.Themes</strong>名称空间中定义的，该名称空间中包含了一些较少的彼此相似的类，这些类用于渲染基本的Windows细节。除<code>ButtonChrome</code>外，这些类还包括<code>BulletChrome</code>(用于复选框和单选按钮)、<code>ScrollChrome</code>(用于滚动条)、<code>ListBoxChrome</code>以及<code>SystemDropShadowChrome</code>。这是最低级别的公有控件API。在稍高级别上，您会发现<code>System.Windows.Controls.Primitives</code>名称空间中包含大量可以独立使用的基本元素，但它们通常被封装到更有用的控件中。这些元素包括<code>ScrollBar</code>、<code>ResizeGrip</code>(用于改变窗口的尺寸)、<code>Thumb</code>(滚动条上的拖动按钮)、<code>TickBar</code>(滑动条上可选的刻度设置)等。在本质上，<code>System.Windows.Controls.Primitives</code>名称空间提供了可用在各种控件中的基本要素，本身的作用不大，而<code>Microsoft.Windows.Themes</code>名称空间包含了用于渲染这些细节的基本绘图逻辑。</p>
+<p>&emsp;&emsp;还有一点区别。与大多数 WPF 类型一样，System,Windows.Controls.Primitives 名称空间中的类型都是在 PresentationFramework.dll 程序集中定义的。然而，Microsof, Windows.Themes 名称空间中的类型是在三个不同的程序集中定义的:PresentationFramework.Aero.dll、PresentationFramework,Luna,dl! 和 PresentationFramework.Royale.dl。每个程序集都包含自己的ButtonChrome 类(以及其他修饰类)版本，这些版本的渲染逻辑稍有不同。WPF 使用哪个程序集取决于操作系统和主题设置。</p>
+<hr>
+<p>&emsp;&emsp;尽管控件模板经常使用修饰类进行绘图，但并非总需要这样。例如，ResizeGrip 元素(该元素用于在可以改变尺寸的窗口的右下角创建点网格)非常简单，它的模板可使用之前学习的绘图类，如 Path、DrawingBrush 以及 LinearGradientBrush。下面是其使用的标记(有些复杂):</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240723205004.png"/>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ResizeGrip</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ResizeGrip.Template</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ControlTemplate</span> <span class="attr">TargetType</span>=<span class="string">&quot;&#123;x:Type ResizeGrip&#125;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Grid</span> <span class="attr">Background</span>=<span class="string">&quot;&#123;TemplateBinding Panel.Background&#125;&quot;</span> <span class="attr">SnapsToDevicePixels</span>=<span class="string">&quot;True&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Path</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">Margin</span>=<span class="string">&quot;0,0,2,2&quot;</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Right&quot;</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">VerticalAlignment</span>=<span class="string">&quot;Bottom&quot;</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">Data</span>=<span class="string">&quot;M9,0L11,0 11,11 0,11 0,9 3,9 3,6 6,6 6,3 9,3z&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Path.Fill</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">DrawingBrush</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">TileMode</span>=<span class="string">&quot;Tile&quot;</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">Viewbox</span>=<span class="string">&quot;0 0 3 3&quot;</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">ViewboxUnits</span>=<span class="string">&quot;Absolute&quot;</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">Viewport</span>=<span class="string">&quot;0 0 3 3&quot;</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">ViewportUnits</span>=<span class="string">&quot;Absolute&quot;</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">DrawingBrush.Drawing</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">DrawingGroup</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">DrawingGroup.Children</span>&gt;</span></span><br><span class="line">                                        <span class="tag">&lt;<span class="name">GeometryDrawing</span> <span class="attr">Geometry</span>=<span class="string">&quot;M0,0L2,0 2,2 0,2z&quot;</span>&gt;</span></span><br><span class="line">                                            <span class="tag">&lt;<span class="name">GeometryDrawing.Brush</span>&gt;</span></span><br><span class="line">                                                <span class="tag">&lt;<span class="name">LinearGradientBrush</span> <span class="attr">StartPoint</span>=<span class="string">&quot;0,0.25&quot;</span> <span class="attr">EndPoint</span>=<span class="string">&quot;1,0.75&quot;</span>&gt;</span></span><br><span class="line">                                                    <span class="tag">&lt;<span class="name">GradientStop</span> <span class="attr">Offset</span>=<span class="string">&quot;0.3&quot;</span> <span class="attr">Color</span>=<span class="string">&quot;#FFFFFFFF&quot;</span> /&gt;</span></span><br><span class="line">                                                    <span class="tag">&lt;<span class="name">GradientStop</span> <span class="attr">Offset</span>=<span class="string">&quot;0.75&quot;</span> <span class="attr">Color</span>=<span class="string">&quot;#FFBBC5D7&quot;</span> /&gt;</span></span><br><span class="line">                                                    <span class="tag">&lt;<span class="name">GradientStop</span> <span class="attr">Offset</span>=<span class="string">&quot;1&quot;</span> <span class="attr">Color</span>=<span class="string">&quot;#FF6D83A9&quot;</span> /&gt;</span></span><br><span class="line">                                                <span class="tag">&lt;/<span class="name">LinearGradientBrush</span>&gt;</span></span><br><span class="line">                                            <span class="tag">&lt;/<span class="name">GeometryDrawing.Brush</span>&gt;</span></span><br><span class="line">                                        <span class="tag">&lt;/<span class="name">GeometryDrawing</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;/<span class="name">DrawingGroup.Children</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;/<span class="name">DrawingGroup</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">DrawingBrush.Drawing</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">DrawingBrush</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">Path.Fill</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">Path</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ControlTemplate</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ResizeGrip.Template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ResizeGrip</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="剖析控件"><a href="#剖析控件" class="headerlink" title="剖析控件"></a>剖析控件</h3><p>&emsp;&emsp;当创建控件模板时，新建的模板完全代替了原来的的模板。这样可以得到更大的灵活性，但更复杂。大多数情况下，在创建满足自己需求的模板之前，需要查看控件使用的标准模板。在某些情况下，自定义的控件模板可镜像标准模板，并只进行很少的修改。</p>
+<p>&emsp;&emsp;WPF文档没有列出标准控件模板的XAML。然而，可通过编程获取所需的信息。基本思想是从<code>Template</code>属性（该属性在<code>Control</code>类中定义）获取控件的模板，然后使用<code>XamlWriter</code>类，将该模板串行化到XAML文件中。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240723214328.png" width="80%"/>
+
+<div class="tabs" id="defaultcontroltemplate"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="defaultcontroltemplate-1">MainWindow.xaml</button><button type="button" class="tab " data-href="defaultcontroltemplate-2">MainWindow.xaml.cs</button></ul><div class="tab-contents"><div class="tab-item-content active" id="defaultcontroltemplate-1"><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid</span> <span class="attr">Name</span>=<span class="string">&quot;grid&quot;</span> <span class="attr">Margin</span>=<span class="string">&quot;10&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid.ColumnDefinitions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ColumnDefinition</span> <span class="attr">Width</span>=<span class="string">&quot;*&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ColumnDefinition</span> <span class="attr">Width</span>=<span class="string">&quot;3*&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid.ColumnDefinitions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ListBox</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Name</span>=<span class="string">&quot;lstType&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">DisplayMemberPath</span>=<span class="string">&quot;Name&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">SelectionChanged</span>=<span class="string">&quot;lstTypes_SelectionChanged&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextBox</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Name</span>=<span class="string">&quot;txtTemplate&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Grid.Column</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">FontFamily</span>=<span class="string">&quot;Consolas&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">TextWrapping</span>=<span class="string">&quot;Wrap&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">VerticalScrollBarVisibility</span>=<span class="string">&quot;Visible&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="defaultcontroltemplate-2"><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">MainWindow</span> : <span class="title">Window</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MainWindow</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        InitializeComponent();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.Loaded += Window_Loaded;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Window_Loaded</span>(<span class="params"><span class="built_in">object</span> sender, RoutedEventArgs e</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Type controlType = <span class="keyword">typeof</span>(Control);</span><br><span class="line">        List&lt;Type&gt; derivedTypes = <span class="keyword">new</span> List&lt;Type&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Search all the types in the assembly where the Control class is defined.</span></span><br><span class="line">        Assembly assembly = Assembly.GetAssembly(<span class="keyword">typeof</span>(Control));</span><br><span class="line">        <span class="keyword">foreach</span> (Type type <span class="keyword">in</span> assembly.GetTypes())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// Only add a type of the list if it&#x27;s a Control, a concrete class, and public.</span></span><br><span class="line">            <span class="keyword">if</span> (type.IsSubclassOf(controlType) &amp;&amp; !type.IsAbstract &amp;&amp; type.IsPublic)</span><br><span class="line">            &#123;</span><br><span class="line">                derivedTypes.Add(type);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Sort the types by type name.</span></span><br><span class="line">        derivedTypes.Sort(<span class="keyword">new</span> TypeComparer());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Show the list of types.</span></span><br><span class="line">        lstType.ItemsSource = derivedTypes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">lstTypes_SelectionChanged</span>(<span class="params"><span class="built_in">object</span> sender, SelectionChangedEventArgs e</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// Get the selected type.</span></span><br><span class="line">            Type type = (Type)lstType.SelectedItem;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Instantiate the type.</span></span><br><span class="line">            ConstructorInfo info = type.GetConstructor(System.Type.EmptyTypes);</span><br><span class="line">            Control control = (Control)info.Invoke(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">            Window win = control <span class="keyword">as</span> Window;</span><br><span class="line">            <span class="keyword">if</span> (win != <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// Create the window (but keep it minimized).</span></span><br><span class="line">                win.WindowState = System.Windows.WindowState.Minimized;</span><br><span class="line">                win.ShowInTaskbar = <span class="literal">false</span>;</span><br><span class="line">                win.Show();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// Add it to the grid (but keep it hidden).</span></span><br><span class="line">                control.Visibility = Visibility.Collapsed;</span><br><span class="line">                grid.Children.Add(control);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Get the template.</span></span><br><span class="line">            ControlTemplate template = control.Template;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Get the XAML for the template.</span></span><br><span class="line">            XmlWriterSettings settings = <span class="keyword">new</span> XmlWriterSettings();</span><br><span class="line">            settings.Indent = <span class="literal">true</span>;</span><br><span class="line">            StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            XmlWriter writer = XmlWriter.Create(sb, settings);</span><br><span class="line">            System.Windows.Markup.XamlWriter.Save(template, writer);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Display the template.</span></span><br><span class="line">            txtTemplate.Text = sb.ToString();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Remove the control from the grid.</span></span><br><span class="line">            <span class="keyword">if</span> (win != <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                win.Close();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                grid.Children.Remove(control);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception err)</span><br><span class="line">        &#123;</span><br><span class="line">            txtTemplate.Text = <span class="string">&quot;&lt;&lt; Error generating template:&quot;</span> + err.Message + <span class="string">&quot;&gt;&gt;&quot;</span>; ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TypeComparer</span> : <span class="title">IComparer</span>&lt;<span class="title">Type</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">Compare</span>(<span class="params">Type x, Type y</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> x.Name.CompareTo(y.Name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<p>&emsp;&emsp;构建该应用程序的诀窍是使用反射(reflection)，反射是用于检查类型的.NETAPI。当第一次加载应用程序的主窗口时，扫描PresentationFramework.dll 核心程序集(在该程序集中定义了控件类)中的所有类型。然后将这些类型添加到一个集合中，根据类型名称进行排序，此后将该集合绑定到一个列表。</p>
+<p>&emsp;&emsp;无论何时从列表中选择控件，相应的控件模板都会显示在右边的文本框中。完成这一步需要做更多的工作。<strong>第一个挑战是，在窗口中实际显示控件之前，控件的模板为空。通过使用反射，代码试图创建控件的一个实例，并将它添加到当前窗口中(但可将 Visibility设置为Collapse，使控件不可见)<strong>。</strong>第二个挑战是，将现存的 ControlTemplete 对象转换为大家熟悉的 XAML 标记。XamlWriter.Save()静态方法负责完成该任务，但代码使用 XamlWriter 和 XamlWriterSettings 对象以确保 XAML缩进合理，便于阅读。</strong>所有这些代码都被封装在异常处理块中，异常处理块监视不能被创建或不能添加到 Grid 网格(如另一个 Window 或 Page)中的控件产生的问题:</p>
+<hr>
+<p>&emsp;&emsp;扩展该应用程序，从而在文本框中编辑模板，使用XamIReader将模板转换回ControlTemplate对象，然后指定给某个控件并观察效果，这并不是很困难。然而，通过将模板放置到真实窗口中进行实际操作，测试和改进它们会更加容易</p>
+<h2 id="创建控件模板"><a href="#创建控件模板" class="headerlink" title="创建控件模板"></a>创建控件模板</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://bootree.cn">大白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://bootree.cn/2024/07/22/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/17%E6%8E%A7%E4%BB%B6%E6%A8%A1%E6%9D%BF/">http://bootree.cn/2024/07/22/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/17%E6%8E%A7%E4%BB%B6%E6%A8%A1%E6%9D%BF/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://bootree.cn" target="_blank">生活中的tree</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/">WPF从入门到入坟</a></div><div class="post_share"><div class="social-share" data-image="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/07/16/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/16%E9%AB%98%E7%BA%A7%E5%8A%A8%E7%94%BB/" title="WPF从入门到入坟 - 16高级动画"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">WPF从入门到入坟 - 16高级动画</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/05/22/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/01%E6%A6%82%E8%BF%B0/" title="WPF从入门到入坟 - 01概述"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-22</div><div class="title">WPF从入门到入坟 - 01概述</div></div></a></div><div><a href="/2024/05/25/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/04%E4%BE%9D%E8%B5%96%E5%B1%9E%E6%80%A7/" title="WPF从入门到入坟 - 04依赖属性"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-25</div><div class="title">WPF从入门到入坟 - 04依赖属性</div></div></a></div><div><a href="/2024/05/23/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/02XAML/" title="WPF从入门到入坟 - 02XAML"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527195528.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-23</div><div class="title">WPF从入门到入坟 - 02XAML</div></div></a></div><div><a href="/2024/05/24/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/03%E5%B8%83%E5%B1%80/" title="WPF从入门到入坟 - 03布局"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527195817.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-24</div><div class="title">WPF从入门到入坟 - 03布局</div></div></a></div><div><a href="/2024/05/28/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/05%E8%B7%AF%E7%94%B1%E4%BA%8B%E4%BB%B6/" title="WPF从入门到入坟 - 05路由事件"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-28</div><div class="title">WPF从入门到入坟 - 05路由事件</div></div></a></div><div><a href="/2024/05/29/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/06%E6%8E%A7%E4%BB%B6/" title="WPF从入门到入坟 - 06控件"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-29</div><div class="title">WPF从入门到入坟 - 06控件</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">大白</div><div class="author-info__description">人不可能同时拥有青春和对青春的感受</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/cnlicm"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/cnlicm" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:codenobugs@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">A lazy guy. My dream is that generate electricity with love.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%A7%A3%E9%80%BB%E8%BE%91%E6%A0%91%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A0%91"><span class="toc-number">1.</span> <span class="toc-text">理解逻辑树和可视化树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%A7%A3%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.</span> <span class="toc-text">理解模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E9%A5%B0%E7%B1%BB"><span class="toc-number">2.1.</span> <span class="toc-text">修饰类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%96%E6%9E%90%E6%8E%A7%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">剖析控件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%8E%A7%E4%BB%B6%E6%A8%A1%E6%9D%BF"><span class="toc-number">3.</span> <span class="toc-text">创建控件模板</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/17%E6%8E%A7%E4%BB%B6%E6%A8%A1%E6%9D%BF/" title="WPF从入门到入坟 - 17控件模板"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WPF从入门到入坟 - 17控件模板"/></a><div class="content"><a class="title" href="/2024/07/22/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/17%E6%8E%A7%E4%BB%B6%E6%A8%A1%E6%9D%BF/" title="WPF从入门到入坟 - 17控件模板">WPF从入门到入坟 - 17控件模板</a><time datetime="2024-07-22T12:49:31.000Z" title="发表于 2024-07-22 20:49:31">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/16/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/16%E9%AB%98%E7%BA%A7%E5%8A%A8%E7%94%BB/" title="WPF从入门到入坟 - 16高级动画"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WPF从入门到入坟 - 16高级动画"/></a><div class="content"><a class="title" href="/2024/07/16/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/16%E9%AB%98%E7%BA%A7%E5%8A%A8%E7%94%BB/" title="WPF从入门到入坟 - 16高级动画">WPF从入门到入坟 - 16高级动画</a><time datetime="2024-07-16T12:46:14.000Z" title="发表于 2024-07-16 20:46:14">2024-07-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/13/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/15%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80/" title="WPF从入门到入坟 - 15动画基础"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WPF从入门到入坟 - 15动画基础"/></a><div class="content"><a class="title" href="/2024/07/13/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/15%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80/" title="WPF从入门到入坟 - 15动画基础">WPF从入门到入坟 - 15动画基础</a><time datetime="2024-07-13T03:36:42.000Z" title="发表于 2024-07-13 11:36:42">2024-07-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/09/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/14%E6%95%88%E6%9E%9C%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AF%B9%E8%B1%A1/" title="WPF从入门到入坟 - 14效果和可视化对象"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WPF从入门到入坟 - 14效果和可视化对象"/></a><div class="content"><a class="title" href="/2024/07/09/WPF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9D%9F/14%E6%95%88%E6%9E%9C%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AF%B9%E8%B1%A1/" title="WPF从入门到入坟 - 14效果和可视化对象">WPF从入门到入坟 - 14效果和可视化对象</a><time datetime="2024-07-09T13:35:03.000Z" title="发表于 2024-07-09 21:35:03">2024-07-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/08/Pdms%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/01%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6%E7%A8%8B%E5%BA%8F/" title="Pdms二次开发 —— 01第一个插件程序"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/pdms.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pdms二次开发 —— 01第一个插件程序"/></a><div class="content"><a class="title" href="/2024/07/08/Pdms%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/01%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6%E7%A8%8B%E5%BA%8F/" title="Pdms二次开发 —— 01第一个插件程序">Pdms二次开发 —— 01第一个插件程序</a><time datetime="2024-07-08T09:09:34.000Z" title="发表于 2024-07-08 17:09:34">2024-07-08</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By 大白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/"><img class="icp-icon" src= "/img/loading.gif" data-lazy-src="/img/2020011362.png"><span>赣ICP备2020011362号-2</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/utils.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/main.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/tw_cn.min.js"></script><script src="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://jsd.012700.xyz/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://jsd.012700.xyz/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://jsd.012700.xyz/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script data-pjax src="/self/btf.js"></script><script defer="defer" id="ribbon" src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://jsd.012700.xyz/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/talking/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/search/local-search.min.js"></script></div></div></body></html>
