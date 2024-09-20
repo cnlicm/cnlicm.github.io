@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>51单片机 - 04单片机工程模板创建 | 生活中的tree</title><meta name="author" content="大白"><meta name="copyright" content="大白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="51单片机工程模板创建新建工程创建项目 打开Keil软件，新建一个工程    在保存项目文件窗口，手动创建一个项目目录，例如Teample    选择CPU型号&emsp;&emsp;根据开发板的CPU具体的型号来选择，我们开发板使用的是STC89C52或STC89C516芯片。在Keil软件内找不到这种型号的单片机，因为51内核单片机具有通用性，所以在这里可以任选一款89C52就行，Keil软件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机 - 04单片机工程模板创建">
+<meta property="og:url" content="http://bootree.cn/2024/06/24/51Microcontroller/04%E5%8D%95%E7%89%87%E6%9C%BA%E5%B7%A5%E7%A8%8B%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA/index.html">
+<meta property="og:site_name" content="生活中的tree">
+<meta property="og:description" content="51单片机工程模板创建新建工程创建项目 打开Keil软件，新建一个工程    在保存项目文件窗口，手动创建一个项目目录，例如Teample    选择CPU型号&emsp;&emsp;根据开发板的CPU具体的型号来选择，我们开发板使用的是STC89C52或STC89C516芯片。在Keil软件内找不到这种型号的单片机，因为51内核单片机具有通用性，所以在这里可以任选一款89C52就行，Keil软件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png">
+<meta property="article:published_time" content="2024-06-24T12:40:34.000Z">
+<meta property="article:modified_time" content="2024-09-20T15:29:06.378Z">
+<meta property="article:author" content="大白">
+<meta property="article:tag" content="51单片机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://bootree.cn/2024/06/24/51Microcontroller/04%E5%8D%95%E7%89%87%E6%9C%BA%E5%B7%A5%E7%A8%8B%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA/index.html"><link rel="preconnect" href="https://jsd.012700.xyz"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="NdIUXAOVyGnnBhcrip0ksCawbdAzT0hlBZDE9u4jx6k"/><meta name="msvalidate.01" content="567E47D75E8DCF1282B9623AD914701E"/><meta name="baidu-site-verification" content="code-pE5rnuxcfD"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: 大白","link":"链接: ","source":"来源: 生活中的tree","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://jsd.012700.xyz/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '51单片机 - 04单片机工程模板创建',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-20 23:29:06'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="preconnect" href="https://jsd.012700.xyz"><link href="/self/btf.css" rel="stylesheet"><link rel="alternate" href="/atom.xml" title="生活中的tree" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png')"><nav id="nav"><span id="blog-info"><a href="/" title="生活中的tree"><span class="site-name">生活中的tree</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">51单片机 - 04单片机工程模板创建<a class="post-edit-link" href="https://github.com/cnlicm/HexoBlog/tree/main/source/_posts/51Microcontroller/04单片机工程模板创建.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-06-24T12:40:34.000Z" title="发表于 2024-06-24 20:40:34">2024-06-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Embedded/">Embedded</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Embedded/STC51/">STC51</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="51单片机 - 04单片机工程模板创建"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="51单片机工程模板创建"><a href="#51单片机工程模板创建" class="headerlink" title="51单片机工程模板创建"></a>51单片机工程模板创建</h2><h3 id="新建工程"><a href="#新建工程" class="headerlink" title="新建工程"></a>新建工程</h3><h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><ol>
+<li><p>打开<code>Keil</code>软件，新建一个工程</p>
+ <img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624213534.png"/>
+</li>
+<li><p>在保存项目文件窗口，手动创建一个项目目录，例如<code>Teample</code></p>
+ <img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624213803.png"/></li>
+</ol>
+<h4 id="选择CPU型号"><a href="#选择CPU型号" class="headerlink" title="选择CPU型号"></a>选择CPU型号</h4><p>&emsp;&emsp;根据开发板的CPU具体的型号来选择，我们开发板使用的是<code>STC89C52</code>或<code>STC89C516</code>芯片。在Keil软件内找不到这种型号的单片机，因为51内核单片机具有通用性，所以在这里可以任选一款89C52就行，Keil软件的关键是程序代码的编写，而非用户选择什么硬件，在这里我们选择<code>Microchip</code>的<code>AT89C52</code>来说明。具体操作如下：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624214343.png"/>
+
+<p>&emsp;&emsp;点击OK键后，弹出如下对话框：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624214435.png"/>
+
+<p>&emsp;&emsp;看对话框内容是提示我们是否要将8051启动文件添加到工程中，这里我们选择“否”，原因是Keil C51内已经帮我们完成了启动，所以只需要编写应用程序即可。选择“否”后界面如下：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624214612.png"/>
+
+<h4 id="给工程添加文件"><a href="#给工程添加文件" class="headerlink" title="给工程添加文件"></a>给工程添加文件</h4><p>&emsp;&emsp;选择**File&#x2F;New...**或者使用工具栏的图标 <img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624214723.png"/> 来新建一个文件后点击保存，系统会自动定位到我们工程目录，只需要在文件名栏输入新建的文件名即可，一个51单片机工程必须还有且仅有一个main函数，因此将新建的文件命名为<code>main.c</code>(当然也可以根据个人习惯自定义命名，但必须是英文)，点击保存。具体操作步骤如下：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624214941.png"/>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624215041.png"/>
+
+<p>&emsp;&emsp;然后将新建的文件添加到工程中，选择工程组“Source Group 1”，鼠标右键选择“Add Existing Files to Group &#39;Source Group 1&#39; ...”，然后选择对应的xxx.c文件，点击Add键在点击Close关闭。这时工程中就显示已进入的文件。具体操作如下：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624215304.png"/>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624215728.png"/>
+
+<h4 id="配置魔术棒选项卡"><a href="#配置魔术棒选项卡" class="headerlink" title="配置魔术棒选项卡"></a>配置魔术棒选项卡</h4><h5 id="生成Hex文件"><a href="#生成Hex文件" class="headerlink" title="生成Hex文件"></a>生成Hex文件</h5><p>&emsp;&emsp;选择魔术棒工具的<strong>Output</strong>选项卡，勾选红色框3，即程序编译成功后会产生HEX文件。具体操作如下：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624220406.png"/>
+
+<h5 id="51仿真器配置"><a href="#51仿真器配置" class="headerlink" title="51仿真器配置"></a>51仿真器配置</h5><p>&emsp;&emsp;仿真器一端连接电脑，同时仿真器也给开发板供电，所以使用仿真器可不接电源线。要使用51仿真器在线调试程序，需要在Keil软件内进行相应的配置。具体的配置如下：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624220758.png" width="70%"/>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624220819.png" width="70%"/>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624220848.png" width="70%"/>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624220907.png" width="70%"/>
+
+<p>&emsp;&emsp;最后点击OK按钮即可。然后双击工程组的main.c文件，输入如下内容：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;reg52.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;编译后结果0错误0警告，表明我们创建的51单片机工程完全正确。如下：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624221608.png" width="70%"/>
+
+<h2 id="reg52-h头文件介绍"><a href="#reg52-h头文件介绍" class="headerlink" title="reg52.h头文件介绍"></a>reg52.h头文件介绍</h2><h3 id="头文件作用"><a href="#头文件作用" class="headerlink" title="头文件作用"></a>头文件作用</h3><p>&emsp;&emsp;在代码中引用头文件，其实际意义就是将这个头文件中的全部内容放到引用头文件的位置处，免去我们每次编写同类程序都要将头文件中的语句重复编写。在代码中加入头文件有两种书写方法，分别为<code>#include &lt;reg52.h&gt;</code>和<code>#include &quot;reg52.h&quot;</code>，包含头文件时不需要在后面加分号。两种写法的区别如下：</p>
+<ul>
+<li><p>当使用<code>&lt;&gt;</code>包含头文件时，编译器先进入到软件安装文件夹处开始搜索这个头文件，也就是<code>KeilC51/C51/INC</code>这个文件夹下，如果这个文件夹没有引用的头文件，编译器将会报错</p>
+</li>
+<li><p>当使用<code>&quot;&quot;</code>包含头文件时，编译器先进入到当前工程所在文件夹处开始搜索看头文件，如果当前工程所在文件夹下没有看头文件，编译器将继续回到软件安装文件夹处搜索这个头文件，弱找不到看头文件，编译器将报错</p>
+</li>
+</ul>
+<h3 id="头文件内容"><a href="#头文件内容" class="headerlink" title="头文件内容"></a>头文件内容</h3><p>&emsp;&emsp;大家看头文件查看其内容，将鼠标移动到<code>reg52.h</code>上，单击右键，选择“Open dpcument &lt;reg52.h&gt;”，即可打开该头文件，如下：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240624225437.png"/>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*--------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">REG52.H</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Header file for generic 80C52 and 80C32 microcontroller.</span></span><br><span class="line"><span class="comment">Copyright (c) 1988-2002 Keil Elektronik GmbH and Keil Software, Inc.</span></span><br><span class="line"><span class="comment">All rights reserved.</span></span><br><span class="line"><span class="comment">--------------------------------------------------------------------------*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __REG52_H__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __REG52_H__</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  BYTE Registers  */</span></span><br><span class="line">sfr P0    = <span class="number">0x80</span>;</span><br><span class="line">sfr P1    = <span class="number">0x90</span>;</span><br><span class="line">sfr P2    = <span class="number">0xA0</span>;</span><br><span class="line">sfr P3    = <span class="number">0xB0</span>;</span><br><span class="line">sfr PSW   = <span class="number">0xD0</span>;</span><br><span class="line">sfr ACC   = <span class="number">0xE0</span>;</span><br><span class="line">sfr B     = <span class="number">0xF0</span>;</span><br><span class="line">sfr SP    = <span class="number">0x81</span>;</span><br><span class="line">sfr DPL   = <span class="number">0x82</span>;</span><br><span class="line">sfr DPH   = <span class="number">0x83</span>;</span><br><span class="line">sfr PCON  = <span class="number">0x87</span>;</span><br><span class="line">sfr TCON  = <span class="number">0x88</span>;</span><br><span class="line">sfr TMOD  = <span class="number">0x89</span>;</span><br><span class="line">sfr TL0   = <span class="number">0x8A</span>;</span><br><span class="line">sfr TL1   = <span class="number">0x8B</span>;</span><br><span class="line">sfr TH0   = <span class="number">0x8C</span>;</span><br><span class="line">sfr TH1   = <span class="number">0x8D</span>;</span><br><span class="line">sfr IE    = <span class="number">0xA8</span>;</span><br><span class="line">sfr IP    = <span class="number">0xB8</span>;</span><br><span class="line">sfr SCON  = <span class="number">0x98</span>;</span><br><span class="line">sfr SBUF  = <span class="number">0x99</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  8052 Extensions  */</span></span><br><span class="line">sfr T2CON  = <span class="number">0xC8</span>;</span><br><span class="line">sfr RCAP2L = <span class="number">0xCA</span>;</span><br><span class="line">sfr RCAP2H = <span class="number">0xCB</span>;</span><br><span class="line">sfr TL2    = <span class="number">0xCC</span>;</span><br><span class="line">sfr TH2    = <span class="number">0xCD</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  BIT Registers  */</span></span><br><span class="line"><span class="comment">/*  PSW  */</span></span><br><span class="line">sbit CY    = PSW^<span class="number">7</span>;</span><br><span class="line">sbit AC    = PSW^<span class="number">6</span>;</span><br><span class="line">sbit F0    = PSW^<span class="number">5</span>;</span><br><span class="line">sbit RS1   = PSW^<span class="number">4</span>;</span><br><span class="line">sbit RS0   = PSW^<span class="number">3</span>;</span><br><span class="line">sbit OV    = PSW^<span class="number">2</span>;</span><br><span class="line">sbit P     = PSW^<span class="number">0</span>; <span class="comment">//8052 only</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  TCON  */</span></span><br><span class="line">sbit TF1   = TCON^<span class="number">7</span>;</span><br><span class="line">sbit TR1   = TCON^<span class="number">6</span>;</span><br><span class="line">sbit TF0   = TCON^<span class="number">5</span>;</span><br><span class="line">sbit TR0   = TCON^<span class="number">4</span>;</span><br><span class="line">sbit IE1   = TCON^<span class="number">3</span>;</span><br><span class="line">sbit IT1   = TCON^<span class="number">2</span>;</span><br><span class="line">sbit IE0   = TCON^<span class="number">1</span>;</span><br><span class="line">sbit IT0   = TCON^<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  IE  */</span></span><br><span class="line">sbit EA    = IE^<span class="number">7</span>;</span><br><span class="line">sbit ET2   = IE^<span class="number">5</span>; <span class="comment">//8052 only</span></span><br><span class="line">sbit ES    = IE^<span class="number">4</span>;</span><br><span class="line">sbit ET1   = IE^<span class="number">3</span>;</span><br><span class="line">sbit EX1   = IE^<span class="number">2</span>;</span><br><span class="line">sbit ET0   = IE^<span class="number">1</span>;</span><br><span class="line">sbit EX0   = IE^<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  IP  */</span></span><br><span class="line">sbit PT2   = IP^<span class="number">5</span>;</span><br><span class="line">sbit PS    = IP^<span class="number">4</span>;</span><br><span class="line">sbit PT1   = IP^<span class="number">3</span>;</span><br><span class="line">sbit PX1   = IP^<span class="number">2</span>;</span><br><span class="line">sbit PT0   = IP^<span class="number">1</span>;</span><br><span class="line">sbit PX0   = IP^<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  P3  */</span></span><br><span class="line">sbit RD    = P3^<span class="number">7</span>;</span><br><span class="line">sbit WR    = P3^<span class="number">6</span>;</span><br><span class="line">sbit T1    = P3^<span class="number">5</span>;</span><br><span class="line">sbit T0    = P3^<span class="number">4</span>;</span><br><span class="line">sbit INT1  = P3^<span class="number">3</span>;</span><br><span class="line">sbit INT0  = P3^<span class="number">2</span>;</span><br><span class="line">sbit TXD   = P3^<span class="number">1</span>;</span><br><span class="line">sbit RXD   = P3^<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  SCON  */</span></span><br><span class="line">sbit SM0   = SCON^<span class="number">7</span>;</span><br><span class="line">sbit SM1   = SCON^<span class="number">6</span>;</span><br><span class="line">sbit SM2   = SCON^<span class="number">5</span>;</span><br><span class="line">sbit REN   = SCON^<span class="number">4</span>;</span><br><span class="line">sbit TB8   = SCON^<span class="number">3</span>;</span><br><span class="line">sbit RB8   = SCON^<span class="number">2</span>;</span><br><span class="line">sbit TI    = SCON^<span class="number">1</span>;</span><br><span class="line">sbit RI    = SCON^<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  P1  */</span></span><br><span class="line">sbit T2EX  = P1^<span class="number">1</span>; <span class="comment">// 8052 only</span></span><br><span class="line">sbit T2    = P1^<span class="number">0</span>; <span class="comment">// 8052 only</span></span><br><span class="line">             </span><br><span class="line"><span class="comment">/*  T2CON  */</span></span><br><span class="line">sbit TF2    = T2CON^<span class="number">7</span>;</span><br><span class="line">sbit EXF2   = T2CON^<span class="number">6</span>;</span><br><span class="line">sbit RCLK   = T2CON^<span class="number">5</span>;</span><br><span class="line">sbit TCLK   = T2CON^<span class="number">4</span>;</span><br><span class="line">sbit EXEN2  = T2CON^<span class="number">3</span>;</span><br><span class="line">sbit TR2    = T2CON^<span class="number">2</span>;</span><br><span class="line">sbit C_T2   = T2CON^<span class="number">1</span>;</span><br><span class="line">sbit CP_RL2 = T2CON^<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<div class="note info flat"><p>从上面代码中可以看到，该头文件中定义了52系列单片机内部所有的功能寄存器</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://bootree.cn">大白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://bootree.cn/2024/06/24/51Microcontroller/04%E5%8D%95%E7%89%87%E6%9C%BA%E5%B7%A5%E7%A8%8B%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA/">http://bootree.cn/2024/06/24/51Microcontroller/04%E5%8D%95%E7%89%87%E6%9C%BA%E5%B7%A5%E7%A8%8B%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://bootree.cn" target="_blank">生活中的tree</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/51%E5%8D%95%E7%89%87%E6%9C%BA/">51单片机</a></div><div class="post_share"><div class="social-share" data-image="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/06/25/Git/Git%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" title="Git基础教程"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527200328.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Git基础教程</div></div></a></div><div class="next-post pull-right"><a href="/2024/06/24/51Microcontroller/03%E5%8D%95%E7%89%87%E6%9C%BA%E6%9C%80%E5%B0%8F%E7%B3%BB%E7%BB%9F/" title="51单片机 - 03单片机最小系统"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">51单片机 - 03单片机最小系统</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/06/16/51Microcontroller/01Keil5%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" title="01Keil5安装配置"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204123.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-16</div><div class="title">01Keil5安装配置</div></div></a></div><div><a href="/2024/06/24/51Microcontroller/03%E5%8D%95%E7%89%87%E6%9C%BA%E6%9C%80%E5%B0%8F%E7%B3%BB%E7%BB%9F/" title="51单片机 - 03单片机最小系统"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-24</div><div class="title">51单片机 - 03单片机最小系统</div></div></a></div><div><a href="/2024/06/20/51Microcontroller/02%E5%8D%95%E7%89%87%E6%9C%BA%E4%BB%8B%E7%BB%8D/" title="51单片机 - 02_51单片机介绍"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-20</div><div class="title">51单片机 - 02_51单片机介绍</div></div></a></div><div><a href="/2024/06/25/51Microcontroller/05%E7%82%B9%E4%BA%AE%E7%AC%AC%E4%B8%80%E4%B8%AALED/" title="51单片机 - 05点亮第一个LED"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-25</div><div class="title">51单片机 - 05点亮第一个LED</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">大白</div><div class="author-info__description">人不可能同时拥有青春和对青春的感受</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/cnlicm"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/cnlicm" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:codenobugs@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">A lazy guy. My dream is that generate electricity with love.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#51%E5%8D%95%E7%89%87%E6%9C%BA%E5%B7%A5%E7%A8%8B%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">51单片机工程模板创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">新建工程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.1.1.</span> <span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9CPU%E5%9E%8B%E5%8F%B7"><span class="toc-number">1.1.2.</span> <span class="toc-text">选择CPU型号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%99%E5%B7%A5%E7%A8%8B%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.3.</span> <span class="toc-text">给工程添加文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%AD%94%E6%9C%AF%E6%A3%92%E9%80%89%E9%A1%B9%E5%8D%A1"><span class="toc-number">1.1.4.</span> <span class="toc-text">配置魔术棒选项卡</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90Hex%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">生成Hex文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#51%E4%BB%BF%E7%9C%9F%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">51仿真器配置</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reg52-h%E5%A4%B4%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">reg52.h头文件介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E4%BD%9C%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">头文件作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-number">2.2.</span> <span class="toc-text">头文件内容</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/20/Tools/oh-my-posh%E7%BE%8E%E5%8C%96%E7%BB%88%E7%AB%AF/" title="oh-my-posh美化终端"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240920223143.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="oh-my-posh美化终端"/></a><div class="content"><a class="title" href="/2024/09/20/Tools/oh-my-posh%E7%BE%8E%E5%8C%96%E7%BB%88%E7%AB%AF/" title="oh-my-posh美化终端">oh-my-posh美化终端</a><time datetime="2024-09-20T14:21:00.000Z" title="发表于 2024-09-20 22:21:00">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/04/Python/Python%E5%BA%93%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="Python库离线安装"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240904171053.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Python库离线安装"/></a><div class="content"><a class="title" href="/2024/09/04/Python/Python%E5%BA%93%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="Python库离线安装">Python库离线安装</a><time datetime="2024-09-04T08:34:34.000Z" title="发表于 2024-09-04 16:34:34">2024-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/03/ANSYS/ANSYS%E8%AE%A1%E7%AE%97/" title="ANSYS计算"><img src= "/img/loading.gif" data-lazy-src="https://jsd.012700.xyz/gh/jerryc127/CDN/img/material-7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ANSYS计算"/></a><div class="content"><a class="title" href="/2024/09/03/ANSYS/ANSYS%E8%AE%A1%E7%AE%97/" title="ANSYS计算">ANSYS计算</a><time datetime="2024-09-03T03:23:37.000Z" title="发表于 2024-09-03 11:23:37">2024-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/02/IDE/Rider/JetBrainsRider%E8%AE%BE%E8%AE%A1%E6%97%B6%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/" title="JetBrainsRider设计时资源加载"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240902145915.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JetBrainsRider设计时资源加载"/></a><div class="content"><a class="title" href="/2024/09/02/IDE/Rider/JetBrainsRider%E8%AE%BE%E8%AE%A1%E6%97%B6%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/" title="JetBrainsRider设计时资源加载">JetBrainsRider设计时资源加载</a><time datetime="2024-09-02T06:57:12.000Z" title="发表于 2024-09-02 14:57:12">2024-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/02/PDMS/DotNet/03PML-NET%E5%BC%80%E5%8F%91/" title="03PML.NET开发"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/pdms.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="03PML.NET开发"/></a><div class="content"><a class="title" href="/2024/09/02/PDMS/DotNet/03PML-NET%E5%BC%80%E5%8F%91/" title="03PML.NET开发">03PML.NET开发</a><time datetime="2024-09-02T06:32:39.000Z" title="发表于 2024-09-02 14:32:39">2024-09-02</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By 大白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/"><img class="icp-icon" src= "/img/loading.gif" data-lazy-src="/img/2020011362.png"><span>赣ICP备2020011362号-2</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/utils.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/main.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/tw_cn.min.js"></script><script src="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://jsd.012700.xyz/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://jsd.012700.xyz/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://jsd.012700.xyz/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script data-pjax src="/self/btf.js"></script><script defer="defer" id="ribbon" src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://jsd.012700.xyz/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/talking/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/search/local-search.min.js"></script></div></div></body></html>

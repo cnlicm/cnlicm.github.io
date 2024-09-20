@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>WPF编程宝典 - 04依赖属性 | 生活中的tree</title><meta name="author" content="大白"><meta name="copyright" content="大白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="依赖项属性&emsp;&emsp;依赖项属性是标准.NET属性的全新实现--具有大量新增价值。在 WPF的核心特性(如动画、数据绑定以及样式)中需要嵌入依赖项属性。WPF 元素提供的大多数属性都是依赖项属性。依赖项属性的用法和普通属性是相同的。 只能为依赖对象（继承自DependencyObject的类）添加依赖属性。幸运的是，WPF基础结构的关键部分中的大部分都简介继承自DependencyOb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WPF编程宝典 - 04依赖属性">
+<meta property="og:url" content="http://bootree.cn/2024/05/25/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/04%E4%BE%9D%E8%B5%96%E5%B1%9E%E6%80%A7/index.html">
+<meta property="og:site_name" content="生活中的tree">
+<meta property="og:description" content="依赖项属性&emsp;&emsp;依赖项属性是标准.NET属性的全新实现--具有大量新增价值。在 WPF的核心特性(如动画、数据绑定以及样式)中需要嵌入依赖项属性。WPF 元素提供的大多数属性都是依赖项属性。依赖项属性的用法和普通属性是相同的。 只能为依赖对象（继承自DependencyObject的类）添加依赖属性。幸运的是，WPF基础结构的关键部分中的大部分都简介继承自DependencyOb">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png">
+<meta property="article:published_time" content="2024-05-25T09:01:55.000Z">
+<meta property="article:modified_time" content="2024-09-20T15:30:57.339Z">
+<meta property="article:author" content="大白">
+<meta property="article:tag" content="WPF编程宝典">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://bootree.cn/2024/05/25/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/04%E4%BE%9D%E8%B5%96%E5%B1%9E%E6%80%A7/index.html"><link rel="preconnect" href="https://jsd.012700.xyz"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="NdIUXAOVyGnnBhcrip0ksCawbdAzT0hlBZDE9u4jx6k"/><meta name="msvalidate.01" content="567E47D75E8DCF1282B9623AD914701E"/><meta name="baidu-site-verification" content="code-pE5rnuxcfD"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: 大白","link":"链接: ","source":"来源: 生活中的tree","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://jsd.012700.xyz/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'WPF编程宝典 - 04依赖属性',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-20 23:30:57'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="preconnect" href="https://jsd.012700.xyz"><link href="/self/btf.css" rel="stylesheet"><link rel="alternate" href="/atom.xml" title="生活中的tree" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png')"><nav id="nav"><span id="blog-info"><a href="/" title="生活中的tree"><span class="site-name">生活中的tree</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">WPF编程宝典 - 04依赖属性<a class="post-edit-link" href="https://github.com/cnlicm/HexoBlog/tree/main/source/_posts/WPF编程宝典/04依赖属性.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-05-25T09:01:55.000Z" title="发表于 2024-05-25 17:01:55">2024-05-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C#</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/WPF/">WPF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="WPF编程宝典 - 04依赖属性"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="依赖项属性"><a href="#依赖项属性" class="headerlink" title="依赖项属性"></a>依赖项属性</h2><p>&emsp;&emsp;依赖项属性是标准.NET属性的全新实现--具有大量新增价值。在 WPF的核心特性(如动画、数据绑定以及样式)中需要嵌入依赖项属性。WPF 元素提供的大多数属性都是依赖项属性。依赖项属性的用法和普通属性是相同的。</p>
+<div class="note warning flat"><p>只能为依赖对象（继承自<code>DependencyObject</code>的类）添加依赖属性。幸运的是，WPF基础结构的关键部分中的大部分都简介继承自<code>DependencyObject</code>类，最明显的例子就是元素</p>
+</div>
+
+<h3 id="定义依赖项属性"><a href="#定义依赖项属性" class="headerlink" title="定义依赖项属性"></a>定义依赖项属性</h3><p>&emsp;&emsp;第一步是定义表示属性的对象，它是<code>DependencyProperty</code>类的实例。属性信息应该始终保持可用，甚至可能需要在多个类之间共享这些信息。因此，必须将<code>DependencyProperty</code>对象定义为与其相关联的类的静态字段。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FrameworkElement</span> : <span class="title">UIElement</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> DependencyProperty MarginProperty;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note info flat"><p>根据约定，定义依赖属性项属性的字段的每次是在普通属性的末尾处加上单词“<code>Property</code>”。根据这种命名方式，可从实际属性的名称中区分出依赖项属性的定义。字段的定义使用了readonly关键字，这意味着只能在<code>FrameworkElement</code>类的静态构造函数中对其进行设置</p>
+</div>
+
+<h3 id="注册依赖项属性"><a href="#注册依赖项属性" class="headerlink" title="注册依赖项属性"></a>注册依赖项属性</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">FrameworkElement</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    FrameworkPropertyMetadata metadata = <span class="keyword">new</span> FrameworkPropertyMetadata(</span><br><span class="line">        defaultValue: <span class="keyword">new</span> Thickness(),</span><br><span class="line">        flags: FrameworkPropertyMetadataOptions.AffectsMeasure);</span><br><span class="line"></span><br><span class="line">    MarginProperty = DependencyProperty.Register(</span><br><span class="line">        name: <span class="string">&quot;Margin&quot;</span>,</span><br><span class="line">        propertyType: <span class="keyword">typeof</span>(Thickness),</span><br><span class="line">        ownerType: <span class="keyword">typeof</span>(FrameworkElement),</span><br><span class="line">        typeMetadata: metadata,</span><br><span class="line">        validateValueCallback: <span class="keyword">new</span> ValidateValueCallback(FrameworkElement.IsMarginValid));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;注册依赖项属性需要经历两个步骤。首先创建<code>FrameworkPropertyMetadata</code>对象，该对象指示希望通过依赖项属性使用什么服务（如支持数据绑定&#x2F;动画以及日志）。接下来通过调用<code>DependencyProperty.Register()</code>静态方法注册属性。在这一步骤中，需要提供以下几个要素：</p>
+<ul>
+<li>name: 属性名 </li>
+<li>propertyType: 属性使用的数据类型</li>
+<li>ownerType: 拥有该属性的类型</li>
+<li>typeMetadata: 一个具有附加属性设置的<code>FrameworkPropertyMetadata</code>对象，该要素是可选的</li>
+<li>validateValueCallback: 一个用于验证属性的回调函数，该要素是可选的</li>
+</ul>
+<center>FrameworkPropertyMetadata类的属性</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AffectsArrange、AffectsMeasure、AffectsParentArrange和AffectsParentMeasure</td>
+<td>如果为true，依赖项属性会影响在布局操作的测量过程和排列过程中如何放置相邻的元素或父元素。</td>
+</tr>
+<tr>
+<td>AffectsRender</td>
+<td>如果为true，依赖项属性会对属性的绘制方式造成一定的影响，要求重新绘制元素</td>
+</tr>
+<tr>
+<td>BindsTwoWayByDefault</td>
+<td>如果为true，默认情况下，依赖项属性将使用双向数据绑定而不是单向数据绑定，不过，但创建数据绑定时，可以明确指定所需的绑定行为</td>
+</tr>
+<tr>
+<td>Inherits</td>
+<td>如果为true，就通过元素树传播该依赖项属性值，并且可以被嵌套的元素继承</td>
+</tr>
+<tr>
+<td>IsAnimationProhibited</td>
+<td>如果为true，就不能将依赖项属性用于动画</td>
+</tr>
+<tr>
+<td>IsNotDataBindable</td>
+<td>如果为true，就不能使用绑定表达式设置依赖项属性</td>
+</tr>
+<tr>
+<td>Journal</td>
+<td>如果为true，在基于页面的应用程序中，依赖项属性将被保存到日志（浏览过的页面的历史纪录）中</td>
+</tr>
+<tr>
+<td>SubPropertiesDoNotAffectRender</td>
+<td>如果为true，并且对象的某个指数型（属性的属性）发生了变化，WPF将不会重新渲染该对象</td>
+</tr>
+<tr>
+<td><code>DefaultUpdateSourceTrigger</code></td>
+<td>但该属性用于绑定表达式时，该属性用于为Binding.UpdateSourceTrigger属性设置默认值。UpdateSourceTrigger属性决定了 数据绑定值在何时应用自身的变化。但创建绑定时，可以手动设置UpdateSourceTrigger属性</td>
+</tr>
+<tr>
+<td><code>DefaultValue</code></td>
+<td>该属性用于为依赖项属性设置默认值</td>
+</tr>
+<tr>
+<td>CoerceValueCallback</td>
+<td>该属性提供了一个回调函数，用于在验证依赖项属性之前尝试“纠正”属性值</td>
+</tr>
+<tr>
+<td><code>PropertyChangedCallback</code></td>
+<td>该属性提供了一个回调函数，当依赖项属性的值发生变化时调用该回调函数</td>
+</tr>
+</tbody></table>
+<h3 id="添加属性包装器"><a href="#添加属性包装器" class="headerlink" title="添加属性包装器"></a>添加属性包装器</h3><p>&emsp;&emsp;创建依赖项属性的最后一个步骤是使用传统的.NET属性封装 WPF 依赖项属性。但典型的属性过程是检索或设置某个私有字段的值,而 WPF 属性的属性过程是使用在 DependencyObiec基类中定义的 GetValue()和 SetValue()方法，删除值使用ClearValue()方法</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Thickness Margin</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">set</span> &#123;SetValue(MarginProperty,<span class="keyword">value</span>);&#125;</span><br><span class="line">    <span class="keyword">get</span> &#123;<span class="keyword">return</span> (Thickness)GetValue(MarginProperty);&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>属性封装器不是验证数据或引发事件的正确位置。不过WPF的确提供了用于进行这些工作的地方——技巧是使用依赖项属性回调函数<code>DependencyProperty.ValidateValueCallback</code>回调函数进行验证操作；<code>FrameworkPropertyMetadata.PropertyChangedCallback</code>回调函数进行监听操作</p>
+</div>
+
+<h3 id="WPF使用依赖项属性的方式"><a href="#WPF使用依赖项属性的方式" class="headerlink" title="WPF使用依赖项属性的方式"></a>WPF使用依赖项属性的方式</h3><p>&emsp;&emsp;从依赖项属性检索值时，WPF需要考虑多个方面。依赖项属性因该行为得名--本质上，依赖项属性依赖于多个属性提供者,每个提供者都有各自的优先级。当从属性检索值时，WPF属性系统会通过一系列步骤获取最终值。首先通过考虑以下因素(按优先级从低到高的顺序排列)来决定基本值(base value):</p>
+<ol>
+<li>默认值（由FeameworkPropertyMetadata对象设置的值）</li>
+<li>继承而来（假设设置FrameworkPropertyMetadata.Inherits标志，并为包含层次中的某个元素提供了值）</li>
+<li>来自主题样式的值</li>
+<li>来自项目样式的值</li>
+<li>本地值（使用代码或XAML直接为对象设置的值）</li>
+</ol>
+<h3 id="共享的依赖项属性"><a href="#共享的依赖项属性" class="headerlink" title="共享的依赖项属性"></a>共享的依赖项属性</h3><p>&emsp;&emsp;尽管一些具有不同的继承层次，但它们会共享同一依赖属性，例如TextBlock.FontFamily属性和Control.FontFamily属性指向同一个静态的依赖项属性，该属性实际上是在 TextElemen类中定义的 TextElement.FontFamilyProperty 依赖项属性。TextElement 类的静态构造函数注册该属性,而TextBlock类和 Control类的静态构造函数只是通过调用DependencyProperty.AddOwner()方法重用该属性:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TextBlock.FontFamilyProperty = </span><br><span class="line">    TextElement.FontFamilyProperty.AddOwner(<span class="keyword">typeof</span>(TextBlock));</span><br></pre></td></tr></table></figure>
+
+<h3 id="附加的依赖项属性"><a href="#附加的依赖项属性" class="headerlink" title="附加的依赖项属性"></a>附加的依赖项属性</h3><p>&emsp;&emsp;附加属性时一种依赖项属性，由WPF属性系统管理。不同之处在于附加属性被引用到的类并非定义附加属性的那个类。例如，Grid类定义了Row和Column附加属性，这两个属性被用于设置Gird面板包含的元素，以指明这些元素应被放到哪个单元格中</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FrameworkPropertyMetadata metadata = <span class="keyword">new</span> FrameworkPropertyMetadata(</span><br><span class="line">    <span class="number">0</span>, <span class="keyword">new</span> PropertyChangedCallback(Grid.OnCellAttachedPropertyChanged));</span><br><span class="line"></span><br><span class="line">Grid.RowProperty = DependencyProperty.RegisterAttached(<span class="string">&quot;Row&quot;</span>, <span class="keyword">typeof</span>(<span class="built_in">int</span>),</span><br><span class="line">    <span class="keyword">typeof</span>(Grid),metadata,<span class="keyword">new</span> ValidateValueCall(Grid.IsIntValueNotNegative));</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;当创建附加属性时，不必定义.NET 属性封装器。这是因为附加属性可以被用于任何依赖对象。例如，Grid.Row 属性可能被用于 Grid 对象(如果在 Grid 控件中嵌套了另一个 Grid 控件),也可能被用于其他元素。实际上，Grid.Row属性甚至可以被用于并不位于 Grid 控件中的元素甚至在元素树中根本就不存在 Grid 对象。</p>
+<p>&emsp;&emsp;不是使用.NET属性封装器，反而附加属性需要调用两个静态方法来设置和获取属性值，这两个方法使用为人熟知的 SetValue()和 GetValue()方法(继承自 DependencyObiect 类)。这两个静态方法应当命名为SetPropertyName()和GetPropertyName()</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> <span class="title">GetRow</span>(<span class="params">UIElement element</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(element == <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(...);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">int</span>)element.GetValue(Grid.RowProperty);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SetRow</span>(<span class="params">UIElement element, <span class="built_in">int</span> <span class="keyword">value</span></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(element == <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(...);</span><br><span class="line">    &#125;</span><br><span class="line">    element.SetValue(Grid.RowProperty,<span class="keyword">value</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="属性验证"><a href="#属性验证" class="headerlink" title="属性验证"></a>属性验证</h2><p>&emsp;&emsp;在定义任何类型的属性时，都需要面对错误设置属性的可能性。对于传统的.NET属性，可尝试在属性设置器中捕获这类问题。但对于依赖项属性而言，这种方法不合适，因为可能通过WPF属性系统使用SetValue()方法直接设置属性。</p>
+<p>&emsp;&emsp;作为代替，WPF 提供了两种方法来阻止非法值:</p>
+<ul>
+<li>ValidateVaalueCallback: 该回调函数可接受或拒绝新值。通常，该回调函数用于驳货违反了属性约束的明显错误。可作为DependencyProperty.Register()方法的一个参数提供该回调函数</li>
+<li>CoerceValueCallback: 该回调函数可将新值修改为更能被接受的值。该回调函数通常用于处理为相同对象设置的依赖项属性值相互冲突的问题。这些值本身可能时合法的，但当同时应用时它们时不相容的。为了使用这个回调函数，但创建FrameworkPropetyMetadata对象时（然后对该对象将被传递到DependencyProperty.Register()方法），作为构造函数的一个参数提供回调函数</li>
+</ul>
+<p>&emsp;&emsp;下面是当应用程序试图设置依赖项属性时，所有这些内容的作用过程:</p>
+<ol>
+<li>首先，CoerceValueCallback方法有机会修改提供的值(通常，使提供的值和其他属性相容)，或者返回 DependencyProperty.UnsetValue，这会完全拒绝修改。</li>
+<li>接下来激活 ValidateValueCallback方法。该方法返回 true 以接受一个值作为合法值，或者返回 false 拒绝值。与 CoerceValueCallback 方法不同，ValidateValueCallback 方法不能访问设置属性的实际对象，这意味着您不能检查其他属性值。</li>
+<li>最后，如果前两个阶段都获得成功，就会触发 PropertyChangedCallback 方法。此时如果希望为其他类提供通知，可以引发更改事件。</li>
+</ol>
+<h3 id="验证回调"><a href="#验证回调" class="headerlink" title="验证回调"></a>验证回调</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MarginProperty = DependencyProperty.Register(</span><br><span class="line">        name: <span class="string">&quot;Margin&quot;</span>,</span><br><span class="line">        propertyType: <span class="keyword">typeof</span>(Thickness),</span><br><span class="line">        ownerType: <span class="keyword">typeof</span>(FrameworkElement),</span><br><span class="line">        typeMetadata: metadata,</span><br><span class="line">        validateValueCallback: <span class="keyword">new</span> ValidateValueCallback(FrameworkElement.IsMarginValid));</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;可使用这个回调函数加强验证，验证通常应被添加到属性过程的设置部分。提供的回调函数必须指向一个接受对象参数并返回 Boolean 值的方法。返回 true 以接受对象是合法的，返回false 拒绝对象。</p>
+<h3 id="强制回调"><a href="#强制回调" class="headerlink" title="强制回调"></a>强制回调</h3><p>&emsp;&emsp;通过 FrameworkPropertyMetadata对象使用 CoerceValueCallback 回调函数。下面是示例:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">RangeBase</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    FrameworkPropertyMetadata metadata = <span class="keyword">new</span> FrameworkPropertyMetadata();</span><br><span class="line">    metadata.CoerceValueCallback = <span class="keyword">new</span> CoerceValueCallback(CoerceMaximum);</span><br><span class="line"></span><br><span class="line">    DependencyProperty.Register(<span class="string">&quot;Maximum&quot;</span>,<span class="keyword">typeof</span>(<span class="built_in">double</span>),</span><br><span class="line">        <span class="keyword">typeof</span>(RangeBase),metadata);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">object</span> <span class="title">CoerceMaximum</span>(<span class="params">DependencyObject d, <span class="built_in">object</span> <span class="keyword">value</span></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">RangeBase <span class="title">base1</span> (<span class="params">RangeBase</span>)d</span>;</span><br><span class="line">    <span class="keyword">if</span>((<span class="built_in">double</span>)<span class="keyword">value</span> &lt; base1.Minimum) <span class="comment">// 最大值不能小于最小值</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> base1.Minimum; <span class="comment">// 强制回调可以自定义一个更合理的值返回</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://bootree.cn">大白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://bootree.cn/2024/05/25/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/04%E4%BE%9D%E8%B5%96%E5%B1%9E%E6%80%A7/">http://bootree.cn/2024/05/25/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/04%E4%BE%9D%E8%B5%96%E5%B1%9E%E6%80%A7/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://bootree.cn" target="_blank">生活中的tree</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/">WPF编程宝典</a></div><div class="post_share"><div class="social-share" data-image="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/27/Git/git%E9%80%9A%E8%BF%87ssh%E8%BF%9E%E6%8E%A5github/" title="git通过ssh连接github"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527200328.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">git通过ssh连接github</div></div></a></div><div class="next-post pull-right"><a href="/2024/05/24/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/03%E5%B8%83%E5%B1%80/" title="WPF编程宝典 - 03布局"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527195817.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">WPF编程宝典 - 03布局</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/05/24/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/03%E5%B8%83%E5%B1%80/" title="WPF编程宝典 - 03布局"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527195817.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-24</div><div class="title">WPF编程宝典 - 03布局</div></div></a></div><div><a href="/2024/05/22/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/01%E6%A6%82%E8%BF%B0/" title="WPF编程宝典 - 01概述"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-22</div><div class="title">WPF编程宝典 - 01概述</div></div></a></div><div><a href="/2024/05/28/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/05%E8%B7%AF%E7%94%B1%E4%BA%8B%E4%BB%B6/" title="WPF编程宝典 - 05路由事件"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-28</div><div class="title">WPF编程宝典 - 05路由事件</div></div></a></div><div><a href="/2024/05/23/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/02XAML/" title="WPF编程宝典 - 02XAML"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527195528.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-23</div><div class="title">WPF编程宝典 - 02XAML</div></div></a></div><div><a href="/2024/05/29/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/06%E6%8E%A7%E4%BB%B6/" title="WPF编程宝典 - 06控件"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-29</div><div class="title">WPF编程宝典 - 06控件</div></div></a></div><div><a href="/2024/06/17/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/08%E5%85%83%E7%B4%A0%E7%BB%91%E5%AE%9A/" title="WPF编程宝典 - 08元素绑定"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-17</div><div class="title">WPF编程宝典 - 08元素绑定</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">大白</div><div class="author-info__description">人不可能同时拥有青春和对青春的感受</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/cnlicm"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/cnlicm" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:codenobugs@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">A lazy guy. My dream is that generate electricity with love.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%B1%9E%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">依赖项属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%B1%9E%E6%80%A7"><span class="toc-number">1.1.</span> <span class="toc-text">定义依赖项属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.</span> <span class="toc-text">注册依赖项属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%B1%9E%E6%80%A7%E5%8C%85%E8%A3%85%E5%99%A8"><span class="toc-number">1.3.</span> <span class="toc-text">添加属性包装器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WPF%E4%BD%BF%E7%94%A8%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%B1%9E%E6%80%A7%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text">WPF使用依赖项属性的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E7%9A%84%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%B1%9E%E6%80%A7"><span class="toc-number">1.5.</span> <span class="toc-text">共享的依赖项属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%84%E5%8A%A0%E7%9A%84%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%B1%9E%E6%80%A7"><span class="toc-number">1.6.</span> <span class="toc-text">附加的依赖项属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E9%AA%8C%E8%AF%81"><span class="toc-number">2.</span> <span class="toc-text">属性验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%9B%9E%E8%B0%83"><span class="toc-number">2.1.</span> <span class="toc-text">验证回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E5%9B%9E%E8%B0%83"><span class="toc-number">2.2.</span> <span class="toc-text">强制回调</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/20/Tools/oh-my-posh%E7%BE%8E%E5%8C%96%E7%BB%88%E7%AB%AF/" title="oh-my-posh美化终端"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240920223143.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="oh-my-posh美化终端"/></a><div class="content"><a class="title" href="/2024/09/20/Tools/oh-my-posh%E7%BE%8E%E5%8C%96%E7%BB%88%E7%AB%AF/" title="oh-my-posh美化终端">oh-my-posh美化终端</a><time datetime="2024-09-20T14:21:00.000Z" title="发表于 2024-09-20 22:21:00">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/04/Python/Python%E5%BA%93%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="Python库离线安装"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240904171053.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Python库离线安装"/></a><div class="content"><a class="title" href="/2024/09/04/Python/Python%E5%BA%93%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="Python库离线安装">Python库离线安装</a><time datetime="2024-09-04T08:34:34.000Z" title="发表于 2024-09-04 16:34:34">2024-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/03/ANSYS/ANSYS%E8%AE%A1%E7%AE%97/" title="ANSYS计算"><img src= "/img/loading.gif" data-lazy-src="https://jsd.012700.xyz/gh/jerryc127/CDN/img/material-7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ANSYS计算"/></a><div class="content"><a class="title" href="/2024/09/03/ANSYS/ANSYS%E8%AE%A1%E7%AE%97/" title="ANSYS计算">ANSYS计算</a><time datetime="2024-09-03T03:23:37.000Z" title="发表于 2024-09-03 11:23:37">2024-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/02/IDE/Rider/JetBrainsRider%E8%AE%BE%E8%AE%A1%E6%97%B6%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/" title="JetBrainsRider设计时资源加载"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240902145915.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JetBrainsRider设计时资源加载"/></a><div class="content"><a class="title" href="/2024/09/02/IDE/Rider/JetBrainsRider%E8%AE%BE%E8%AE%A1%E6%97%B6%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/" title="JetBrainsRider设计时资源加载">JetBrainsRider设计时资源加载</a><time datetime="2024-09-02T06:57:12.000Z" title="发表于 2024-09-02 14:57:12">2024-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/02/PDMS/DotNet/03PML-NET%E5%BC%80%E5%8F%91/" title="03PML.NET开发"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/pdms.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="03PML.NET开发"/></a><div class="content"><a class="title" href="/2024/09/02/PDMS/DotNet/03PML-NET%E5%BC%80%E5%8F%91/" title="03PML.NET开发">03PML.NET开发</a><time datetime="2024-09-02T06:32:39.000Z" title="发表于 2024-09-02 14:32:39">2024-09-02</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By 大白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/"><img class="icp-icon" src= "/img/loading.gif" data-lazy-src="/img/2020011362.png"><span>赣ICP备2020011362号-2</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/utils.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/main.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/tw_cn.min.js"></script><script src="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://jsd.012700.xyz/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://jsd.012700.xyz/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://jsd.012700.xyz/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script data-pjax src="/self/btf.js"></script><script defer="defer" id="ribbon" src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://jsd.012700.xyz/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/talking/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/search/local-search.min.js"></script></div></div></body></html>

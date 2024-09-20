@@ -1,0 +1,879 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>WPF编程宝典 - 15动画基础 | 生活中的tree</title><meta name="author" content="大白"><meta name="copyright" content="大白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="理解WPF动画&emsp;&emsp;在许多用户框架中(特别是 WPF 之前的框架，如 Windows窗体和 MFC)，开发人员必须从头构建自己的动画系统。最常用的技术是结合使用计时器和一些自定义的绘图逻辑。WPF通过自带的基于属性的动画系统，改变了这种状况。接下来的两节将描述这两者之间的区别。 基于时间的动画&emsp;&emsp;加入需要旋转Windows窗体应用程序中的About对话框中的一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WPF编程宝典 - 15动画基础">
+<meta property="og:url" content="http://bootree.cn/2024/07/13/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/15%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="生活中的tree">
+<meta property="og:description" content="理解WPF动画&emsp;&emsp;在许多用户框架中(特别是 WPF 之前的框架，如 Windows窗体和 MFC)，开发人员必须从头构建自己的动画系统。最常用的技术是结合使用计时器和一些自定义的绘图逻辑。WPF通过自带的基于属性的动画系统，改变了这种状况。接下来的两节将描述这两者之间的区别。 基于时间的动画&emsp;&emsp;加入需要旋转Windows窗体应用程序中的About对话框中的一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png">
+<meta property="article:published_time" content="2024-07-13T03:36:42.000Z">
+<meta property="article:modified_time" content="2024-09-20T15:30:57.344Z">
+<meta property="article:author" content="大白">
+<meta property="article:tag" content="WPF编程宝典">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://bootree.cn/2024/07/13/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/15%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80/index.html"><link rel="preconnect" href="https://jsd.012700.xyz"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="NdIUXAOVyGnnBhcrip0ksCawbdAzT0hlBZDE9u4jx6k"/><meta name="msvalidate.01" content="567E47D75E8DCF1282B9623AD914701E"/><meta name="baidu-site-verification" content="code-pE5rnuxcfD"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: 大白","link":"链接: ","source":"来源: 生活中的tree","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://jsd.012700.xyz/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'WPF编程宝典 - 15动画基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-20 23:30:57'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="preconnect" href="https://jsd.012700.xyz"><link href="/self/btf.css" rel="stylesheet"><link rel="alternate" href="/atom.xml" title="生活中的tree" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png')"><nav id="nav"><span id="blog-info"><a href="/" title="生活中的tree"><span class="site-name">生活中的tree</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">WPF编程宝典 - 15动画基础<a class="post-edit-link" href="https://github.com/cnlicm/HexoBlog/tree/main/source/_posts/WPF编程宝典/15动画基础.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-07-13T03:36:42.000Z" title="发表于 2024-07-13 11:36:42">2024-07-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C#</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/WPF/">WPF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">17.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>61分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="WPF编程宝典 - 15动画基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="理解WPF动画"><a href="#理解WPF动画" class="headerlink" title="理解WPF动画"></a>理解WPF动画</h2><p>&emsp;&emsp;在许多用户框架中(特别是 WPF 之前的框架，如 Windows窗体和 MFC)，开发人员必须从头构建自己的动画系统。最常用的技术是结合使用计时器和一些自定义的绘图逻辑。WPF通过自带的基于属性的动画系统，改变了这种状况。接下来的两节将描述这两者之间的区别。</p>
+<h3 id="基于时间的动画"><a href="#基于时间的动画" class="headerlink" title="基于时间的动画"></a>基于时间的动画</h3><p>&emsp;&emsp;加入需要旋转Windows窗体应用程序中的About对话框中的一块文本。下面是构建解决方案的传统的方法：</p>
+<ol>
+<li>创建周期性触发的计时器（例如，每隔50毫秒触发一次）</li>
+<li>当触发计时器时，使用事件处理程序计算一些与动画相关的细节，如新的旋转角度。然后使窗口的一部分或者整个窗口无效</li>
+<li>不久后，Windows将要求窗口重新绘制自身，触发自定义的绘图代码</li>
+<li>在自定义的绘图代码中，渲染旋转后的文本</li>
+</ol>
+<blockquote>
+<p>尽管这个基于计时器的解决方案不难实现，但将它集成到普通的应用程序窗口中却非常麻烦。下面列出这种解决方案存在的一些问题：</p>
+</blockquote>
+<ul>
+<li><strong>绘制像素而不是控件</strong>。为旋转Windows窗体中的文本，需要低级的GDI+绘图支持。GDI+易于使用，但却不能与普通的窗口元素（如按钮、文本框和标签等）很好地相互协调。所以，需要将动画内容和控件相互分离，并且不能在动画中包含任何用户交互元素。您将无法旋转按钮</li>
+<li><strong>假定单一动画</strong>。如果决定希望同时运行两个动画，就需要重写编写所有动画代码—并且变得更复杂。在这方面WPF显得更加强大，它可以构建比单一简单动画更复杂的动画。</li>
+<li><strong>动画帧率是固定的</strong>。计时器设置完全决定了帧率。如果改变时间间隔，可能需要修改动画代码（取决于执行计算的方式）。而且，选择的固定帧率对于特定的计算机显卡硬件不一定理想</li>
+<li><strong>复杂动画需要指数增长的更复杂的代码</strong>。旋转文本的示例非常简单，但如果沿着一条路径移动非常小的矢量图画，就困难得多了。在WPF中，甚至是复杂的动画也能够在XAML中定义（而且可以使用第三方设计工具生成动画）</li>
+</ul>
+<div class="note warning flat"><p>基于计时器的动画仍存在一些缺点：单子代码不是很灵活，对于复杂的效果会变得杂乱无章，并且不能得到最佳性能</p>
+</div>
+
+<h3 id="基于属性的动画"><a href="#基于属性的动画" class="headerlink" title="基于属性的动画"></a>基于属性的动画</h3><p>&emsp;&emsp;WPF提供了一个更高级的模型，通过该模型可以只关注动画的定义，而不必考虑它们的渲染方式。这个模型基于依赖项属性基础架构。本质上，WPF动画只不过是在一段时间间隔内修改依赖项属性值的一种方式。</p>
+<div class="note warning flat"><p>只能为依赖项属性应用动画，因为只有依赖项属性使用动态的属性识别系统，而该系统将动画考虑在内</p>
+</div>
+
+<h2 id="基本动画"><a href="#基本动画" class="headerlink" title="基本动画"></a>基本动画</h2><p>&emsp;&emsp;WPF动画的第一条规则——每个动画依赖于一个依赖项属性。然而，还有另一个限制。为了实现属性的动态化（换句话说，使用基于时间的方式改变属性的值），需要有支持相应数据类型的动画类。</p>
+<p>&emsp;&emsp;该要求不像WPF动画的第一条规则那么绝对，第一条规则将动画局限于依赖项属性。这是因为对于没有相应动画类的依赖项属性，为了为该属性应用动画，可以针对相应的数据类型创建自己的动画类。但您将发现，<code>System.Windows.Media.Animation</code>名称空间已经为希望使用的大多数数据类型提供动画类</p>
+<p>&emsp;&emsp;引用类型通常不能应用动画，但它们的子属性可以。例如，所有内容控件都支持Background属性，从而可以设置Brush对象用于绘制北京。使用动画成一个画刷切换到另一个画刷的效率通常不高。但可以使用动感改变画刷的属性。例如，可改变SolidColorBrush画刷的Color属性（使用<code>ColorAnimation</code>）或改变LinearGradientBrush画刷中的GradientStop对象的Offset属性（使用<code>DoubleAnimation</code>类）。这扩展了WPF动画的应用范围，允许用户为元素外观的特定方面应用动画</p>
+<h3 id="Animation类"><a href="#Animation类" class="headerlink" title="Animation类"></a>Animation类</h3><p>&emsp;&emsp;根据到目前为止提到的动画类型——DoubleAnimation 和 ColorAnimation——您可能会认为所有动画类都以“类型名+Animation”方式命名。这种观点很接近实际情况，但不是非常准确。</p>
+<p>&emsp;&emsp;实际上有两种类型的动画——在开始值和结束值之间以逐步增加的方式(被称为线性插值过程)改变属性的动画，以及从一个值突然变成另一个值的动画。DoubleAnimation和ColorAnimation 属于第一种动画类型，它们使用插值平滑地改变值。然而，当改变特定的数据类型时，如 String 和引用类型的对象，插值是没有意义的。不是使用插值，这些数据类型使用一种称为“关键帧动画”的技术在特定时刻从一个值突然改变到另一个值。所有关键帧动画类都使用“类型名+AnimationUsingKeyFrames”的形式进行命名，比如 <code>StringAnimationUsingKeyFrames</code>和<code>ObiectAnimationUsingKeyFrames</code>.</p>
+<div class="note info flat"><p>所有具有（使用插值的）常规动画类的数据类型（如DoubleAnimation），也都有相应的用于关键帧动画的动画类型（如DoubleAnimationUsingKeyFrames）</p>
+</div>
+
+<p>&emsp;&emsp;实际上，还有一种动画类型。这种类型称为基于路径的动画，而且它们比使用插值或关键帧的动画更加专业。基于路径的动画修改数值使其符合由PathGeometry对象描述的形状，并且主要用于沿路径移动元素。基于路径的动画类使用“类型名+AnimationUsingPath”的形式进行命名，如DoubleAnimationUsingPath 和PointAnimationUsingPath.</p>
+<div class="note info flat"><p>尽管目前WPF可为动画使用三种方法（<code>线性插值</code>、<code>关键帧</code>以及<code>路径</code>），但完全也可以创建更多的使用完全不同的方式来修改值的动画类。唯一要求是自定义的动画类必须根据时间修改值</p>
+</div>
+
+<p>&emsp;&emsp;总之，在<code>System.Windows.Media.Animation</code>名称空间中间发现以下内容：</p>
+<ul>
+<li>17个类型<code>“类型名+Animation”类</code>，这些类使用插值</li>
+<li>22个<code>“类型名+AnimationUsingKeyFrames”类</code>，这些类使用关键帧动画</li>
+<li>3个<code>“类型名+AnimationUsingPath”类</code>，这些类使用基于路径的动画</li>
+</ul>
+<p>&emsp;&emsp;所有这些动画类都继承自抽象的<code>“类型名+AnimationBase”类</code>，这些基类实现了一些基本功能，从而为创建自定义动画类提供了快捷方式。如果某个数据类型支持多种类型的动画，那么所有的动画类都继承自抽象的动画基类。例如，DoubleAnimation和DoubleAnimationUsingKey.Frames都继承自DoubleAnimationBase基类</p>
+<p>&emsp;&emsp;可通过查看这42个类快速决定哪些数据类型为动画提供了本地支持。下面是这42可类的完整列表：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BooleanAnimationUsingKeyFrames</td>
+<td>ByteAnimation</td>
+</tr>
+<tr>
+<td>ByteAnimationUsingKeyFrames</td>
+<td>CharAnimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>ColorAnimation</td>
+<td>ColorAnimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>DecimalAnimation</td>
+<td>DecimalAnimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>DoubleAnimation</td>
+<td>DoubleAnimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>DoubleAnimationUsingPath</td>
+<td>Int16Animation</td>
+</tr>
+<tr>
+<td>Int16AnimationUsingKeyFrames</td>
+<td>Int32ANimation</td>
+</tr>
+<tr>
+<td>Int32AnimationUsingKeyFrames</td>
+<td>Int64Animation</td>
+</tr>
+<tr>
+<td>Int64AnimationUsingKeyFrames</td>
+<td>MatrixANimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>MaterixAnimationUsingPath</td>
+<td>ObjectAnimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>PointAnimation</td>
+<td>PointAnimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>PointAnimationUsingPath</td>
+<td>Point3DAnimation</td>
+</tr>
+<tr>
+<td>Point3DAnimationUsingKeyFrames</td>
+<td>QuarternionAnimation</td>
+</tr>
+<tr>
+<td>QuarternionAnimationUsingKeyFrames</td>
+<td>RectAnimation</td>
+</tr>
+<tr>
+<td>RectAnimationUsingKeyFrames</td>
+<td>RectAnimation</td>
+</tr>
+<tr>
+<td>RectAnimationUsingKeyFrames</td>
+<td>Rotaion3DAnimation</td>
+</tr>
+<tr>
+<td>Rotation3DAnimationUsingKeyFreams</td>
+<td>SingleAnimation</td>
+</tr>
+<tr>
+<td>SingleAnimationUsingKeyFrames</td>
+<td>SizeAnimation</td>
+</tr>
+<tr>
+<td>SizeANimationUsingKeyFrames</td>
+<td>StringAnimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>ThicknessAnimation</td>
+<td>ThicknessAnimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>VectorAnimation</td>
+<td>VectorANimationUsingKeyFrames</td>
+</tr>
+<tr>
+<td>Vector3DANimation</td>
+<td>Vector3DAnimationUsingKeyFrames</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;其中许多类型的含义不言自明。例如，一旦掌握DoubleAnimation 类，就不需要再分析SingleAnimation、Int16Animation、Int32Animation 以及其他所有用于简单数值类型的动画类，它们都以相同的方式工作。除这些用于数值类型的动画类外，您还会发现一些使用其他基本数据类型(如 byte、bool、string 以及 char)的动画类，以及更多的用于处理二维和三维 Drawing图元(Point、Size、Rect 和 Vector 等)的动画类、用于所有元素的 Margin 和 Padding 属性的动画类(ThicknessAnimation)、用于颜色的动画类(ColorAnimation)以及用于任意引用类型对象的动画类(ObjectAnimationUsingKeyFrames)。</p>
+<blockquote>
+<p>杂乱的Animation名称空间</p>
+</blockquote>
+<p>&emsp;&emsp;如果查看 System.Windows.Media.Animation 名称空间，可能会感到有些震惊。该名称空间中充满了针对不同数据类型的不同动画类。效果有些重复。如果能够将所有这些动画特性组合到几个核心类中，可能会更好。难道开发人员不能实现合适的适用于所有数据类型的通用 Animate<T>类?然而，由于许多原因，使得这种模型在目前还行不通。首先，不同动画类可能以稍有不同的方式执行它们的工作，这意味着代码需要有所区别。例如，ColorAnimation类使用的从一种颜色褪色到另一种颜色对颜色值进行混合的方式，与 DoubleAnimaton 类修改单个值的方式就不同。换句话说，尽管动画类提供了相同的公有接口，但它们的内部工作可能不同。这些接口通过继承进行标准化，因为所有动画类都继承自相同的基类(从Animmatable 类开始)。<br>&emsp;&emsp;然而，还不止如此。确实，许多动画类共享大量代码，只有较少的代码不同。例如，大约有 100个类用于表示关键帧和关键帧集合。在理想情况下，动画类应当可以通过它们执行的动画类型进行区别，所以可使用NumericAnimation<I>、KeyFrameAnimation<I>或LinearInterpolationAnimation<T>等类。<code>唯一能够假定的是，阻止这种解决方法的深层次原因是 XAMI 缺少对泛型的支持。</code></p>
+<h3 id="使用代码创建动画"><a href="#使用代码创建动画" class="headerlink" title="使用代码创建动画"></a>使用代码创建动画</h3><blockquote>
+<p>WPF如何决定使用的步长</p>
+</blockquote>
+<p>&emsp;&emsp;幸运的是，这个细节是自动进行的，WPF使用它所需的步长以确保在当前配置的帧率下得到平滑的动画。<strong>标准的帧率是60帧&#x2F;秒</strong>。换句话说，<code>WPF每隔/60秒就回计算所有应用例如动画的数值，并更新相应的属性</code>。</p>
+<p>&emsp;&emsp;使用动画的最简单方式是实例化在前面列出的其中一个动画类，配置该实例，然后使用希望修改的元素的<code>BeginAnimation()</code>方式。所有WPF元素，成UIElement基类开始，都继承了<code>BeginAnimation()</code>方法，该方法是<code>IAnimatable</code>结构的一部分。其他实现了<code>IAnimatablae</code>结构的类包括<code>ContentElement</code>（文档流内容的基类）和Visual3D(3D可视化对象的基类)</p>
+<div class="note info flat"><p><code>BeginAnimation()</code>并非最常用的方法——大多数情况下将使用XAML以声明方式创建动画</p>
+</div>
+
+<p>&emsp;&emsp;下图显示了一个非常简单的、增加了按钮宽度的动画。当单击按钮时，WPF平滑地扩展按钮的两个侧边知道充满窗口</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240713173902.png" width="50%"/>
+
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DoubleAnimation widthAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">widthAnimation.From = <span class="number">160</span>;</span><br><span class="line">widthAnimation.To = <span class="keyword">this</span>.Width - <span class="number">30</span>;</span><br><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">5</span>);</span><br><span class="line">cmdGrow.BeginAnimation(Button.WidthProperty, widthAnimation);</span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>任何使用线性插值的动画最少需要三个细节：<strong>开始值(From)、结束值(To)和整个动画执行的时间(Duration)</strong></p>
+</div>
+
+<h4 id="From属性"><a href="#From属性" class="headerlink" title="From属性"></a>From属性</h4><p>&emsp;&emsp;From值是Width属性的开始值。如果多次单击按钮，没吃单击时，都会将Width属性重新设置为160，并且重新开始运行动画。即使当动画已在运行时单击按钮也同样如此</p>
+<p>&emsp;&emsp;在许多情况下，可能不希望动画成最初的<code>From</code>值开始。有如下两个常见的原因：</p>
+<ul>
+<li><strong>创建能够触发多次，并逐次累加效果的动画</strong>。例如，可能希望创建没吃单击时都增大一点的按钮</li>
+<li><strong>创建可能相互重叠的动画</strong>。例如，可使用<code>MouseENter</code>事件触发扩展的动画，并使用<code>MouseLeave</code> 事件触发将按钮缩小为原尺寸的互补动画(这通常称为“鱼眼”效果)。如果连续快速地将鼠标多次移动到这种按钮上并移开，每个新动画就会打断上一个动画，导致按钮“跳”回到由 From 属性设置的尺寸。</li>
+</ul>
+<p>&emsp;&emsp;当前示例属于第二种情况。如果当按钮正在增大时单击按钮，按钮的宽度就回呗重新设置为160像素——这可能会出现抖动效果。为纠正这个问题，只需要忽略设置<code>From</code>属性的代码语句即可：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DoubleAnimation widthAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">widthAnimation.To = <span class="keyword">this</span>.Width - <span class="number">30</span>;</span><br><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">5</span>);</span><br><span class="line">cmdGrow.BeginAnimation(Button.WidthProperty, widthAnimation);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;为使用这种技术，应用动画的属性必须有预先设置的值。在这个示例中这意味着<code>按钮必须有硬编码的宽度</code>(不管是在按钮标签中直接定义的,还是通过样式设置器应用的)。问题是在许多布局容器中，通常不指定宽度并且让容器根据元素的对齐属性控制宽度。对于这种情况，元素使用默认宽度,也就是特殊的 Double.NaN 值(这里的 NaN 代表“不是数字(nota number)”)。<strong>不能为具有这种值的属性使用线性插值应用动画</strong>。</p>
+<p>&emsp;&emsp;那么，解决方法是什么呢?在许多情况下，答案是硬编码按钮的宽度。正如您将看到的，动画经常需要更精确地控制元素的尺寸和位置。实际上，对于能应用动画的内容，最常用的布局容器是 Canvas 面板，因为 Canvas 面板允许更方便地移动内容(可能相互重叠)以及改变内容的尺寸。Canvas面板还是量级最轻的布局容器，因为当诸如 Width 的属性发生变化时不需要额外的布局工作。</p>
+<h4 id="To属性"><a href="#To属性" class="headerlink" title="To属性"></a>To属性</h4><p>&emsp;&emsp;就像可省略From属性一样，也可以省略To属性。实际上，可同时省略From属性和To属性，像下面这样创建动画：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DoubleAnimation widthAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">5</span>);</span><br><span class="line">cmdGrow.BeginAnimation(Button.WidthProperty, widthAnimation);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;乍一看,这个动画好像根本没有执行任何操作。这样想是符合逻辑的,因为 To属性和 From属性都被忽略了，它们将使用相同的值。但它们之间存在一点微妙且重要的区别。</p>
+<p>&emsp;&emsp;当省略 From 值时，动画使用当前值，并将动画纳入考虑范围。例如，如果按钮位于某个增长操作的中间，From 值会使用扩展后的宽度。然而，当忽略To值时，动画使用不考虑动画的当前值。本质上，这意味着 To值变为原数值-一最后一次在代码中、元素标签中或通过样式设置的值(这得益于 WPF 的属性识别系统，该系统可以根据多个重叠属性提供者计算属性的值，不会丢弃任意信息。</p>
+<h4 id="By属性"><a href="#By属性" class="headerlink" title="By属性"></a>By属性</h4><p>&emsp;&emsp;即使不使用 To属性，也可以使用 By属性。By 属性用于创建按设置的数量改变值的动画,而不是按给定目标改变值。例如，可创建一个动画，增大按钮的尺寸，使得比当前尺寸大50个单位，如下所示:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DoubleAnimation widthAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">widthAnimation.By = <span class="number">50</span>;</span><br><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">0.5</span>);</span><br><span class="line">cmdGrow.BeginAnimation(Button.WidthProperty, widthAnimation);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;在按钮示例中，这种方法不是必需的，因为可使用简单的计算设置 To属性来实现相同的效果，如下所示:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">widthAnimation.To = cmdGrowIncrementally.Width + <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;然而当使用XAML定义动画时，使用By值就变得更加合理了，因为XAML没有提供执行简单的计算的能力</p>
+<div class="note info flat"><p>大部分使用插值的动画类通常都提供了By属性，但并非全部如此。例如，对于非数值数据类型来说，By属性是没有意义的，比如ColorAnimation 类使用的 Color 结构。</p>
+</div>
+
+
+<p>&emsp;&emsp;另有一种方法可得到类似的行为，而不需要使用 By属性--可通过设置 IsAdditive 属性创建增加数值的动画。当创建这种动画时，当前值被自动添加到From值和 To值。例如，分析下面这个动画:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DoubleAnimation widthAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">widthAnimation.From = <span class="number">0</span>;</span><br><span class="line">widthAnimation.To = <span class="number">-50</span>;</span><br><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">0.5</span>);</span><br><span class="line">widthAnimation.IsAdditive = <span class="literal">true</span>;</span><br><span class="line">cmdGrow.BeginAnimation(Button.WidthProperty, widthAnimation);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;这个动画是成当前值开始的，当到达比当前值少50可单位的值时完成。另一方面，如果使用下面的动画：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DoubleAnimation widthAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">widthAnimation.From = <span class="number">10</span>;</span><br><span class="line">widthAnimation.To = <span class="number">50</span>;</span><br><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">0.5</span>);</span><br><span class="line">widthAnimation.IsAdditive = <span class="literal">true</span>;</span><br><span class="line">cmdGrow.BeginAnimation(Button.WidthProperty, widthAnimation);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;属性值跳到新值(比当前值大 10个单位的值)，然后增加值，直到达到最后的值，最后的值比动画开始前的当前值大 50个单位。</p>
+<h4 id="Duration属性"><a href="#Duration属性" class="headerlink" title="Duration属性"></a>Duration属性</h4><p>&emsp;&emsp;Duration 属性很简单--是在动画开始时刻和结束时刻之间的时间间隔(时间间隔单位是毫秒、分钟、小时或您喜欢使用的其他任何单位)。尽管在上一个示例中，动画的持续时间是使用TimeSpan 对象设置的,但 Duration 属性实际上需要 Duration 对象。幸运的是,Duration 和 TimeSpan非常类似，并且 Duration 结构定义了一种隐式转换，能够根据需要将 System.TimeSpan 转换为System.Windows.Duration。这正是为什么下面的代码行完全合理的原因:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">0.5</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>那么，为什么要使用全新的数据类型呢?</p>
+</blockquote>
+<p>&emsp;&emsp;因为 Duration 类型还提供了两个不能通过 TimeSpan对象表示的特殊数值--Duration.Automatic 和 Duration.Forever。在当前示例中，这两个值都没有用处(Automatic 值只将动画设置为1秒的持续时间，而Forever 值使动画具有无限的持续时间，这会防止动画具有任何效果)。然而，当创建更复杂的动画时，这些值就有用处了。</p>
+<h4 id="同时发生的动画"><a href="#同时发生的动画" class="headerlink" title="同时发生的动画"></a>同时发生的动画</h4><p>&emsp;&emsp;可使用 BeginAnimation()方法同时启动多个动画。BeginAnimation()方法几乎总是立即返回从而可以使用类似下面的代码同时为两个属性应用动画:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">DoubleAnimation widthAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">widthAnimation.From = <span class="number">160</span>;</span><br><span class="line">widthAnimation.To = <span class="keyword">this</span>.Width - <span class="number">30</span>;</span><br><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">DoubleAnimation heightAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">heightAnimation.From = <span class="number">30</span>;</span><br><span class="line">heightAnimation.To = <span class="keyword">this</span>.Height - <span class="number">50</span>;</span><br><span class="line">heightAnimation.Duration = TimeSpan.FromSeconds(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">cmdGrow.BeginAnimation(Button.WidthProperty, widthAnimation);</span><br><span class="line">cmdGrow.BeginAnimation(Button.HeightProperty, heightAnimation);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;在这个示例中，两个动画没有被同步，这意味着宽度和高度不会准确地在相同时间间隔内增长(通常，将看到按钮先增加宽度，紧接着增加高度)。可通过创建绑定到同一个时间线的动画，突破这一限制。本章稍后讨论故事板时将介绍这种技术。</p>
+<h4 id="动画的生命周期"><a href="#动画的生命周期" class="headerlink" title="动画的生命周期"></a>动画的生命周期</h4><p>&emsp;&emsp;从技术角度看，WPF动画是暂时的，这意味着它们不能真正改变基本属性的值。当动画处于活动状态时，只是覆盖属性值。这是由依赖项属性的工作方式造成的，并且这是一个经常会被忽视的细节，该细节会给用户带来极大的困惑。</p>
+<p>&emsp;&emsp;单向动画(如增长按钮的动画)在运行结束后会保持处于活动状态，这是因为动画需要将按钮的宽度保持为新值。这会导致如下不常见的问题--如果尝试使用代码在动画完成后修改属性值，代码将不起作用。因为代码只是为属性指定了一个新的本地值，但仍会优先使用动画之后的属性值。</p>
+<p>&emsp;&emsp;根据准备完成的工作，可通过如下几种方式解决这个问题：</p>
+<ul>
+<li><strong>创建将元素重新设置为原始状态的动画。可通过创建不设置 To 属性的动画达到该目的</strong>。例如，将按钮的宽度减小到最后设置的尺寸的按钮缩小动画，之后就可以使用代码改变该属性了。</li>
+<li><strong>创建可翻转的动画。通过将 AutoReverse 属性设置为 true 来创建可翻转的动画</strong>。例如，当按钮增长动画不再增加按钮的宽度时，将反向播放动画，返回到原始宽度。动画的总持续时间也将翻倍。</li>
+<li>改变 FiBehavior 属性。通常，FillBehavior 属性被设置为 HoldEnd，这意味着当动画结束时，会继续为目标元素应用最后的值。<strong>如果将FiBehavior属性改为 Stop，只要动画结束属性就会恢复为原来的值。</strong></li>
+<li><strong>当动画完成时通过处理动画对象的 Completed 事件删除动画对象</strong></li>
+</ul>
+<p>&emsp;&emsp;前3种方法改变了动画的行为。不管使用哪种方法，它们都将动画后的属性设置为原来的数值。如果这并非所希望的，那就需要使用最后一种方法。</p>
+<ol>
+<li>在启动动画前，关联事件处理程序以响应动画完成事件<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">widthAnimation.Completed += WidthAnimation_Completed;</span><br></pre></td></tr></table></figure></li>
+<li>当引发Completed事件时，可通过调用<code>BeginANimation()</code>方法来渲染不活动的动画。为此，只需要指定属性，并为动画对象传递null引用：<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmdGrow.BeginAnimation(WidthProperty, <span class="literal">null</span>);</span><br></pre></td></tr></table></figure></li>
+<li>当调用 BeginAnimation()方法时，属性返回为动画开始之前的原始值。如果这并非所希望的结果，可记下动画应用的当前值，删除动画，然后手动为属性设置新值，如下所示:<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">double</span> currentWidth = cmdGrow.Width;</span><br><span class="line">cmdGrow.BeginAnimation(WidthProperty, <span class="literal">null</span>);</span><br><span class="line">cmdGrow.Width = currentWidth;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Timeline类"><a href="#Timeline类" class="headerlink" title="Timeline类"></a>Timeline类</h4><p>&emsp;&emsp;下图显示了WPF动画类的继承层次结构。该图包含了所有基类，但省略了全部42可动画类以及相应的TypeNameAnimationBase类</p>
+<center>动画类的继承层次结构</center>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240714083240.png" width="70%"/>
+
+<p>&emsp;&emsp;Timeline类中前几个有用的成员定义了已经介绍过的<code>Duration</code>属性，还有其他几个属性：</p>
+<center>Timeline类的属性</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BeginTime</td>
+<td>设置将被添加到动画开始之前的延迟时间(TimeSpan类型)。这一延迟时间被加到总时间，所以具有5秒延迟的5秒动画，总的时间是10秒。当同步在同一时间开始，但按顺序应用效果的不同动画时，BeginTime属性是很有用的</td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>使用Duration对象设置动画成开始到结束的运行时间</td>
+</tr>
+<tr>
+<td>SpeedRatio</td>
+<td>提高或减慢动画速度。通常，SpeedRatio属性值是1。如果增加该属性值，动画会加快(例如，如果SpeedRatio属性的值为5，动画的速度会变为原来的5倍);如果减小该属性值，动画会变慢(例如，如果 SpeedRatio属性的值为0.5，动画时间将变为原来的两倍)。可通过改变动画的 Duration 属性值得到相同结果。<code>当应用 BeginTime 延迟时，不考虑 SpeedRatio属性的值</code></td>
+</tr>
+<tr>
+<td>AccelerationRatio DecelerationRatio</td>
+<td>使动画不是线性的，从而开始时较慢，然后增速(通过增加<code>AccelerationRatio</code>属性值)；或者结束时降低速度(通过增加DecelerationRatio属性值)。<strong>这两个属性的值都在0~1之间，并且开始时都设置为0.此外，这两个属性值之和不能超过1</strong></td>
+</tr>
+<tr>
+<td>AutoReverse</td>
+<td>如果为true，当动画完成时会自动方向播放，返回到原始值。这也会使动画的运行时间加倍。如果增加SpeedRatio属性值 ，就会应用到最初的动画播放以及反向的动画播放。BeginTime属性值只应用于动画的开始——不延迟反向动画</td>
+</tr>
+<tr>
+<td>FillBehavior</td>
+<td>决定当动画结束时如何操作。通常，可将属性值保持为固定的结束值(FillBehavior.HoldEnd)，但是也可选择将属性值返回为原来的数值(FillBehavior.Stop)</td>
+</tr>
+<tr>
+<td>RepeatBehavior</td>
+<td>通过该属性，可以使用指定的次数或时间间隔重复动画。用于设置这个属性的RepeatBehavior对象决定了确切的行为</td>
+</tr>
+</tbody></table>
+<h5 id="AccelerationRatio和DecelerationRatio属性"><a href="#AccelerationRatio和DecelerationRatio属性" class="headerlink" title="AccelerationRatio和DecelerationRatio属性"></a>AccelerationRatio和DecelerationRatio属性</h5><p>&emsp;&emsp;可以通过 AccelerationRatio 和 DecelerationRatio 属性压缩部分时间线，使动画运行得更快。并将拉伸其他时间线进行补偿，使总时间保持不变。</p>
+<p>&emsp;&emsp;这两个属性都表示百分比值。例如，将AccelerationRatio属性设置为0.3表示希望使用动画持续时间中前 30%的时间进行加速。例如，在一个持续10秒的动画中，前3秒会加速运行而剩余的7秒会以恒定不变的速度运行(显然，在最后7秒钟的速度比没有加速的动画要快，因为需要补偿前3秒中的缓慢启动)。如果将AccelerationRatio属性设置为0.3，并将DecelerationRatio 属性也设置为 0.3，那么在前3秒会加速，在中间4秒保持固定的最大速度，在最后3秒减速。分析一下这种方式，显然，AccelerationRatio 和 DecelerationRatio 属性值之和不能超过 1，否则就需要超过 100%的可用时间来执行所需的加速和减速。当然，可将AccelerationRatio 属性设置为1(对于这种情况，动画速度从开始到结束一直在增加)，或将DecelerationRatio 属性设置为1(对于这种情况，动画速度从开始到结束一直在降低)。</p>
+<h5 id="RepeatBehavior属性"><a href="#RepeatBehavior属性" class="headerlink" title="RepeatBehavior属性"></a>RepeatBehavior属性</h5><p>&emsp;&emsp;使用RepeatBehavior 属性可控制如何重复运行动画。如果希望重复固定次数，应为RepeatBehavior构造函数传递合适的次数。例如，下面的动画重复两次:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DoubleAnimation widthAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">widthAnimation.From = <span class="number">160</span>;</span><br><span class="line">widthAnimation.To = <span class="keyword">this</span>.Width - <span class="number">30</span>;</span><br><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">5</span>);</span><br><span class="line">widthAnimation.RepeatBehavior = <span class="keyword">new</span> RepeatBehavior(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">cmdGrow.BeginAnimation(Button.WidthProperty, widthAnimation);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;当运行这个动画时,按钮会增加尺寸(经过5秒),跳回到原来的数值,然后再次增加尺寸(经过5秒)，在按钮的宽度为整个窗口的宽度时结束。如果将AutoReverse属性设置为true，行为稍有不同--整个动画完成向前和向后运行(意味着先展开按钮，然后收缩)，之后再重复一次。</p>
+<div class="note warning flat"><p>使用插值的动画提供了一个 IsCumulative 属性，该属性告诉 WPF 如何处理每次重复。如果IsCumulative 属性为 true，动画就不会从头到尾重复。相反，每个后续动画增加到前面的动画例如，如果将前面动画的 IsCumulative 属性设置为 ture，按钮将在两倍多的时间内扩展两倍宽。<strong>从另一个角度看，正常地处理第一次动画，但对于之后的每次重复动画，就像是将 IsAdditive属性设置为 true。</strong></p>
+</div>
+
+<p>&emsp;&emsp;除可以使用<code>RepeatBehavior</code>属性设置重复次数完，还可以用该属性设置重复的时间间隔。为此，只需要为RepeatBheavior对象的构造函数传递一个TimeSpan对象。例如，下面的动画重复13秒</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DoubleAnimation widthAnimation = <span class="keyword">new</span> DoubleAnimation();</span><br><span class="line">widthAnimation.From = <span class="number">160</span>;</span><br><span class="line">widthAnimation.To = <span class="keyword">this</span>.Width - <span class="number">30</span>;</span><br><span class="line">widthAnimation.Duration = TimeSpan.FromSeconds(<span class="number">5</span>);</span><br><span class="line">widthAnimation.RepeatBehavior = <span class="keyword">new</span> RepeatBehavior(TimeSpan.FromSeconds(<span class="number">13</span>));</span><br><span class="line"></span><br><span class="line">cmdGrow.BeginAnimation(Button.WidthProperty, widthAnimation);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;在该例中，Duration属性指定整个动画历经5秒。因此，将RepeatBehavior属性设置为13秒将会引起两次重复，然后通过第三次重复动画，使按钮的宽度处于中间位置(在3秒的位置)。</p>
+<p>&emsp;&emsp;最后，也可将RepeatBehavior的值设置为如下使动画不断重复自身：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">widthAnimation.RepeatBehavior = RepeatBehavior.Forever;</span><br></pre></td></tr></table></figure>
+
+<h2 id="故事板"><a href="#故事板" class="headerlink" title="故事板"></a>故事板</h2><p>&emsp;&emsp;正如您已经看到的，WPF动画通过一组动画类表示。使用少数几个属性设置相关信息，如开始值、结束值以及持续时间。这显然使得它们非常适合于XAML。不是很清晰的是:如何为特定的事件和属性关联动画，以及如何在正确的时间触发动画。<br>&emsp;&emsp;在所有声明式动画中都会用到如下两个要素：</p>
+<ul>
+<li><strong>故事板</strong>：故事板是<code>BeginAnimation()</code>方法的XAML等价物。通过故事板将动画指定到合适的元素和属性</li>
+<li><strong>时间触发器</strong>：事件触发器响应属性变化或事件，并控制故事板。例如，为了开始动画，事件触发器必须使用故事板</li>
+</ul>
+<h3 id="故事板-1"><a href="#故事板-1" class="headerlink" title="故事板"></a>故事板</h3><p> &emsp;&emsp;故事板是增强的时间线，可用来分组多个动画，而且具有控制动画播放的能力——暂停、停止以及改变播放位置。然而，<code>Storyboard</code>类提供的最基本功能是，能够使用<code>TargetProperty</code>和<code>TagrteName</code>属性指向某个特定属性和特定元素。换句话说，故事板在动画和希望应用动画的属性之间架起了一座桥梁。下面的标记演示如何定义用于管理<code>DoubleAnimation</code>的故事板：</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Storyboard</span> <span class="attr">x:Key</span>=<span class="string">&quot;WidthAnimation&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetName</span>=<span class="string">&quot;cmdGrow&quot;</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;Width&quot;</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">From</span>=<span class="string">&quot;160&quot;</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">To</span>=<span class="string">&quot;300&quot;</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">Duration</span>=<span class="string">&quot;0:0:5&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;定义故事板是创建动画的第一部。为让故事板实际运行起来，还需要有事件触发器</p>
+<h3 id="事件触发器"><a href="#事件触发器" class="headerlink" title="事件触发器"></a>事件触发器</h3><p>&emsp;&emsp;样式提供了一种事件触发器关联到元素的方式。然而，可在如下4可位置定义事件触发器：</p>
+<ul>
+<li>在样式中(<code>Styles.Triggers</code>集合)</li>
+<li>在数据模板中(<code>DataTemplate.Triggers</code>集合)</li>
+<li>在空间模板中(<code>ControlTemplate.Triggers</code>集合)</li>
+<li>直接在元素中定义事件触发器(<code>FrameworkElement.Triggers</code>集合)</li>
+</ul>
+<p>&emsp;&emsp;当创建时间触发器时，需要指定开始触发器的路由事件和由触发器执行的一个或多个动作。对于动画，最常用的动作是<code>BeginStoryboard</code>，该动作相当于调用<code>BeginAnimation()</code>方法</p>
+<p>&emsp;&emsp;下面的示例使用按钮的<code>Triggers</code>集合为<code>Click</code>事件关联某个动画。当单击按钮时，该动画增长按钮：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdGrow&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Width</span>=<span class="string">&quot;160&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Height</span>=<span class="string">&quot;40&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Padding</span>=<span class="string">&quot;10&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">VerticalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Content</span>=<span class="string">&quot;Click and Make Me Grow&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button.Triggers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;Width&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">To</span>=<span class="string">&quot;300&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">Duration</span>=<span class="string">&quot;0:0:5&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Button.Triggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<div class="note info flat"><p>为创建第一次加载窗口时引发的动画，需要在<code>Window.Triggers</code>集合中添加事件触发器以响应<code>Window.Loaded</code>事件</p>
+</div>
+
+<p>&emsp;&emsp;Storyboard.TargetProperty 属性指定了希望改变的属性(在这个示例中是 Width 属性)。如果没有提供类的名称，故事板使用其父元素，在此使用的是希望扩展的按钮。如果希望设置附加属性(如 Canvas.Left 或 Canvas.Top)，需要在括号中封装整个属性，如下所示:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;(Canvas.Left)&quot;</span> <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>在这个示例中不需要使用<code>Storyboard.TargetName</code>属性。当忽略该属性时，故事板使用父元素，在此是按钮</p>
+</div>
+
+<blockquote>
+<p>使用样式关联触发器</p>
+</blockquote>
+<p>&emsp;&emsp;FrameworkElement.Triggers 集合有点奇怪,它仅支持事件触发器。其他触发器集合(Style.Triggers、DataTemplate.Triggers与ControlTemplate.Triggers)的功能更强大,它们支持三种基本类型的 WPF触发器:属性触发器、数据触发器以及事件触发器。</p>
+<p>&emsp;&emsp;使用事件触发器是关联动画的最常用方式，但并不是唯一的选择。如果使用位于样式、数据模板或控件模板中的 Triggers 集合，还可创建当属性值发生变化时进行响应的属性触发器。例如，下面的样式复制了在前面显示的示例。当IsPressed 属性为true 时，该样式触发一个故事板:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Window.Resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Style</span> <span class="attr">x:Key</span>=<span class="string">&quot;GrowButtonStyle&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">TargetType</span>=<span class="string">&quot;&#123;x:Type Button&#125;&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Style.Triggers</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">Trigger</span> <span class="attr">Property</span>=<span class="string">&quot;Button.IsPressed&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                     <span class="attr">Value</span>=<span class="string">&quot;True&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Trigger.EnterActions</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="tag">&lt;<span class="name">BeginStoryboard</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                        <span class="tag">&lt;<span class="name">Storyboard</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                            <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;Width&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                                             <span class="attr">To</span>=<span class="string">&quot;250&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                                             <span class="attr">Duration</span>=<span class="string">&quot;0:0:5&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                        <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">Trigger.EnterActions</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">Trigger</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Style.Triggers</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">Style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Window.Resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdGrow&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Width</span>=<span class="string">&quot;160&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Height</span>=<span class="string">&quot;40&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Padding</span>=<span class="string">&quot;10&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">VerticalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Content</span>=<span class="string">&quot;Click and Make Me Grow&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Style</span>=<span class="string">&quot;&#123;StaticResource GrowButtonStyle&#125;&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;可使用两种方式为属性触发器关联动作。可使用Trigger.EnterActions 设置当属性改变到指定的数值时希望执行的动作(在上面的示例中，当IsPressed 属性值变为true 时)，**也可以使用Trigger.ExitActions 设置当属性改变回原来的数值时执行的动作(当IsPressed 属性的值变回 false时)**。这是一种封装一对互补动画的简便方法。</p>
+<h3 id="重叠动画"><a href="#重叠动画" class="headerlink" title="重叠动画"></a>重叠动画</h3><p>&emsp;&emsp;故事板提供了改变处理重叠动画方式的能力--换句话说，决定第二个动画何时被应用到已经具有一个正在运行的动画的属性上。可使用 BeginStoryboard.HandofBehavior 属性改变处理重叠动画的方式。</p>
+<p>&emsp;&emsp;通常，当两个动画相互重叠时，第二个动画会立即覆盖第一个动画。这种行为就是所谓的“快照并替换”(由 HandofBehavior 枚举中的 SnapshotAndReplace 值表示)。当第二个动画开始时，第二个动画获取属性当前值(基于第一个动画)的快照，停止动画，并用新动画替换第一个动画。</p>
+<p>&emsp;&emsp;另一个 HandofBehavior 选项是 Compose，这种方式会将第二个动画融合到第一个动画的时间线中。例如，分析 ListBox 示例的修改版本，当缩小按钮时使用 HandofBehavior.Compose:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">RoutedEvent</span>=<span class="string">&quot;ListBoxItem.MouseLeave&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">BeginStoryboard</span> <span class="attr">HandoffBehavior</span>=<span class="string">&quot;Compose&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;FontSize&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">BeginTime</span>=<span class="string">&quot;0:0:0.5&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">Duration</span>=<span class="string">&quot;0:0:0.2&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;现在，如果将鼠标移到 ListBoxItem对象上，然后再移开，将看到不同的行为。当将鼠标移开项时，项会继续扩展，这种行为非常明显，直到第二个动画到达其 05秒的开始时间延迟。然后，第二个动画会缩小按钮。如果不使用 Compose 行为，在第二个动画开始之前的 0.5 秒的时间间隔内，按钮会处于等待状态，并固定为当前尺寸。</p>
+<p>&emsp;&emsp;使用组合的 HandofiBehavior 行为需要更大开销。这是因为当第二个动画开始时，用于运行原来动画的时钟不能被释放。相反，这个时钟会继续保持存活，直到istBoxltem 对象被垃圾回收或为相同的属性应用新的动画为止。</p>
+<div class="note danger flat"><p>如果非常关注性能，WPF 团队推荐一旦动画完成，就手动为动画释放动画时钟(而不是等垃圾回收器回收它们)。为此，需要处理一个事件，如Storyboard.Completed 事件。然后，为刚结束动画的元素调用 BeginAnimation()方法，提供恰当的属性和 null 引用以替代动画。</p>
+</div>
+
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">WidthAnimation_Completed</span>(<span class="params">...</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    cmdGrow.BeginAnimation(WidthProperty, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="同步的动画"><a href="#同步的动画" class="headerlink" title="同步的动画"></a>同步的动画</h3><p>&emsp;&emsp;Storyboard 类间接地继承自 TimelineGroup 类，所以 Storyboard 类能包含多个动画。最令人高兴的是，这些动画可以作为一组进行管理--这意味着它们在同一时间开始。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">Width</span>=<span class="string">&quot;160&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Height</span>=<span class="string">&quot;40&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Content</span>=<span class="string">&quot;Click Grow&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button.Triggers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;Width&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">To</span>=<span class="string">&quot;300&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">Duration</span>=<span class="string">&quot;0:0:5&quot;</span> /&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;Height&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">To</span>=<span class="string">&quot;300&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">Duration</span>=<span class="string">&quot;0:0:5&quot;</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Button.Triggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;因为 Storyboard 类继承自 Timeline类,所以可使用Timeline鼠标表中描述的所有属性来配置其速度、使用加速或减速、引入延迟时间等。这些属性将影响故事板包含的所有动画，而且它们是累加的。例如，如果将 Storyboard.SpeedRatio 属性设置为2，并将 DoubleAnimation.SpeedRatio 属性设置为2，那么动画就会以4倍于正常速度的速度运行。</p>
+<h3 id="控制播放"><a href="#控制播放" class="headerlink" title="控制播放"></a>控制播放</h3><p>&emsp;&emsp;到目前为止，已在事件触发器中使用了一个动作——加载动画的 BeginStoryboard 动作。然一旦创建故事板，就可以用其他动作控制故事板。这些动作类都继承自而，ControllableStoryboardAction类，下表中列出了这些类。</p>
+<center>控制故事板的动作类</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PauseStoryboard</td>
+<td>停止播放动画并且保持其当前位置</td>
+</tr>
+<tr>
+<td>ResumeStoryboard</td>
+<td>恢复播放暂停的动画</td>
+</tr>
+<tr>
+<td>StopStoryboard</td>
+<td>停止播放动画，并将动画时钟重新设置到开始位置</td>
+</tr>
+<tr>
+<td>SeekStoryboard</td>
+<td>跳到动画时间线中的特定位置。如果动画当前正在播放，就继续成新位置播放。如果动画当前是暂停的，就继续保持暂停</td>
+</tr>
+<tr>
+<td>SetStoryboardToFill</td>
+<td>改变整个故事板(而不仅是改变某个内部动画)的SpeedRatio属性值</td>
+</tr>
+<tr>
+<td>SkipStoryboardToFill</td>
+<td>将故事板移到时间线的终点。从技术角度该，这个时期就是所谓的填充区域(fill region)。对于标准动画，FillBehavior属性设置为HoldEnd，动画继续保持最后的值</td>
+</tr>
+<tr>
+<td>RemoveStoryboard</td>
+<td>移出故事板，停止所有正在运行的动画并将属性返回为原来的、最后一次设置的数值。这和对适当的元素使用nul动画对象调用BeginAnimation()方法的效果相同</td>
+</tr>
+</tbody></table>
+<div class="note warning flat"><p>**停止动画不等于完成动画(除非将 FilllBehavior 属性设置为 Stop)**。这是因为即使动画到达时间线的终点，也仍然应用最后的值。类似地，当动画暂停时，会继续应用最近的中间值。然而，当动画停止时，不再应用任何数值，并且属性值会恢复为动画之前的值。</p>
+</div>
+
+<p>&emsp;&emsp;帮助文档中没有记载会妨碍使用这些动作的内容。为成功地执行这些动作，<strong>必须在同一个Triggers 集合中定义所有触发器。如果将 BeginStoryboard动作的触发器和 PauseStoryboard 动作的触发器放置到不同集合中，PauseStoryboard动作就无法工作</strong>。</p>
+<p>&emsp;&emsp;如下示例，白天到黑夜的切换：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240714113714.png"/>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Window.Triggers</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--启动动画--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdStart&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">BeginStoryboard</span> <span class="attr">x:Name</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetName</span>=<span class="string">&quot;imgDay&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;Opacity&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">From</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">To</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">Duration</span>=<span class="string">&quot;0:0:10&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--暂停动画--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdPause&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">PauseStoryboard</span> <span class="attr">BeginStoryboardName</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--恢复暂停的动画--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdResume&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ResumeStoryboard</span> <span class="attr">BeginStoryboardName</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--停止动画，重新设置会开始位置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdStop&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">StopStoryboard</span> <span class="attr">BeginStoryboardName</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--设置到5秒位置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdMiddle&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">SeekStoryboard</span> <span class="attr">BeginStoryboardName</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">Offset</span>=<span class="string">&quot;0:0:5&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Window.Triggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;*&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;50&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Image</span> <span class="attr">x:Name</span>=<span class="string">&quot;imgNight&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">Source</span>=<span class="string">&quot;/Images/night.png&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">Stretch</span>=<span class="string">&quot;Fill&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Image</span> <span class="attr">x:Name</span>=<span class="string">&quot;imgDay&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">Source</span>=<span class="string">&quot;/Images/day.png&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">Stretch</span>=<span class="string">&quot;Fill&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">StackPanel</span> <span class="attr">Grid.Row</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Orientation</span>=<span class="string">&quot;Horizontal&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Margin</span>=<span class="string">&quot;0 10&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">StackPanel.Resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Style</span> <span class="attr">TargetType</span>=<span class="string">&quot;&#123;x:Type Button&#125;&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Padding&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">Value</span>=<span class="string">&quot;5&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Margin&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">Value</span>=<span class="string">&quot;5 0&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">            </span><span class="tag">&lt;/<span class="name">Style</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">StackPanel.Resources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdStart&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Start&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdPause&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Pause&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdResume&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Resume&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdStop&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Stop&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdMiddle&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Move To Middle&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>注意，必须为 BeginStoryboard 动作指定名称(在这个示例中，名称是 fadeStoryboardBegim)。其他触发器通过为 BeginStoryboardName属性指定这个名称，连接到相同的故事板。</p>
+</div>
+
+<p>&emsp;&emsp;当使用故事板动作时将遇到限制。它们提供的属性(如SeekStoryboard.Offset 和SetStoryboardSpeedRatio.SpeedRatio 属性)<strong>不是依赖项属性</strong>，这会限制使用数据绑定表达式。例如，不能自动读取 Slider.Value属性值并将其应用到 SetStoryboardSpeedRatio.SpeedRatio 动作,因为 SpeedRatio属性不接受数据绑定表达式。您可能认为可通过使用Storyboard 对象的SpeedRatio 属性来解决这个问题，但这是行不通的。当动画开始时，读取 SpeedRatio 值并创建一个动画时钟。此后，即使改变了SpeedRatio 属性的值，动画也仍会保持正常的速度。</p>
+<p>&emsp;&emsp;如果希望动态调整速度或位置，唯一的解决方法是使用代码。Storyboard 类中的方法提供了与上表中描述的触发器相同的功能，包括Begin()、Pause()、Resume()、Seek()、Stop()、SkipToFill()、SetSpeedRatio( )以及 Remove( )方法。</p>
+<p>&emsp;&emsp;要访问Storyboard对象，必须在标记中设置其Name属性：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Storyboard</span> <span class="attr">x:Name</span>=<span class="string">&quot;fadeStoryboard&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;现在只需要编写前档的事件处理程序，并使用Storyboard对象的方法(<strong>请记住，简单地改变故事板的属性(比如SpeedRatio)是没有任何效果的，它们仅配置当动画开始时将要使用的设置</strong>)</p>
+<p>&emsp;&emsp;当拖动Slider控件上的滑块时，下面的时间处理程序会进行响应。该事件处理程序获取滑块条的值(范围是0~3)，并使用该数值应用新的速率</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sldSpeed_ValueCHanged</span>(<span class="params"><span class="built_in">object</span> sender,RoutedEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    fadeStoryboard.SetSpeedRatio(<span class="keyword">this</span>,sldSpeed.Value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;注意，SetSpeedRatio()方法需要两个参数。第一个参数是顶级动画容器(在这个示例中，是指当前窗口)。所有故事板方法都需要这个引用。第二个参数是新的速率。</p>
+<h3 id="监视动画进度"><a href="#监视动画进度" class="headerlink" title="监视动画进度"></a>监视动画进度</h3><p>&emsp;&emsp;显示动画的位置和进度。首先需要使用TextBlock元素显示时间，而后需要使用ProgressBar控件显示图形进度条。您可能认为，可使用数据绑定表达式设置TextBlock值和ProgressBar内容，但这是行不通的。因为从故事板中检索当前动画时钟相关信息的唯一方式是使用方法，如<code>GetCurrentTime()</code>和<code>GetCurrentProgress()</code>。无法成属性中获取相同的信息。</p>
+<center>故事板事件</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Completed</td>
+<td>动画已经到达终点</td>
+</tr>
+<tr>
+<td>CurrentGlobalSpeedInvalidated</td>
+<td>速度发生了变化，或者动画被暂停、重新开始、停止或移动到某个新的位置。当动画时钟反转时(在可反转动画的终点)，以及当动画加速和减速时，也会引发该事件</td>
+</tr>
+<tr>
+<td>CurrentStateInvalidated</td>
+<td>动画已经开始或结束</td>
+</tr>
+<tr>
+<td>CurrentTimeInvalidated</td>
+<td>动画时钟已经向前移动了一个步长，正在更改动画。当动画开始、停止或结束也会引发该事件</td>
+</tr>
+<tr>
+<td>RemoveRequested</td>
+<td>动画正在被移除、使用动画的属性随后会返回为原来的值</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;这个示例需要使用<code>CurrentTimeInvalidated</code>事件，没吃向前移动动画时都会引发该事件（<strong>通常，每秒移动60次，当如果执行的代码需要更长事件，可能会丢失时钟刻度</strong>）<br>&emsp;&emsp;当引发<code>CurrentTimeInvalidated</code>事件时，发送者是Clock对象(Clock类位于System.WIndows.Media.ANimation名称空间)。可通过Clock对象检索当前事件，当前时间使用TimeSpan对象表示：<strong>并且可检索当前进度，当前进度使用0~1之间的数值表示</strong></p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240714150720.png" width="80%"/>
+
+<div class="tabs" id=""><ul class="nav-tabs"><button type="button" class="tab  active" data-href="-1">XML</button><button type="button" class="tab " data-href="-2">C#</button></ul><div class="tab-contents"><div class="tab-item-content active" id="-1"><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Window.Triggers</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--启动动画--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdStart&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">BeginStoryboard</span> <span class="attr">x:Name</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Storyboard</span> <span class="attr">x:Name</span>=<span class="string">&quot;fadeStoryboard&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">CurrentTimeInvalidated</span>=<span class="string">&quot;fadeStoryboard_CurrentTimeInvalidated&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetName</span>=<span class="string">&quot;imgDay&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;Opacity&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">From</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">To</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">                                 <span class="attr">Duration</span>=<span class="string">&quot;0:0:10&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--暂停动画--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdPause&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">PauseStoryboard</span> <span class="attr">BeginStoryboardName</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--恢复暂停的动画--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdResume&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ResumeStoryboard</span> <span class="attr">BeginStoryboardName</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--停止动画，重新设置会开始位置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdStop&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">StopStoryboard</span> <span class="attr">BeginStoryboardName</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--设置到5秒位置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;cmdMiddle&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">SeekStoryboard</span> <span class="attr">BeginStoryboardName</span>=<span class="string">&quot;fadeStoryboardBegin&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">Offset</span>=<span class="string">&quot;0:0:5&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Window.Triggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;*&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;50&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;30&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Image</span> <span class="attr">x:Name</span>=<span class="string">&quot;imgNight&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">Source</span>=<span class="string">&quot;/Images/night.png&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">Stretch</span>=<span class="string">&quot;Fill&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Image</span> <span class="attr">x:Name</span>=<span class="string">&quot;imgDay&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">Source</span>=<span class="string">&quot;/Images/day.png&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">Stretch</span>=<span class="string">&quot;Fill&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">StackPanel</span> <span class="attr">Grid.Row</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Orientation</span>=<span class="string">&quot;Horizontal&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Margin</span>=<span class="string">&quot;0 10&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">StackPanel.Resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Style</span> <span class="attr">TargetType</span>=<span class="string">&quot;&#123;x:Type Button&#125;&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Padding&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">Value</span>=<span class="string">&quot;5&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Margin&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">Value</span>=<span class="string">&quot;5 0&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">            </span><span class="tag">&lt;/<span class="name">Style</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">StackPanel.Resources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdStart&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Start&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdPause&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Pause&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdResume&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Resume&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdStop&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Stop&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdMiddle&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Content</span>=<span class="string">&quot;Move To Middle&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid</span> <span class="attr">Grid.Row</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Grid.ColumnDefinitions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ColumnDefinition</span>  <span class="attr">Width</span>=<span class="string">&quot;auto&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ColumnDefinition</span>  <span class="attr">Width</span>=<span class="string">&quot;*&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Grid.ColumnDefinitions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">StackPanel</span> <span class="attr">Orientation</span>=<span class="string">&quot;Horizontal&quot;</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">Margin</span>=<span class="string">&quot;10 0&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">Text</span>=<span class="string">&quot;Speed:&quot;</span></span></span><br><span class="line"><span class="tag">                       <span class="attr">VerticalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">                       <span class="attr">Margin</span>=<span class="string">&quot;5 0&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Label</span> <span class="attr">x:Name</span>=<span class="string">&quot;lblTime&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ProgressBar</span> <span class="attr">Grid.Column</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">x:Name</span>=<span class="string">&quot;progressBar&quot;</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">Height</span>=<span class="string">&quot;20&quot;</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">Minimum</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">Maximum</span>=<span class="string">&quot;1&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="-2"><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fadeStoryboard_CurrentTimeInvalidated</span>(<span class="params"><span class="built_in">object</span> sender, EventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    Clock storyboardClock = (Clock)sender;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (storyboardClock.CurrentProgress == <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        lblTime.Content = <span class="string">&quot;[[ stopped]]&quot;</span>;</span><br><span class="line">        progressBar.Value = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        lblTime.Content = storyboardClock.CurrentTime.ToString();</span><br><span class="line">        progressBar.Value = (<span class="built_in">double</span>)storyboardClock.CurrentProgress;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<div class="note info flat"><p>如果使用Clock.CUrrentProgress属性，就不必为确定进度条的属性值而执行任何计算</p>
+</div>
+
+<h2 id="动画缓动"><a href="#动画缓动" class="headerlink" title="动画缓动"></a>动画缓动</h2><p>&emsp;&emsp;<strong>线性动画的一个缺点是，它通常让人觉得很机械而且不够自然</strong>。相比而言，高级的用户界面具有模拟真实世界系统的动画效果。例如，可能使用具有触觉的下压按钮，当单击时按钮快速地弹回，但是当没有进行操作时它们会慢慢地停下来，创建真正移动的错觉。或者，可能使用类似 Windows 操作系统的最大化和最小化效果,当窗口接近最终尺寸时窗口扩展或收缩的速度会加速。这些细节十分细微，当它们的实现比较完美时您可能不会注意到它们。然而，几乎总会注意到，粗糙的缺少这些更细微特征的动画会给人留下笨拙的印象。</p>
+<p>&emsp;&emsp;<strong>改进动画并创建更趋自然的动画的秘诀是改变变化速率。不是创建以固定不变的速率改变属性的动画，而是需要设计根据某种方式加速或减速的动画。</strong>WPF提供了几种选择。在下一章中，将学习基于帧的动画和关键帧动画，这两种技术都提供了更精细地控制动画的能力(需要做的工作显著增加)。但**实现更趋自然的动画的最简单方法是使用预置的缓动函数(easingfunction)**。</p>
+<h3 id="使用缓动函数"><a href="#使用缓动函数" class="headerlink" title="使用缓动函数"></a>使用缓动函数</h3><p>&emsp;&emsp;动画缓动的最大优点是，相对于其他方法，如基于帧的动画和关键帧动画，这种方法需要的工作少得多。为使用动画缓动，使用某个缓动函数类(继承自EasingFunctionBase 的类)的实例设置动画对象的 EasingFunction 属性。通常需要设置缓动函数的几个属性，并且为了得到您所希望的效果，可能必须使用不同的设置，但不需要编写代码并且只需很少的 XAML。</p>
+<p>&emsp;&emsp;现在，动画使用线性插值，这意味着按钮以恒定的机械性的速度增长和收缩。为得到更趋自然的效果，可使用缓动函数。下面的示例添加了名为lasticEase的缓动函数。最终结果是按钮弹跳出其完整宽度，然后迅速弹回一点，接着再次摆动超出其完整尺寸(但比上一次稍少点)，再以稍小的幅度迅速弹回，等等，随着运动的减弱不断地重复这一跳动模式。之后逐渐进入缓和的 10次振荡。<code>Oscilations属性控制最终跳动的次数</code>。ElasticEase 类还提供了另一个属性<code>Springiness，该属性的值越大，后续的每个振荡静止得越快(默认值是 3)</code>。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdGrow&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Content</span>=<span class="string">&quot;Grow Me&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Width</span>=<span class="string">&quot;100&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Height</span>=<span class="string">&quot;50&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button.Triggers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">RoutedEvent</span>=<span class="string">&quot;UIElement.MouseEnter&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetName</span>=<span class="string">&quot;cmdGrow&quot;</span></span></span><br><span class="line"><span class="tag">                                     <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;Width&quot;</span></span></span><br><span class="line"><span class="tag">                                     <span class="attr">To</span>=<span class="string">&quot;400&quot;</span></span></span><br><span class="line"><span class="tag">                                     <span class="attr">Duration</span>=<span class="string">&quot;0:0:1.5&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">DoubleAnimation.EasingFunction</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">ElasticEase</span> <span class="attr">EasingMode</span>=<span class="string">&quot;EaseInOut&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">Oscillations</span>=<span class="string">&quot;10&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">Springiness</span>=<span class="string">&quot;7&quot;</span> /&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">DoubleAnimation.EasingFunction</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">DoubleAnimation</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">RoutedEvent</span>=<span class="string">&quot;UIElement.MouseLeave&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetName</span>=<span class="string">&quot;cmdGrow&quot;</span></span></span><br><span class="line"><span class="tag">                                     <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;Width&quot;</span></span></span><br><span class="line"><span class="tag">                                     <span class="attr">To</span>=<span class="string">&quot;100&quot;</span></span></span><br><span class="line"><span class="tag">                                     <span class="attr">Duration</span>=<span class="string">&quot;0:0:1.5&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">DoubleAnimation.EasingFunction</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">ElasticEase</span> <span class="attr">EasingMode</span>=<span class="string">&quot;EaseInOut&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">Oscillations</span>=<span class="string">&quot;10&quot;</span></span></span><br><span class="line"><span class="tag">                                         <span class="attr">Springiness</span>=<span class="string">&quot;8&quot;</span> /&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">DoubleAnimation.EasingFunction</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">DoubleAnimation</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Button.Triggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>因为 EasingFunction 属性只能接受单个缓动函数对象,所以不能为同一个动画结合不同的缓动函数</p>
+</div>
+
+
+<h3 id="在动画开始时应用缓动与在动画结束时应用缓动"><a href="#在动画开始时应用缓动与在动画结束时应用缓动" class="headerlink" title="在动画开始时应用缓动与在动画结束时应用缓动"></a>在动画开始时应用缓动与在动画结束时应用缓动</h3><p>&emsp;&emsp;在继续分析不同的缓动函数前，理解缓动函数的应用时机是很重要的。所有缓动函数类都继承自 EasingFunctionBase类,并且继承了EasingMode 属性。该属性具有三个可能值:<code>Easeln(该值意味着在动画开始时应用缓动效果)</code>、<code>EaseOut(该值意味着在动画结束时应用缓动效果)</code>、<code>EaselnOut(该值意味着在动画开始和结束时应用缓动效果</code>——将 Easeln 用于动画的前半部分,将 EaseOut用于动画的后半部分)。</p>
+<p>&emsp;&emsp;在上面的示例中，growStoryboard 中的动画使用 EaseOut 模式。因此，逐渐减弱的跳动序列发生于动画的末尾。如果使用图形显示按钮宽度随动画进程的变化情况,就会看到类似下图的图形。</p>
+<center>使用ElasticEase的EaseOut模式振荡动画的结束</center>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240714154920.png" width="50%"/>
+
+<p>&emsp;&emsp;如果将 ElasticEase 函数的缓动模式切换为 Easeln，跳动将在动画的开始部分发生。按钮收缩使其宽度比开始值更小一点，然后扩展宽度使其超过开始值，继而再稍多地收缩回一点，持续这种模式以逐渐地增加振荡直到自由振荡并扩展剩余的部分(使用ElasticEase.Oscilations 属性控制振荡次数)。下图显示了这种非常不同的移动模式。</p>
+<center>使用ElasticEase的EaseIn模式振荡动画的结束</center>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240714155346.png" width="50%"/>
+
+<p>&emsp;&emsp;最后，EaseInOut模式创建更新颖的效果，在动画的前半部分是振荡动画的开始，接下来在动画的后半部分是振荡动画的结束。下图演示了该模式。</p>
+<center>使用ElasticEase的EaseInOut模式振荡动画的结束</center>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240714155446.png" width="50%"/>
+
+<h3 id="缓动函数类"><a href="#缓动函数类" class="headerlink" title="缓动函数类"></a>缓动函数类</h3><p>&emsp;&emsp;WPF提供了11可缓动函数类，所有这个写类都位于熟悉的<code>System.Windows.Media.Animation</code>名称空间中。下表描述了所有的缓动函数类，并列出了它们的重要属性。请记住，每个缓动函数类还提供了EasingMode属性，用于控制是影响动画的开始(EaseIn)、是影响动画的结束(WaseOut)还是影响动画的开始和结束(EaseInOut)</p>
+<center>缓动函数</center>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BackEase</td>
+<td>当使用EaseIn模式应用该缓动函数时，在动画开始之前拉回动画。当使用EaseOut模式应用该缓动函数时，允许动画稍微超越稍后拉回</td>
+<td>Amplitude属性决定了拉回和超越的量。默认值是1，可减少该属性值(大于0的任何值)以缩减效果，或增加该属性值以放大效果</td>
+</tr>
+<tr>
+<td>ElasticEase</td>
+<td>当使用 EascOut 模式应用该缓动函数时，使动画超越其最大值并前后摆动，逐渐减慢。当使用 Easen 模式应用该缓动函数时，动面在其开始值周围前后摆动，逐渐增加</td>
+<td>Oscillations属性控制动画前后摆动的次数(默认值是3)，Springiness属性控制振荡增加或减弱的速度(默认值是 3)</td>
+</tr>
+<tr>
+<td>BounceEase</td>
+<td>执行与ElasticEase缓动函数类似的效果，只是弹跳永远不会超越初始值或最终值</td>
+<td>Bounce 属性控制动画回跳的次数(默认值是2)，Bounciness属性决定弹跳增加或减弱的速度(默认值是 2)</td>
+</tr>
+<tr>
+<td>CircleEase</td>
+<td>使用圆函数加速(使用EaseIn模式)或减速(使用EaseOut模式)动画</td>
+<td>无</td>
+</tr>
+<tr>
+<td>CubicEase</td>
+<td>使用基于时间立方的函数加速(使用EaseIn模式)或减速(使用EaseOut模式)动画。其效果与CircleEase类似，但是加速过程更缓和</td>
+<td>无</td>
+</tr>
+<tr>
+<td>QuadraticEase</td>
+<td>使用基于事件频繁的额函数加速(使用EaseIn模式)或减速(使用EaseOut模式)动画。效果与CubicEase类似，但加速过程更缓和</td>
+<td>无</td>
+</tr>
+<tr>
+<td>QuarticEase</td>
+<td>使用基于时间4次方的函数加速(使用EaseIn模式)或减速(使用EaseOut模式)动画。效果和CubicEase以及QuadraticEase类似，但加速过程更明显</td>
+<td>无</td>
+</tr>
+<tr>
+<td>QuinticEase</td>
+<td>使用基于时间5次方的函数加速(使用EaseIn模式)或减速(使用EaseOut模式)动画。效果和CubicEase以及QuadraticEase类似，但加速过程更明显</td>
+<td></td>
+</tr>
+<tr>
+<td>SineEase</td>
+<td>使用包含正弦计算的函数加速(使用EaseIn模式)或减速(使用EaseOut模式)动画。加速非常缓和并且相对于其他各种缓动函数更接近线性插值</td>
+<td>无</td>
+</tr>
+<tr>
+<td>PowerEase</td>
+<td>使用幂函数 f(t)&#x3D;t^α 加速(使用 Easeln 模式)或减速(使用 EaseOut 模式)动画。根据为指数p使用的值，可复制 Cubic、QuadraticEase、QuarticEase以及 QuinticEase 函数的效果</td>
+<td>Power 属性用于设置公式中的指数。将该属性设置为2会复制QuadraticEase的效果(f(t)&#x3D;t^2)，设置为3会复制 CubicEase 的效果(f(t)&#x3D;t^3)，设置为4会复制 QuarticEase的效果(f(t)&#x3D;t^4)，i设置为5会复制QuinticEase 的效果(f(t)&#x3D;t^5),或选择其他不同值，默认值是2</td>
+</tr>
+<tr>
+<td>ExponentialEase</td>
+<td>使用指数函数f(t)&#x3D;(e(at)-1)&#x2F;(e(a) - 1)加速(使用EaseIn模式)或减速(使用EaseOut模式)动画</td>
+<td>Exponent属性用于设置指数(默认值是2)</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;许多缓动函数提供了类似但隐约不同的结果。为成功地使用动画缓动，需要决定使用哪个缓动函数，以及如何进行配置。通常，这个过程需要一点试错的体验。有两个资源可为您提供帮助。</p>
+<ul>
+<li>首先，WPF 文档为每个缓动函数的行为提供了插图示例，显示动画如何随着时间修改属性值。查看这些插图是理解缓动函数作用的好方法。下图显示了最流行缓动函数的插图。</li>
+</ul>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240714165842.png" width="60%"/>
+
+<ul>
+<li>其次，Microsoft提供了几个范例程序，可使用这些范例播放不同的缓动函数，并尝试不同的属性值。最方便的范例之一是Silverlight应用程序，可通过浏览<a target="_blank" rel="noopener external nofollow noreferrer" href="http://tinyurl.com/animationeasing">http://tinyurl.com/animationeasing</a> 在浏览器中运行该应用程序。通过该应用程序可在正方形中观察任何缓动函数的效果，并会显示自动生成的复制该效果所需的XAML 标记。</li>
+</ul>
+<h3 id="创建自定义缓动函数"><a href="#创建自定义缓动函数" class="headerlink" title="创建自定义缓动函数"></a>创建自定义缓动函数</h3><p>&emsp;&emsp;通过从 <code>EasingFunctionBase</code> 继承自己的类，并重载 EaseInCore()和 CreateInstanceCore( )方法，可创建自定义缓动效果。这是一个非常专业的技术，因为大部分开发人员能通过配置标准的缓动函数(或使用将在下一章描述的样条关键帧动画)来获得所希望的效果。然而，如果确实决定创建自定义缓动函数，您将发现该过程出奇简单</p>
+<p>&emsp;&emsp;需要编写的几乎所有逻辑都在 <code>EaselnCore()</code>方法中运行。该方法接受一个规范化的时间值本质上，是表示动画进度的从0到1之间的值。当动画开始时，规范化的时间值是0。它从该点开始增加，直到在动画结束点达到1。</p>
+<p>&emsp;&emsp;在动画运行期间，每次更新动画的值时WPF都会调用<code>EaseInCore()</code>方法，确切的调用频率取决于斗篷话的频率，但可以预期每秒调用<code>EaseInCore()</code>方法的次数接近60</p>
+<p>&emsp;&emsp;为执行缓动，EaseInCore()方法采用规范化的时间值，并以某种方式对其进行调整。EaselnCore( )方法返回的调整后的值，随后被用于调整动画的进度。例如，如果 EaseInCore( )方法返回 0，动画被返回到其开始点。如果 EaselnCore()方法返回1，动画跳到其结束点。然而，EaselnCore( )方法的返回值并不局限于这一范围--例如，可返回 1.5 以使动画过渡运行自身50%。您已经看到过用于缓动函数(如 ElasticEase)的这类效果，</p>
+<blockquote>
+<p>下面给出的EaseInCore()方法版本根本不执行任何工作。该版本返回规范化的时间，意味着动画均匀展开，就像没有缓动</p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="built_in">double</span> <span class="title">EaseInCore</span>(<span class="params"><span class="built_in">double</span> normalizedTime</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> normalizedTime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>下面的 EaselnCore()方法版本通过计算规范化时间值的立方，复制CubicEase 函数的效果。因为规范化的时间值是小数，其立方值是更小的小数;所以该方法的效果是最初减慢动画，并当规范化的时间值(及其立方值)接近于1时导致动画加速。</p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="built_in">double</span> <span class="title">EaseInCore</span>(<span class="params"><span class="built_in">double</span> normalizedTime</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> Math.Pow(normalizedTime,<span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>在 EaselnCore()方法中执行的缓动是当使用 Easen 缓动模式时得到的缓动。有趣的是，这就是所需的全部工作，因为 WPF足够智能，它会自动为EaseOut和 EaseInOut设置计算互补的行为。</p>
+</div>
+
+<p>&emsp;&emsp;下面的示例中，自定义缓动函数——以一定的随机量偏移规范化的时间值，导致分散的抖动效果。可使用提供的Jitter依赖项属性(在一个较小的范围内)调整抖动的幅度，该属性接受从0到2000之间的数值。</p>
+<div class="tabs" id=""><ul class="nav-tabs"><button type="button" class="tab  active" data-href="-1">定义自定义缓动函数</button><button type="button" class="tab " data-href="-2">使用自定义缓动函数</button></ul><div class="tab-contents"><div class="tab-item-content active" id="-1"><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 随机抖动</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RandomJitterEase</span> : <span class="title">EasingFunctionBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Store a random number generator</span></span><br><span class="line">    <span class="keyword">private</span> Random _rand = <span class="keyword">new</span> Random();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Jitter</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> (<span class="built_in">int</span>)GetValue(JitterProperty); &#125;</span><br><span class="line">        <span class="keyword">set</span> &#123; SetValue(JitterProperty, <span class="keyword">value</span>); &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Allow the amount of jitter to be configured.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> DependencyProperty JitterProperty =</span><br><span class="line">        DependencyProperty.Register(<span class="string">&quot;Jitter&quot;</span>, <span class="keyword">typeof</span>(<span class="built_in">int</span>), <span class="keyword">typeof</span>(RandomJitterEase), <span class="keyword">new</span> PropertyMetadata(<span class="number">1000</span>), <span class="keyword">new</span> ValidateValueCallback(ValidateJitter));</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">ValidateJitter</span>(<span class="params"><span class="built_in">object</span> <span class="keyword">value</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> jitterValue = (<span class="built_in">int</span>)<span class="keyword">value</span>;</span><br><span class="line">        <span class="keyword">return</span> ((jitterValue &lt;= <span class="number">2000</span>) &amp;&amp; (jitterValue &gt;= <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// This required override simply provides a live instance of your easing function</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> Freezable <span class="title">CreateInstanceCore</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RandomJitterEase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Perform the easing</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="built_in">double</span> <span class="title">EaseInCore</span>(<span class="params"><span class="built_in">double</span> normalizedTime</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Make sure there&#x27;s no jitter in the final value.</span></span><br><span class="line">        <span class="keyword">if</span> (normalizedTime == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Offset the value by a random amount.</span></span><br><span class="line">        <span class="keyword">return</span> Math.Abs(normalizedTime - (<span class="built_in">double</span>)_rand.Next(<span class="number">0</span>, <span class="number">10</span>) / (<span class="number">2010</span> - Jitter));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="-2"><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;cmdGrow&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Content</span>=<span class="string">&quot;Grow Me&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Width</span>=<span class="string">&quot;100&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Height</span>=<span class="string">&quot;50&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Canvas.Left</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Canvas.Top</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button.Triggers</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetName</span>=<span class="string">&quot;cmdGrow&quot;</span></span></span><br><span class="line"><span class="tag">                                             <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;(Canvas.Left)&quot;</span></span></span><br><span class="line"><span class="tag">                                             <span class="attr">From</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">                                             <span class="attr">To</span>=<span class="string">&quot;500&quot;</span></span></span><br><span class="line"><span class="tag">                                             <span class="attr">Duration</span>=<span class="string">&quot;0:0:10&quot;</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">DoubleAnimation.EasingFunction</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">local:RandomJitterEase</span> <span class="attr">EasingMode</span>=<span class="string">&quot;EaseIn&quot;</span></span></span><br><span class="line"><span class="tag">                                                            <span class="attr">Jitter</span>=<span class="string">&quot;1000&quot;</span> /&gt;</span></span><br><span class="line">                                <span class="tag">&lt;/<span class="name">DoubleAnimation.EasingFunction</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">DoubleAnimation</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Button.Triggers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Canvas</span>&gt;</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<div class="note info flat"><p>如果希望查看当动画运行时计算出的缓动值，可在EaseInCore()方法中使用System.DiagnosticsDebug 类的 WriteLine()方法。当在 Visual Shudio 中调试应用程序时，该方法会将您提供的值写入到 Output窗口中</p>
+</div>
+
+<h2 id="动画性能"><a href="#动画性能" class="headerlink" title="动画性能"></a>动画性能</h2><p>&emsp;&emsp;通常，为用户界面应用动画只不过是创建并配置正确的动画和故事板对象。但在其他情况下，特别是同时发生多个动画时，可能需要更加关注性能。特定的效果更可能导致这些问题--例如，那些涉及视频、大位图以及多层透明等的效果通常需要占用更多CPU 开销。如果不谨慎地实现这类效果，运行它们时可能造成明显抖动，或者会从其他同时运行的应用程序抢占CPU的时间</p>
+<p>&emsp;&emsp;幸运的是，WPF提供了几个可提供帮助的技巧。接下来的几节将学习降低最大帧率以及缓存计算机显卡中的位图，这两种技术可以减轻 CPU的负担。</p>
+<h3 id="期望的帧率"><a href="#期望的帧率" class="headerlink" title="期望的帧率"></a>期望的帧率</h3><p>&emsp;&emsp;WPF 试图保持以60帧&#x2F;秒的速度运行动画。这样可确保从开始到结束得到平滑流畅的动画。当然，WPF 可能达不到这个目标。如果同时运行多个复杂的动画，并且 CPU或显卡不能承受的话，整个帧率可能会下降(最好的情形)，甚至可能会跳跃以进行补偿(最坏的情形)。</p>
+<p>&emsp;&emsp;尽管很少提帧率，但可能会选择降低帧率，这可能是因为以下两个原因之一：</p>
+<ul>
+<li>动画使用更低的帧率看起来也很好，所以不希望浪费额外的CPU周期</li>
+<li>应用程序运行在性能较差的CPU或显卡上，并知道使用高的帧率时整个动画的渲染效果还不如使用更低的帧率的渲染效果</li>
+</ul>
+<div class="note warning flat"><p>开发人员有时认为 WPF 提供了用于根据显卡硬件降低帧率的代码,但事实并非如此。相反,WPF 总是试图保持 60 帧&#x2F;秒，除非明确地告诉它使用其他帧率。为了评估动画的执行情况以及在特定的计算机上 WPF 是否能够达到 60 帧&#x2F;秒,可使用 Perforator 工具,该工具是作为 MicrosofWindows SDK v70 的一部分而提供的。对于下载链接、安装指导以及文档，请查看<a target="_blank" rel="noopener external nofollow noreferrer" href="http://tinyurl.com/9kzmv9s">http://tinyurl.com/9kzmv9s</a>.</p>
+</div>
+
+<p>&emsp;&emsp;调整帧率很容易，只需要为包含动画的故事板使用<code>Timeline.DesciredFrameRate</code>附加属性。下面的示例将帧率减半：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Storyboard</span> <span class="attr">Timeline.DesiredFrameRate</span>=<span class="string">&quot;30&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;下图显示了一个简单的测试程序，该程序为一个小球应用动画，使其在Cavnas控件上沿着一条曲线运动：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240714180408.png" width="60%"/>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Window.Resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">BeginStoryboard</span> <span class="attr">x:Key</span>=<span class="string">&quot;beginStoryboard&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Storyboard</span> <span class="attr">Timeline.DesiredFrameRate</span>=<span class="string">&quot;&#123;Binding ElementName=txtFrameRate,Path=Text&#125;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetName</span>=<span class="string">&quot;ellipse&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;(Canvas.Left)&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">From</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">To</span>=<span class="string">&quot;300&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">Duration</span>=<span class="string">&quot;0:0:0.5&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">DoubleAnimation</span> <span class="attr">Storyboard.TargetName</span>=<span class="string">&quot;ellipse&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">Storyboard.TargetProperty</span>=<span class="string">&quot;(Canvas.Top)&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">From</span>=<span class="string">&quot;300&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">To</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">AutoReverse</span>=<span class="string">&quot;True&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">Duration</span>=<span class="string">&quot;0:0:0.25&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">DecelerationRatio</span>=<span class="string">&quot;1&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Storyboard</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">BeginStoryboard</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Window.Resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Window.Triggers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">RoutedEvent</span>=<span class="string">&quot;Window.Loaded&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">StaticResource</span> <span class="attr">ResourceKey</span>=<span class="string">&quot;beginStoryboard&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EventTrigger</span> <span class="attr">SourceName</span>=<span class="string">&quot;btnRepeat&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">RoutedEvent</span>=<span class="string">&quot;Button.Click&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">StaticResource</span> <span class="attr">ResourceKey</span>=<span class="string">&quot;beginStoryboard&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">EventTrigger.Actions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">EventTrigger</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Window.Triggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;*&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;auto&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;auto&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Canvas</span> <span class="attr">ClipToBounds</span>=<span class="string">&quot;True&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Ellipse</span> <span class="attr">x:Name</span>=<span class="string">&quot;ellipse&quot;</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">Fill</span>=<span class="string">&quot;Red&quot;</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">Width</span>=<span class="string">&quot;10&quot;</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">Height</span>=<span class="string">&quot;10&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">StackPanel</span> <span class="attr">Grid.Row</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Orientation</span>=<span class="string">&quot;Horizontal&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">Margin</span>=<span class="string">&quot;0 20&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">Text</span>=<span class="string">&quot;Desired Frame Rate:&quot;</span></span></span><br><span class="line"><span class="tag">                   <span class="attr">VerticalAlignment</span>=<span class="string">&quot;Center&quot;</span></span></span><br><span class="line"><span class="tag">                   <span class="attr">Margin</span>=<span class="string">&quot;10 0&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">TextBox</span> <span class="attr">x:Name</span>=<span class="string">&quot;txtFrameRate&quot;</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">Width</span>=<span class="string">&quot;100&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">&quot;btnRepeat&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Grid.Row</span>=<span class="string">&quot;2&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Width</span>=<span class="string">&quot;100&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">Height</span>=<span class="string">&quot;30&quot;</span>&gt;</span>Repeat<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="位图缓存"><a href="#位图缓存" class="headerlink" title="位图缓存"></a>位图缓存</h3><p>&emsp;&emsp;位图缓存通知 WPF 获取内容的当前位图图像，并将其复制到显卡的内存中。这时，显卡可以控制位图的操作和显示的刷新。这个处理过程比让 WPF 完成所有工作要快很多，并且和显卡不断地通信。</p>
+<p>&emsp;&emsp;如果运用得当，位图缓存可改善应用程序的绘图性能。但如果运用不当，就会浪费显存并且实际上会降低性能。所以，在使用位图缓存之前，需要确保真正合适。下面列出一些指导原则:</p>
+<ul>
+<li>如果正在绘制的内容需要频繁地重新绘制，使用位图缓存可能是合理的。因为每次后续的重新绘制将更快。一个例子是当其他一些具有动画的对象浮动在形状表面上时，使用BitmapCacheBrush 画刷绘制形状的表面。尽管形状没有变化，但是形状的不同部分被遮挡住或显露出来，从而需要重新绘制。</li>
+<li>如果元素的内容经常变化，使用位图缓存可能不合理。因为可视化内容每次改变时，WPF需要重新渲染位图并将其发送到显卡缓存，而这需要耗费时间。该规则有些晦涩，因为某些改变不会导致缓存无效。安全操作的例子包括使用变换旋转以及重新缩放元素、剪裁元素、改变元素的透明度以及应用效果。另一方面，改变元素的内容、布局以及格式将强制重新渲染位图。</li>
+<li>尽量少缓存内容。位图越大，WPF 存储缓存副本所需的时间越长，需要的显存越多旦耗尽显存，WPF 将被迫使用更慢的软件渲染。</li>
+</ul>
+<div class="note danger flat"><p>不良的缓存策略可能导致更严重的性能问题，应用程序不会充分地优化。所以除非满足这些指导原则,否则不要使用缓存。同样,可使用性能分析工具(如 Perforator,<a target="_blank" rel="noopener external nofollow noreferrer" href="http://tinyurl.com/9kzmv9s)%E6%A0%B8%E5%AE%9E%E6%82%A8%E7%9A%84%E7%AD%96%E7%95%A5%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%94%B9%E5%96%84%E6%80%A7%E8%83%BD%E3%80%82">http://tinyurl.com/9kzmv9s)核实您的策略是否可以改善性能。</a></p>
+</div>
+
+<p>&emsp;&emsp;为更好地理解位图缓存，使用一个简单示例是有帮助的。在下列中，一个动画推动一个简单的图形——正方形——在Canvas面板上移动，Cavans面板包含一条具有复杂集合图形的路径。当正方形在Canvas面板表面上移动时，强制WPF重新计算路径并填充丢失的部分。这会带来极大的CPU负担，并且动画甚至可能看哦是变得断断续续</p>
+<p>&emsp;&emsp;可采用几种方法解决该问题。一种选择是使用一幅位图替换背景，WPF能够更高效地管理位图。更灵活的选择是使用位图缓存，这种方法可继续将存活的、可交互的元素作为背景。<br>&emsp;&emsp;为启用位图缓存功能，将相应元素的CacheMode属性设置为BitmapCache。每个元素都提供了 CacheMode属性，这意味着您可以精确选择为哪个元素使用这一特征。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Path CacheMode=<span class="string">&quot;BitmapCache&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+<div class="note info flat"><p>如果缓存包含其他元素的元素，如布局容器，所有元素都将被缓存到一幅位图中。因此，当为类似 Canvas 的容器添加缓存时要格外谨慎——只有当 Canvas 容器较小而且其内容不会改变时才这么做。</p>
+</div>
+
+<p>&emsp;&emsp;通过这个简单修改，可立即看到区别。首先，窗口显示的时间要稍长一些。但动画的运行将更平滑，并且CUP的负担将显著降低。可通过 Windows 任务管理器进行检——经常可以看到CPU 的负担从接近 100%减少到20%以下。</p>
+<p>&emsp;&emsp;通常，当启用位图缓存时，WPF采用元素当前尺寸的快照并将其位图复制到显卡中。如果之后使用 ScaleTransfomm 放大元素，这会变成一个问题。<strong>在这种情况下，将放大缓存的位图,而不是实际的元素，当放大元素时这会导致模糊放大以及色块</strong>。</p>
+<p>&emsp;&emsp;例如，设想一个修订过的示例。在示例中，第二个同步动画扩展Path 使其为原始尺寸的10倍，然后缩回原始尺寸。为确保具有良好的显示质量，可使用5倍于Path 原始尺寸的尺寸缓存其位图:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Path...</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Path.CacheMode</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">BitmapCache</span> <span class="attr">RenderAtScale</span>=<span class="string">&quot;5&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Path.CacheMode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Path</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;这样可解决像素化问题。虽然缓存的位图仍比Pat的最大动画尺寸(最大尺寸达 10 倍于其原始尺寸)小，但显卡能使位图的尺寸加倍，从5倍到10倍，而不会有任何明显的缩放问题。更重要的是，这可使应用程序避免过多地使用显存。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://bootree.cn">大白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://bootree.cn/2024/07/13/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/15%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80/">http://bootree.cn/2024/07/13/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/15%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://bootree.cn" target="_blank">生活中的tree</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/">WPF编程宝典</a></div><div class="post_share"><div class="social-share" data-image="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/16/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/16%E9%AB%98%E7%BA%A7%E5%8A%A8%E7%94%BB/" title="WPF编程宝典 - 16高级动画"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">WPF编程宝典 - 16高级动画</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/09/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/14%E6%95%88%E6%9E%9C%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AF%B9%E8%B1%A1/" title="WPF编程宝典 - 14效果和可视化对象"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">WPF编程宝典 - 14效果和可视化对象</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/05/24/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/03%E5%B8%83%E5%B1%80/" title="WPF编程宝典 - 03布局"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527195817.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-24</div><div class="title">WPF编程宝典 - 03布局</div></div></a></div><div><a href="/2024/05/22/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/01%E6%A6%82%E8%BF%B0/" title="WPF编程宝典 - 01概述"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-22</div><div class="title">WPF编程宝典 - 01概述</div></div></a></div><div><a href="/2024/05/28/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/05%E8%B7%AF%E7%94%B1%E4%BA%8B%E4%BB%B6/" title="WPF编程宝典 - 05路由事件"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-28</div><div class="title">WPF编程宝典 - 05路由事件</div></div></a></div><div><a href="/2024/05/25/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/04%E4%BE%9D%E8%B5%96%E5%B1%9E%E6%80%A7/" title="WPF编程宝典 - 04依赖属性"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-25</div><div class="title">WPF编程宝典 - 04依赖属性</div></div></a></div><div><a href="/2024/05/23/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/02XAML/" title="WPF编程宝典 - 02XAML"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240527195528.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-23</div><div class="title">WPF编程宝典 - 02XAML</div></div></a></div><div><a href="/2024/05/29/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/06%E6%8E%A7%E4%BB%B6/" title="WPF编程宝典 - 06控件"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-29</div><div class="title">WPF编程宝典 - 06控件</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">大白</div><div class="author-info__description">人不可能同时拥有青春和对青春的感受</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/cnlicm"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/cnlicm" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:codenobugs@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">A lazy guy. My dream is that generate electricity with love.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%A7%A3WPF%E5%8A%A8%E7%94%BB"><span class="toc-number">1.</span> <span class="toc-text">理解WPF动画</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84%E5%8A%A8%E7%94%BB"><span class="toc-number">1.1.</span> <span class="toc-text">基于时间的动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%B1%9E%E6%80%A7%E7%9A%84%E5%8A%A8%E7%94%BB"><span class="toc-number">1.2.</span> <span class="toc-text">基于属性的动画</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8A%A8%E7%94%BB"><span class="toc-number">2.</span> <span class="toc-text">基本动画</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Animation%E7%B1%BB"><span class="toc-number">2.1.</span> <span class="toc-text">Animation类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E5%88%9B%E5%BB%BA%E5%8A%A8%E7%94%BB"><span class="toc-number">2.2.</span> <span class="toc-text">使用代码创建动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#From%E5%B1%9E%E6%80%A7"><span class="toc-number">2.2.1.</span> <span class="toc-text">From属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#To%E5%B1%9E%E6%80%A7"><span class="toc-number">2.2.2.</span> <span class="toc-text">To属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#By%E5%B1%9E%E6%80%A7"><span class="toc-number">2.2.3.</span> <span class="toc-text">By属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Duration%E5%B1%9E%E6%80%A7"><span class="toc-number">2.2.4.</span> <span class="toc-text">Duration属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%97%B6%E5%8F%91%E7%94%9F%E7%9A%84%E5%8A%A8%E7%94%BB"><span class="toc-number">2.2.5.</span> <span class="toc-text">同时发生的动画</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">2.2.6.</span> <span class="toc-text">动画的生命周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Timeline%E7%B1%BB"><span class="toc-number">2.2.7.</span> <span class="toc-text">Timeline类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#AccelerationRatio%E5%92%8CDecelerationRatio%E5%B1%9E%E6%80%A7"><span class="toc-number">2.2.7.1.</span> <span class="toc-text">AccelerationRatio和DecelerationRatio属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#RepeatBehavior%E5%B1%9E%E6%80%A7"><span class="toc-number">2.2.7.2.</span> <span class="toc-text">RepeatBehavior属性</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%85%E4%BA%8B%E6%9D%BF"><span class="toc-number">3.</span> <span class="toc-text">故事板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%85%E4%BA%8B%E6%9D%BF-1"><span class="toc-number">3.1.</span> <span class="toc-text">故事板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">事件触发器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%8F%A0%E5%8A%A8%E7%94%BB"><span class="toc-number">3.3.</span> <span class="toc-text">重叠动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E7%9A%84%E5%8A%A8%E7%94%BB"><span class="toc-number">3.4.</span> <span class="toc-text">同步的动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%92%AD%E6%94%BE"><span class="toc-number">3.5.</span> <span class="toc-text">控制播放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E8%A7%86%E5%8A%A8%E7%94%BB%E8%BF%9B%E5%BA%A6"><span class="toc-number">3.6.</span> <span class="toc-text">监视动画进度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E7%BC%93%E5%8A%A8"><span class="toc-number">4.</span> <span class="toc-text">动画缓动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BC%93%E5%8A%A8%E5%87%BD%E6%95%B0"><span class="toc-number">4.1.</span> <span class="toc-text">使用缓动函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%8A%A8%E7%94%BB%E5%BC%80%E5%A7%8B%E6%97%B6%E5%BA%94%E7%94%A8%E7%BC%93%E5%8A%A8%E4%B8%8E%E5%9C%A8%E5%8A%A8%E7%94%BB%E7%BB%93%E6%9D%9F%E6%97%B6%E5%BA%94%E7%94%A8%E7%BC%93%E5%8A%A8"><span class="toc-number">4.2.</span> <span class="toc-text">在动画开始时应用缓动与在动画结束时应用缓动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%8A%A8%E5%87%BD%E6%95%B0%E7%B1%BB"><span class="toc-number">4.3.</span> <span class="toc-text">缓动函数类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BC%93%E5%8A%A8%E5%87%BD%E6%95%B0"><span class="toc-number">4.4.</span> <span class="toc-text">创建自定义缓动函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E6%80%A7%E8%83%BD"><span class="toc-number">5.</span> <span class="toc-text">动画性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%9F%E6%9C%9B%E7%9A%84%E5%B8%A7%E7%8E%87"><span class="toc-number">5.1.</span> <span class="toc-text">期望的帧率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E5%9B%BE%E7%BC%93%E5%AD%98"><span class="toc-number">5.2.</span> <span class="toc-text">位图缓存</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/20/Tools/oh-my-posh%E7%BE%8E%E5%8C%96%E7%BB%88%E7%AB%AF/" title="oh-my-posh美化终端"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240920223143.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="oh-my-posh美化终端"/></a><div class="content"><a class="title" href="/2024/09/20/Tools/oh-my-posh%E7%BE%8E%E5%8C%96%E7%BB%88%E7%AB%AF/" title="oh-my-posh美化终端">oh-my-posh美化终端</a><time datetime="2024-09-20T14:21:00.000Z" title="发表于 2024-09-20 22:21:00">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/04/Python/Python%E5%BA%93%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="Python库离线安装"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240904171053.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Python库离线安装"/></a><div class="content"><a class="title" href="/2024/09/04/Python/Python%E5%BA%93%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="Python库离线安装">Python库离线安装</a><time datetime="2024-09-04T08:34:34.000Z" title="发表于 2024-09-04 16:34:34">2024-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/03/ANSYS/ANSYS%E8%AE%A1%E7%AE%97/" title="ANSYS计算"><img src= "/img/loading.gif" data-lazy-src="https://jsd.012700.xyz/gh/jerryc127/CDN/img/material-7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ANSYS计算"/></a><div class="content"><a class="title" href="/2024/09/03/ANSYS/ANSYS%E8%AE%A1%E7%AE%97/" title="ANSYS计算">ANSYS计算</a><time datetime="2024-09-03T03:23:37.000Z" title="发表于 2024-09-03 11:23:37">2024-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/02/IDE/Rider/JetBrainsRider%E8%AE%BE%E8%AE%A1%E6%97%B6%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/" title="JetBrainsRider设计时资源加载"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240902145915.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JetBrainsRider设计时资源加载"/></a><div class="content"><a class="title" href="/2024/09/02/IDE/Rider/JetBrainsRider%E8%AE%BE%E8%AE%A1%E6%97%B6%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/" title="JetBrainsRider设计时资源加载">JetBrainsRider设计时资源加载</a><time datetime="2024-09-02T06:57:12.000Z" title="发表于 2024-09-02 14:57:12">2024-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/02/PDMS/DotNet/03PML-NET%E5%BC%80%E5%8F%91/" title="03PML.NET开发"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/pdms.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="03PML.NET开发"/></a><div class="content"><a class="title" href="/2024/09/02/PDMS/DotNet/03PML-NET%E5%BC%80%E5%8F%91/" title="03PML.NET开发">03PML.NET开发</a><time datetime="2024-09-02T06:32:39.000Z" title="发表于 2024-09-02 14:32:39">2024-09-02</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/wpf.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By 大白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/"><img class="icp-icon" src= "/img/loading.gif" data-lazy-src="/img/2020011362.png"><span>赣ICP备2020011362号-2</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/utils.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/main.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/tw_cn.min.js"></script><script src="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://jsd.012700.xyz/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://jsd.012700.xyz/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://jsd.012700.xyz/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script data-pjax src="/self/btf.js"></script><script defer="defer" id="ribbon" src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://jsd.012700.xyz/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/talking/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/search/local-search.min.js"></script></div></div></body></html>

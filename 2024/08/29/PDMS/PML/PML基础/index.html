@@ -1,0 +1,952 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>PML基础 | 生活中的tree</title><meta name="author" content="大白"><meta name="copyright" content="大白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概述 Programmable Macro Language可编程宏语言 PML2基于面向对象(Object Oriented)概念的编程语言 支持用户可自定义对象类型(Object Types) 简单易学，与PDMS无缝连接 丰富的内置函数，方法及对象 最简单的对话框，菜单编写语言  PML构成 Macros Macros是包含PDMS命令序列的ASCII文件 Macros在PDMS中通过$m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PML基础">
+<meta property="og:url" content="http://bootree.cn/2024/08/29/PDMS/PML/PML%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="生活中的tree">
+<meta property="og:description" content="概述 Programmable Macro Language可编程宏语言 PML2基于面向对象(Object Oriented)概念的编程语言 支持用户可自定义对象类型(Object Types) 简单易学，与PDMS无缝连接 丰富的内置函数，方法及对象 最简单的对话框，菜单编写语言  PML构成 Macros Macros是包含PDMS命令序列的ASCII文件 Macros在PDMS中通过$m">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240829195147.png">
+<meta property="article:published_time" content="2024-08-29T11:50:05.000Z">
+<meta property="article:modified_time" content="2024-09-20T15:13:22.421Z">
+<meta property="article:author" content="大白">
+<meta property="article:tag" content="PDMS">
+<meta property="article:tag" content="PML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240829195147.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://bootree.cn/2024/08/29/PDMS/PML/PML%E5%9F%BA%E7%A1%80/index.html"><link rel="preconnect" href="https://jsd.012700.xyz"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="NdIUXAOVyGnnBhcrip0ksCawbdAzT0hlBZDE9u4jx6k"/><meta name="msvalidate.01" content="567E47D75E8DCF1282B9623AD914701E"/><meta name="baidu-site-verification" content="code-pE5rnuxcfD"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: 大白","link":"链接: ","source":"来源: 生活中的tree","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://jsd.012700.xyz/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PML基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-20 23:13:22'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="preconnect" href="https://jsd.012700.xyz"><link href="/self/btf.css" rel="stylesheet"><link rel="alternate" href="/atom.xml" title="生活中的tree" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240829195147.png')"><nav id="nav"><span id="blog-info"><a href="/" title="生活中的tree"><span class="site-name">生活中的tree</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PML基础<a class="post-edit-link" href="https://github.com/cnlicm/HexoBlog/tree/main/source/_posts/PDMS/PML/PML基础.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-08-29T11:50:05.000Z" title="发表于 2024-08-29 19:50:05">2024-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/PDMS/">PDMS</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/PDMS/PML/">PML</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PML基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li><code>Programmable Macro Language</code>可编程宏语言</li>
+<li>PML2基于面向对象(<code>Object Oriented</code>)概念的编程语言</li>
+<li>支持用户可自定义对象类型(<code>Object Types</code>)</li>
+<li>简单易学，与PDMS无缝连接</li>
+<li>丰富的内置函数，方法及对象</li>
+<li>最简单的对话框，菜单编写语言</li>
+</ul>
+<h2 id="PML构成"><a href="#PML构成" class="headerlink" title="PML构成"></a>PML构成</h2><ul>
+<li><strong>Macros</strong><ul>
+<li><code>Macros</code>是包含PDMS命令序列的ASCII文件</li>
+<li><code>Macros</code>在PDMS中通过<code>$m /FILENAME</code>来执行</li>
+</ul>
+</li>
+<li><strong>PML</strong><ul>
+<li>变量(<code>Variables</code>)</li>
+<li>判断语句(<code>if Constrcuct</code>)</li>
+<li>循环(<code>Do loops</code>)</li>
+<li>错误处理(<code>Error Handling</code>)</li>
+<li>文件处理(<code>Files and Directories</code>)</li>
+</ul>
+</li>
+<li><strong>窗体和菜单</strong><ul>
+<li>PDMS大多数应用程序都由对话框(<code>Forms</code>)和菜单(<code>Menus</code>)来驱动</li>
+</ul>
+</li>
+</ul>
+<h2 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h2><h3 id="简单的宏"><a href="#简单的宏" class="headerlink" title="简单的宏"></a>简单的宏</h3><p>&emsp;&emsp;宏是包含PDMS命令序列的一个文本文件。以下宏创建了一个<code>EQUIP</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NEW EQUIP /FRED</span><br><span class="line">NEW BOX</span><br><span class="line">XLEN 300 YLEN 400 ZLEN 600</span><br><span class="line">NEW CYL DIA 400 HEI 600</span><br><span class="line">CONN P1 TO P2 OF PREV</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;运行宏</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">M /MyFile</span></span><br></pre></td></tr></table></figure>
+
+<div class="note info flat"><p>将<code>CurrentElement</code>选中为<code>ZONE</code>上，以正确的创建<code>EQUIP</code></p>
+</div>
+
+<h3 id="参数化宏"><a href="#参数化宏" class="headerlink" title="参数化宏"></a>参数化宏</h3><p>&emsp;&emsp;宏可以参数化</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NEW EQUIP /$1</span><br><span class="line">NEW BOX</span><br><span class="line">XLEN $2 YLEN $3 ZLEN $4</span><br><span class="line">NEW CYL DIA $3 HEI $4</span><br><span class="line">CONN P1 TO P2 OF PREV</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;文件名后面的字符串是参数(parameters)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">M /MyFile FRED 300 400 600</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;宏的参数：</p>
+<ol>
+<li><code>Macros</code>可以有多达9个由空格分隔的参数</li>
+<li>文本字符串可以以单个参数输入</li>
+<li><code>$&lt;</code>和<code>$&gt;</code>是分隔符，在它们之间的任何字符都被认为是单个参数<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">M /MyFile $&lt; Hello World $&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<div class="note info flat"><p>宏内的$1~$9类似于参数的插槽</p>
+</div>
+
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><blockquote>
+<p>变量的基本概念</p>
+</blockquote>
+<ul>
+<li>变量用于存储数值</li>
+<li>变量必须有名字</li>
+<li>变量的数值可以改变，但变量名固定</li>
+</ul>
+<blockquote>
+<p>PML变量</p>
+</blockquote>
+<p>&emsp;&emsp;在PML2中变量是一个对象(<code>Objects</code>)</p>
+<ul>
+<li>每一个对象(变量)有一个唯一的名字</li>
+<li>每个对象都有一套函数与之相关联，这些函数称为**方法(Methods)**，方法用于处理对象中的数据</li>
+<li>生成对象时必须指明**对象类型(Object type)**，不同的对象类型对应不同的方法</li>
+</ul>
+<h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><ul>
+<li><strong>内置(Build-in)的对象类型</strong><ul>
+<li>字符串类型<code>(String)</code></li>
+<li>实数类型<code>(Real)</code></li>
+<li>布尔类型<code>(Boolean)</code></li>
+<li>数组类型<code>(Array)</code></li>
+</ul>
+</li>
+<li><strong>系统定义(System-defined)的对象类型</strong></li>
+<li><strong>用户自定义(User-defined)的对象类型</strong></li>
+</ul>
+<h3 id="变量操作"><a href="#变量操作" class="headerlink" title="变量操作"></a>变量操作</h3><p>&emsp;&emsp;以下统一采用String类型的Msg变量作为演示</p>
+<h4 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h4><blockquote>
+<p>直接声明变量类型</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!Msg = String()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过赋值声明变量类型</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!Msg = &#x27;Hello,World&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="变量值修改"><a href="#变量值修改" class="headerlink" title="变量值修改"></a>变量值修改</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!Msg = &#x27;Hello,PML&#x27;</span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>变量类型一旦声明则不允许修改</p>
+</div>
+
+<h4 id="查询变量"><a href="#查询变量" class="headerlink" title="查询变量"></a>查询变量</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q VAR !Msg</span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>查询不存在的变量会输出 <code>Undefined</code></p>
+</div>
+
+<h4 id="变量删除"><a href="#变量删除" class="headerlink" title="变量删除"></a>变量删除</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!Msg.delete()</span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>如果变量名不存在会报错</p>
+</div>
+
+<h3 id="变量命名规则"><a href="#变量命名规则" class="headerlink" title="变量命名规则"></a>变量命名规则</h3><ol>
+<li><p>局部变量(<code>Local</code>)和全局变量(<code>Global</code>)</p>
+<ul>
+<li><code>!SurfaceArea</code>    <em>!表示局部变量</em></li>
+<li><code>!!Area</code>          <em>!!表示全局变量</em></li>
+</ul>
+</li>
+<li><p>变量名最长16个字符(不包括<code>!</code>和<code>!!</code>)，变量名可以包含字母和数字</p>
+</li>
+<li><p>变量名不能用数字和点(<code>.</code>)开头</p>
+</li>
+<li><p>变量名的大小写不敏感</p>
+</li>
+</ol>
+<div class="note info flat"><p>建议: 一个变量一个用途，最好给变量名一个有意义的名字，并且区分大小写</p>
+</div>
+
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><center>PDMS属性类型－系统定义变量类型</center>
+
+<table>
+<thead>
+<tr>
+<th>变量类型</th>
+<th>示例属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串(String)</td>
+<td>Name、Description、Function</td>
+</tr>
+<tr>
+<td>实数(Real)</td>
+<td>Angle、Temperature</td>
+</tr>
+<tr>
+<td>布尔(Boolean)</td>
+<td>Lock、Shop、Built</td>
+</tr>
+<tr>
+<td>数组(Array)</td>
+<td>Level</td>
+</tr>
+<tr>
+<td>参考(Reference)</td>
+<td>Spref、Catref、Lstube</td>
+</tr>
+<tr>
+<td>关键字(Word)</td>
+<td>Type、Purpose</td>
+</tr>
+<tr>
+<td>位置(Position)</td>
+<td>Position、Hpsoition</td>
+</tr>
+<tr>
+<td>方位(Orientation)</td>
+<td>Orientation</td>
+</tr>
+<tr>
+<td>方向(Direction)</td>
+<td>HDirection</td>
+</tr>
+</tbody></table>
+<h3 id="变量提取属性"><a href="#变量提取属性" class="headerlink" title="变量提取属性"></a>变量提取属性</h3><blockquote>
+<p>用变量提取属性值，变量名 &#x3D; 属性名</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">!Name = Name</span><br><span class="line">!Desc = Description</span><br><span class="line">!Pspec = Pspec</span><br><span class="line">!Temp = Temp</span><br><span class="line">!Purp = Purp</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查询属性类型</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">!Ref = Ref</span><br><span class="line"></span><br><span class="line">Q Var !Ref</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量给属性赋值"><a href="#变量给属性赋值" class="headerlink" title="变量给属性赋值"></a>变量给属性赋值</h3><p>&emsp;&emsp;<code>属性名 $变量名</code>，其中 <code>$</code> 表示将变量的值转换成字符串，PDMS命令行只接受字符串的值</p>
+<p>－　给名字赋值，第一个字符必须是 <code>/</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!Name = &#x27;/NewName&#x27;</span><br><span class="line">Name $!Name</span><br></pre></td></tr></table></figure>
+<ul>
+<li>给字符串赋值，必须用单引号括起来</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Desc &#x27;$!Desc&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>给实数赋值</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Temp $!Temp</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>给参考赋值，参考元素必须存在</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pspec $!Pspec</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>给关键字赋值，只提前四个字符，不用括号</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Purp $!Purp</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法和函数"><a href="#方法和函数" class="headerlink" title="方法和函数"></a>方法和函数</h2><ul>
+<li>函数(<code>Function</code>)是执行特定功能的子程序</li>
+<li>方法(<code>Method</code>)是对象(变量)的函数<ul>
+<li>在PML2中变量是一个对象(<code>Objects</code>)<ul>
+<li>每一个对象(变量)有一个唯一的名字</li>
+<li>每一个对象都有一套函数与之相关联，这些函数称为方法(<code>Methods</code>)，方法用于处理对象中的数据</li>
+<li>生成对象时必须指明**对象类型(Object tyep)**，不同的对象类型对应不同的方法</li>
+</ul>
+</li>
+<li>方法并不改变对象的类型和对象中的值</li>
+</ul>
+</li>
+</ul>
+<h3 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h3><center>常用字符串方法</center>
+
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Length()</td>
+<td>字符串长度</td>
+</tr>
+<tr>
+<td>Real()、Position()、Boolean</td>
+<td>类型转换</td>
+</tr>
+<tr>
+<td>LowCase()、UpCase()</td>
+<td>大小写转换</td>
+</tr>
+<tr>
+<td>After(str2)、Before(str2)、Substring(index)</td>
+<td>两端截取</td>
+</tr>
+<tr>
+<td>Substring(index,nchars)</td>
+<td>中间截取</td>
+</tr>
+<tr>
+<td>Part(nth)、Part(nth,delim)</td>
+<td>分隔符截取</td>
+</tr>
+<tr>
+<td>Replace(str2,str3)</td>
+<td>替换</td>
+</tr>
+<tr>
+<td>Match(str2)、MatchWild(str2)</td>
+<td>匹配</td>
+</tr>
+<tr>
+<td>Split()</td>
+<td>分割</td>
+</tr>
+<tr>
+<td>Trim()、Trim(option)</td>
+<td>修剪</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;使用示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">!str = &#x27;hello how are you&#x27;</span><br><span class="line">!msg = !str.after(&#x27;hello&#x27;).trim().upcase()</span><br><span class="line">q var !msg</span><br><span class="line"></span><br><span class="line">&lt;String&gt; &#x27;HOW ARE YOU&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标准函数"><a href="#标准函数" class="headerlink" title="标准函数"></a>标准函数</h3><center>常用标准函数</center>
+
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SIN、COS、TAN、ASIN、ACOS、ATAN</td>
+<td>三角函数</td>
+</tr>
+<tr>
+<td>SQR、POW、ABS</td>
+<td>开方、次方、绝对值</td>
+</tr>
+<tr>
+<td>LOG、ALONG</td>
+<td>对数、取对数</td>
+</tr>
+<tr>
+<td>INT NINT</td>
+<td>取整、四舍五入取整</td>
+</tr>
+<tr>
+<td>MATCH、DMATCH</td>
+<td>匹配、中文字符匹配</td>
+</tr>
+<tr>
+<td>MAX、MIN</td>
+<td>最大值、最小值</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;使用示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">!s = 30 * sin(45)</span><br><span class="line">!len = Length(&#x27;abcdef&#x27;)</span><br><span class="line">!t = pow(20,2)</span><br><span class="line">!sqr = SQR(4)</span><br><span class="line">!m = match(&#x27;abcdef&#x27;,&#x27;cd&#x27;)</span><br><span class="line">!f = (match(Func of Zone,&#x27;Piping&#x27;) gt 0)</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h3><h4 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h4><p>&emsp;&emsp;将函数定义成全局变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">define function !!Area(!Length is REAL, !Weight is REAL) is REAL</span><br><span class="line">    !Area = !Length * !Width</span><br><span class="line">    return !Area</span><br><span class="line">Endfunction</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;文件命名和存放位置</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830094509.png" width="60%"/>
+
+<div class="note info flat"><p>文件名必须与函数名一样，后缀是小写的<code>pmlfnc</code></p>
+</div>
+
+<h4 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h4><ol>
+<li>将新建函数加到索引文件<code>Pml.index</code>中<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pml Rehash All</span><br></pre></td></tr></table></figure></li>
+<li>调用函数并且得到返回值<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!MyArea = !!Area(6,4)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><p>&emsp;&emsp;表达式运算符(<code>Expression operators</code>):</p>
+<ul>
+<li>算术运算符<ul>
+<li><code>+</code></li>
+<li><code>-</code></li>
+<li><code>*</code></li>
+<li><code>/</code></li>
+</ul>
+</li>
+<li>和并符<ul>
+<li><code>&amp;</code></li>
+</ul>
+</li>
+<li>比较运算符<ul>
+<li><code>EQ</code></li>
+<li><code>NE</code></li>
+<li><code>LT</code></li>
+<li><code>LE</code></li>
+<li><code>GT</code></li>
+<li><code>GE</code></li>
+</ul>
+</li>
+<li>布尔运算符<ul>
+<li><code>NOT</code></li>
+<li><code>AND</code></li>
+<li><code>OR</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="表达式说明"><a href="#表达式说明" class="headerlink" title="表达式说明"></a>表达式说明</h3><ul>
+<li>表达式可以嵌套</li>
+<li>表达式前后的类型必须一致<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">!X = 64</span><br><span class="line">!Y = 32</span><br><span class="line">!Z = !X + !Y            $* !Z = 96</span><br><span class="line"></span><br><span class="line">!A = &#x27;Hello&#x27;</span><br><span class="line">!B = &#x27;World&#x27;</span><br><span class="line">!C = !A + !B            $* !C = &#x27;HelloWorld&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="逻辑控制"><a href="#逻辑控制" class="headerlink" title="逻辑控制"></a>逻辑控制</h2><h3 id="分支语句"><a href="#分支语句" class="headerlink" title="分支语句"></a>分支语句</h3><p>语法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">IF () THEN</span><br><span class="line">    ...</span><br><span class="line">ELSEIF () THEN</span><br><span class="line">    ...</span><br><span class="line">ELSE</span><br><span class="line">    ...</span><br><span class="line">ENDIF</span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">!Type = Type</span><br><span class="line">!OwnType = Type of Owner</span><br><span class="line">IF (!Type eq &#x27;BRAN&#x27;) THEN</span><br><span class="line">    $P CE is Branch.</span><br><span class="line">ELSEIF (!OwnType eq &#x27;BRAN&#x27;) THEN</span><br><span class="line">    $P CE is Branch member.</span><br><span class="line">ELSE</span><br><span class="line">    $P CE is $Type,Pls select Branch.</span><br><span class="line">ENDIF</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><p>语法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Do Condition</span><br><span class="line">    ...</span><br><span class="line">Enddo</span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">!SUM = 0</span><br><span class="line">Do !i From 1 To 100</span><br><span class="line">    !SUM = !SUM + !i</span><br><span class="line">Enddo</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">P $!SUM</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>中断循环(Break)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">!SUM = 0</span><br><span class="line">Do !i From 1 To 100</span><br><span class="line">    !SUM = !SUM + !i</span><br><span class="line">    If(!SUM gt 500) then     $* SUM &gt; 500</span><br><span class="line">        Break</span><br><span class="line">    Endif</span><br><span class="line">Enddo</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">P $!SUM</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>跳过循环(Skip)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">!SUM = 0</span><br><span class="line">Do !i From 1 To 100</span><br><span class="line">    If(Int(!i / 2) NE (!i / 2)) then        $* 跳过奇数(求所有偶数和)</span><br><span class="line">        Skip</span><br><span class="line">    Endif</span><br><span class="line">    !SUM = !SUM + !i</span><br><span class="line">Enddo</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">P $!SUM</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h3><p>语法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Label /标记             $* 设置标记</span><br><span class="line">...</span><br><span class="line">GoLabel /标记           $* 跳转标记</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>用<code>golabel</code>可以跳转到标记行，不限制前后顺序</li>
+<li><code>Label</code>名最长16个字符，不包括<code>/</code></li>
+</ul>
+<p>示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">!Total = 0</span><br><span class="line">GoLabel /illegal                $* 不进入Do循环中</span><br><span class="line">Do !x from 1 to 5 by 1</span><br><span class="line">    !Total = !Total + !x</span><br><span class="line">    Label /illegal</span><br><span class="line">Enddo</span><br></pre></td></tr></table></figure>
+
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><h3 id="错误提示"><a href="#错误提示" class="headerlink" title="错误提示"></a>错误提示</h3><p>错误格式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(2,113) List exhausted</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2 代表错误出现在PDMS中的哪个模块</li>
+<li>113 是错误代码</li>
+</ul>
+<p>&emsp;&emsp;出现错误通常有三种结果</p>
+<ul>
+<li>出现一个警告框，用户必须确认</li>
+<li>输出一个错误信息</li>
+<li>从当前运行的程序中退出</li>
+</ul>
+<h3 id="错误处理-1"><a href="#错误处理-1" class="headerlink" title="错误处理"></a>错误处理</h3><blockquote>
+<p>处理特定错误，使程序继续执行</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Next</span><br><span class="line">Handle (2,113)</span><br><span class="line">    $P Last Element</span><br><span class="line">EndHandle</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">P OK</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>处理任何可能的错误</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Next</span><br><span class="line">Handle Any</span><br><span class="line">EndHandle</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">P OK</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="通用功能"><a href="#通用功能" class="headerlink" title="通用功能"></a>通用功能</h2><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><ul>
+<li>单行注释</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 单行注释</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">* 单行注释</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>段落注释</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">(</span></span><br><span class="line">    段落注释</span><br><span class="line">    段落注释</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="打印"><a href="#打印" class="headerlink" title="打印"></a>打印</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">P This text will be output to the screen       $* 该文本将输出到屏幕上</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">P this is an example of a much longer message $ that will be output to the screen</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="数组创建"><a href="#数组创建" class="headerlink" title="数组创建"></a>数组创建</h3><blockquote>
+<p>从字符串创建数组</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">!Str = &#x27;Benz,Bmw,Audi&#x27;</span><br><span class="line">!BestCar = !Str.Split(&#x27;,&#x27;)</span><br><span class="line">Q var !BestCar</span><br><span class="line"></span><br><span class="line">&lt;ARRAY&gt;</span><br><span class="line">[1] &lt;STRING&gt; &#x27;Benz&#x27;</span><br><span class="line">[2] &lt;STRING&gt; &#x27;Bmw&#x27;</span><br><span class="line">[3] &lt;STRING&gt; &#x27;Audi&#x27;         $* 数组元素，索引号</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>逐个元素添加</p>
+</blockquote>
+<p>元素索引不需要依次顺序</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!BestCar[4] = &#x27;Cadillac&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>数组追加</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!BestCar.Append(&#x27;Lincoln&#x27;)   $* 数组必须存在，否则提前声明</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h3><center>数组常用方法</center>
+
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Size()</td>
+<td>数组元素数量</td>
+</tr>
+<tr>
+<td>Append(value)</td>
+<td>追加元素</td>
+</tr>
+<tr>
+<td>AppendArray(Array)</td>
+<td>追加数组</td>
+</tr>
+<tr>
+<td>Clear()</td>
+<td>删除全部元素</td>
+</tr>
+<tr>
+<td>!MyArray[N].Delete()</td>
+<td>删除单个元素</td>
+</tr>
+<tr>
+<td>Delete()</td>
+<td>删除数组</td>
+</tr>
+<tr>
+<td>Compress()</td>
+<td>压缩数组</td>
+</tr>
+<tr>
+<td>Sort()</td>
+<td>排序</td>
+</tr>
+<tr>
+<td>Invert()</td>
+<td>倒序</td>
+</tr>
+<tr>
+<td>Find(value)、FindFirst(value)</td>
+<td>搜索</td>
+</tr>
+<tr>
+<td>Unique()</td>
+<td>合并重复项</td>
+</tr>
+</tbody></table>
+<h3 id="数组循环"><a href="#数组循环" class="headerlink" title="数组循环"></a>数组循环</h3><blockquote>
+<p>赋值循环(Do value)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Do !Name values !BestCar</span><br><span class="line">    $P Array element is $!Name</span><br><span class="line">Enddo</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>索引循环(Do indices)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Do !i indices !BestCar</span><br><span class="line">    !Car = !BestCar[!i]</span><br><span class="line">    $P Array element $!i is $!Car</span><br><span class="line">Enddo</span><br></pre></td></tr></table></figure>
+
+<h3 id="特殊方法生成数组"><a href="#特殊方法生成数组" class="headerlink" title="特殊方法生成数组"></a>特殊方法生成数组</h3><p>&emsp;&emsp;生成的<code>!PipeComps</code>是数组，保存的是元素的参考号</p>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Var !PipeComps Collect all Branch members For CE</span><br></pre></td></tr></table></figure>
+
+<center>常用类型</center>
+
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ALL</td>
+<td>所有元素</td>
+</tr>
+<tr>
+<td>ALL Pipe</td>
+<td>所有的Pipe</td>
+</tr>
+<tr>
+<td>BRANCH MEMBERS</td>
+<td>所有管件，不包括Tube</td>
+</tr>
+<tr>
+<td>ALL BRANCH MEMBERS</td>
+<td>所有管件，包括Tube</td>
+</tr>
+<tr>
+<td>ITEMS OF EQUI &#x2F;D1201</td>
+<td>设备中的所有基本体</td>
+</tr>
+</tbody></table>
+<h4 id="限制条件"><a href="#限制条件" class="headerlink" title="限制条件"></a>限制条件</h4><p><code>With</code>后面的是一个表达式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Var !Elbows Coll All Elbow With (Abor gt 100) for CE</span><br></pre></td></tr></table></figure>
+
+<h4 id="限制区域"><a href="#限制区域" class="headerlink" title="限制区域"></a>限制区域</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Var !Elbows Coll All Elbow Within W0N0U0 to W2000N2000U2000</span><br><span class="line"></span><br><span class="line">Var !Elbows Coll All Elbow Exclusive Within Volume /D1201 1500</span><br></pre></td></tr></table></figure>
+
+<h4 id="追加"><a href="#追加" class="headerlink" title="追加"></a>追加</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Var !Elbows Append Coll all Bend for CE</span><br></pre></td></tr></table></figure>
+
+<h3 id="求值"><a href="#求值" class="headerlink" title="求值"></a>求值</h3><p>管道排序，倒序输出所有Pipe的名称</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Var !Pipes Coll all Pipe for CE</span><br><span class="line">Var !Names Eval name for all from !Pipes</span><br><span class="line">!Names.sort().invert()</span><br><span class="line">Do !i indices !Names</span><br><span class="line">    reorder $!Names[$!i] before $!i</span><br><span class="line">Enddo</span><br><span class="line">Q Var !Names</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件处理"><a href="#文件处理" class="headerlink" title="文件处理"></a>文件处理</h2><p>&emsp;读写文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">!Input = object FILE(&#x27;%pdmsexe%abc.txt&#x27;)</span><br><span class="line">!Lines = !Input.ReadFile()              $* ReadFile将文件内容写到字符串数组中</span><br><span class="line">!ResultArray = Array()                  $* 声明新数组</span><br><span class="line">Do !Line values !Lines</span><br><span class="line">    !Col = !Line.Part(1)</span><br><span class="line">    !ResultArray.Append(!Col)</span><br><span class="line">Enddo</span><br><span class="line">!Output = object FILE(&#x27;%pdmsexe%abc_copy.txt&#x27;)</span><br><span class="line">!Output.WriteFile(&#x27;WRITE&#x27;,!ResultArray)     $* WriteFile将数组写到文件</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ReadFile()</code>方法可以自动打开(<code>Open</code>)和关闭(<code>Close</code>)文件</li>
+<li>写文件还有覆盖模式<code>OVERWRITE</code>和追加模式<code>APPEND</code></li>
+</ul>
+<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><h3 id="CE"><a href="#CE" class="headerlink" title="CE"></a>CE</h3><p>&emsp;&emsp;一个特殊的<code>PML GLOBAL variable</code>(全程变量)<code>!!CE</code>常常是指向当前的PDMS元件以及它的属性：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">!BranchHeadBore = !!CE.Hbore</span><br><span class="line">!HeadPosition = !!CE.Hposition</span><br><span class="line">!Easting = !HeadPosition.East</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;相对于其他元件的位置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!PosWRTValue = !HeadPosition.WRT(!Value)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Alert"><a href="#Alert" class="headerlink" title="Alert"></a>Alert</h3><p>&emsp;&emsp;用于在PDMS中的弹窗提示</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">* 基本用法</span></span><br><span class="line">!!Alert.Error(&#x27;You cannot do this!&#x27;)                    </span><br><span class="line">!!Alert.Message(&#x27;Saving your data now&#x27;)</span><br><span class="line">!!Alert.Warning(&#x27;Do not press this button again!&#x27;)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">* 指定其在屏幕上的位置</span></span><br><span class="line">!!Alert.Error(&#x27;You cannot do this!&#x27;,0.25,0.1)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">* 确认框 （YES/NO）</span></span><br><span class="line">!Answer = !!Alert.Confirm(&#x27;Are you sure!&#x27;)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">* 确认框 (YES/NO/CANCEL)</span></span><br><span class="line">!Answer = !!Alert.Question(&#x27;OK to delete Site?&#x27;)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">* 输入框 (参数2为默认值)</span></span><br><span class="line">!Answer = !!Alert.Input(&#x27;Enter Width of Floor&#x27;,&#x27;10&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Forms"><a href="#Forms" class="headerlink" title="Forms"></a>Forms</h2><ul>
+<li>Forms是由全局变量表示的一种对象类型</li>
+<li>查询Forms<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q VAR !!formname                $* 将列出form的所有属性以及所有gadget成员</span><br></pre></td></tr></table></figure></li>
+<li>查询gadget<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Q Var !!formname.gadgetname</span><br><span class="line">Q Var !!formname.gadgetname.val</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="FORM定义"><a href="#FORM定义" class="headerlink" title="FORM定义"></a>FORM定义</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">setup form !!myform</span><br><span class="line">    Title &#x27;My Form Title&#x27;</span><br><span class="line">    Icontitle &#x27;Myform&#x27;</span><br><span class="line">    !!myform.initcall = &#x27;!this.init()&#x27;</span><br><span class="line">    ...</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">define method .init()</span><br><span class="line">...</span><br><span class="line">endmethod</span><br></pre></td></tr></table></figure>
+
+<h3 id="显示和隐藏Forms"><a href="#显示和隐藏Forms" class="headerlink" title="显示和隐藏Forms"></a>显示和隐藏Forms</h3><ul>
+<li>新的搜索机制，不需要预先加载</li>
+<li>显示FORM:<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">* 显示Forms</span></span><br><span class="line">show !!formname</span><br></pre></td></tr></table></figure></li>
+<li>加载FORM，而不显示<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loadform !!formname</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Forms内置方法"><a href="#Forms内置方法" class="headerlink" title="Forms内置方法"></a>Forms内置方法</h3><ul>
+<li>显示form<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!!Myform.Show()</span><br></pre></td></tr></table></figure></li>
+<li>隐藏form<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!!Myform.Hide()</span><br></pre></td></tr></table></figure></li>
+<li>查询FORM是否隐藏<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(!!Myform.Shown()) then</span><br><span class="line">...</span><br><span class="line">endif</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Gadgets"><a href="#Gadgets" class="headerlink" title="Gadgets"></a>Gadgets</h3><ul>
+<li>在form中定义<code>gadgets</code>，通常有两个目的<ul>
+<li>定义<code>gadgets</code>在form中的区域</li>
+<li>如果<code>gadgets</code>被选择，定义它的调用执行</li>
+<li>每个<code>gadgets</code>的大小和位置决定其占据的区域</li>
+</ul>
+</li>
+<li><code>Gadget</code>的<strong>CALLBACK</strong>来启动<code>gadgets</code>的调用执行</li>
+</ul>
+<h4 id="内置方法"><a href="#内置方法" class="headerlink" title="内置方法"></a>内置方法</h4><ul>
+<li><code>Gadgets</code>是有许多Members的Object，可使用许多有用的内置方法</li>
+<li>禁用一个gadgets<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!!Myform.GradgetName.Active = false</span><br></pre></td></tr></table></figure></li>
+<li>使键盘键入收敛在某个gadget<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!!Myform.GadgetName.SetFocus()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Callbacks调用"><a href="#Callbacks调用" class="headerlink" title="Callbacks调用"></a>Callbacks调用</h4><ul>
+<li>任何一个可选择的gadget在它创建时都有一个<code>callback</code></li>
+<li>这个<code>callback</code>可执行以下三种功能<ul>
+<li>显示一个form</li>
+<li>执行执行一条命令</li>
+<li>调用一个函数<code>function</code>或方法<code>method</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="简单的Forms示例"><a href="#简单的Forms示例" class="headerlink" title="简单的Forms示例"></a>简单的Forms示例</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">setup form !!hello</span><br><span class="line">    Title &#x27;My Form Title&#x27;</span><br><span class="line">    Icontitle &#x27;Myform&#x27; </span><br><span class="line">    paragraph .Message text &#x27;HelloWorld&#x27;</span><br><span class="line">    button .bye &#x27;Goodbye&#x27; OK</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830171813.png"/>
+
+<h4 id="Gadgets定义"><a href="#Gadgets定义" class="headerlink" title="Gadgets定义"></a>Gadgets定义</h4><ul>
+<li><em>Gadgets are positioned on a form from top left Gradgets</em>原点在FORM的左上角<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830172019.png" width="60%"/></li>
+<li>每个Gadget有四个定位点 (XMIN、XMAX、YMIN、YMAX)<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830172142.png" width="20%"/></li>
+<li>可用以下语法定义Gadgets<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">At Xmin .apply Ymax -0.5</span><br><span class="line">at ymin</span><br><span class="line">at xmax .frame1 + 4</span><br></pre></td></tr></table></figure></li>
+<li>定位Gadgets在FORM的右下角<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at xmax from - size</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Gadgets的相对布置"><a href="#Gadgets的相对布置" class="headerlink" title="Gadgets的相对布置"></a>Gadgets的相对布置</h4><ul>
+<li><p>相对上一个Gadget</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Toggle .OnOff at XMIN YMAX+1</span><br></pre></td></tr></table></figure>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830172832.png" width="60%"/>
+
+
+</li>
+<li><p>相对一个指定的Gadget</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Toggle .OnOff at XMIN .Gadget1-size YMAX .Gadget1+1</span><br></pre></td></tr></table></figure>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830173012.png" width="60%"/></li>
+</ul>
+<h4 id="Gadget布置"><a href="#Gadget布置" class="headerlink" title="Gadget布置"></a>Gadget布置</h4><ul>
+<li><code>Path</code>命令可用来定位下一个Gadget的逻辑位置<ul>
+<li><code>PATH DOWN</code>表示下一个Gadget在当前Gadget的下方</li>
+<li><code>PATH RIGHT</code>表示下一个Gadget在当前Gadget右方</li>
+</ul>
+</li>
+<li>gadgets之间的垂直和水平间距由<code>VDIST</code>和<code>HDIST</code>控制</li>
+<li>可用<code>HALIGN</code>和<code>VALIGN</code>来水平方向和垂直方向对齐<ul>
+<li>选项<code>LEFT</code>、<code>RIGHT</code>、<code>TOP</code>和<code>BOTTOM</code>控制上、下、左、右对齐</li>
+<li>例如：<em>HALIGN LEFT</em>水平对齐</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">button .Bu1</span><br><span class="line">PATH down</span><br><span class="line"></span><br><span class="line">HALIGN centre</span><br><span class="line">VDIST 2</span><br><span class="line"></span><br><span class="line">paragraph .Par2 width 3 height 2</span><br><span class="line">toggle .Tog3</span><br><span class="line"></span><br><span class="line">PATH right</span><br><span class="line">HDIST 3.0</span><br><span class="line">VALIGN bottom</span><br><span class="line"></span><br><span class="line">list .Lis4 width 2 height 3</span><br><span class="line"></span><br><span class="line">PATH up</span><br><span class="line">HALIGN right</span><br><span class="line"></span><br><span class="line">paragraph .Par5 width 3 height 3</span><br></pre></td></tr></table></figure>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830175456.png" width="30%"/>
+
+<h4 id="常用Gadgets"><a href="#常用Gadgets" class="headerlink" title="常用Gadgets"></a>常用Gadgets</h4><h5 id="Paragraph"><a href="#Paragraph" class="headerlink" title="Paragraph"></a>Paragraph</h5><p>&emsp;&emsp;Paragraph是一个简单的命名的gadgets，它用来在FORM上显示文本或图片</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Para .cwd at 0 0 Text &#x27;Current Directory&#x27;</span><br></pre></td></tr></table></figure>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830180657.png" width="50%"/>
+
+<h5 id="Button"><a href="#Button" class="headerlink" title="Button"></a>Button</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Button .Button &#x27;Pop Form&#x27; FROM !!PopForm</span><br><span class="line">Button .Calculate &#x27;Calculate&#x27; Callback &#x27;!!MyFunctionName()&#x27;</span><br><span class="line">Button .Apply &#x27;Apply&#x27; Callback &#x27;!!MyFunction()&#x27;</span><br><span class="line">Button .ok &#x27;OK&#x27; Callback &#x27;!!MyFunction&#x27; OK</span><br><span class="line">Button .cancel &#x27;Cancel&#x27; &#x27;!!MyFunction&#x27; OK</span><br><span class="line">Button .reset &#x27;Reset&#x27; Callback &#x27;!!MyFunction&#x27; RESET</span><br><span class="line">Button .help &#x27;Help&#x27; Callback &#x27;!!MyFunction&#x27; HELP</span><br><span class="line">Button .dismiss &#x27;Dismiss&#x27; ok</span><br></pre></td></tr></table></figure>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830193649.png" width="50%"/>
+
+<blockquote>
+<p>改变button的背景颜色</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!!Workbench.Apply.Background = 2</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为button增加一个图片</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Button.Apply pixmap /c:/pml/aveva.bmp</span><br></pre></td></tr></table></figure>
+
+<h5 id="Frame"><a href="#Frame" class="headerlink" title="Frame"></a>Frame</h5><ul>
+<li><code>Frame</code> 类似一个镜框，包含一些相似的gadgets.</li>
+<li><code>FRAME</code> 的语法：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FRAME .MYFRAME AT 0 3 &#x27;My Frame&#x27;</span><br><span class="line">    Button .B1 &#x27;Press Here&#x27;</span><br><span class="line">    Button .B2 &#x27;Or Press Here&#x27;</span><br><span class="line">EXIT</span><br></pre></td></tr></table></figure></li>
+</ul>
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830200141.png" width="20%"/>
+
+<h5 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h5><p>Text Input gadget 提供用户输入值的位置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Text .DirName callback &#x27;!This.TopDir()&#x27; AT X 0 Width 50 is String</span><br></pre></td></tr></table></figure>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830200905.png" width="50%"/>
+
+<h5 id="Textpane"><a href="#Textpane" class="headerlink" title="Textpane"></a>Textpane</h5><p>TEXTPANE 提供一个可编辑多行文本的区域，可以从区域内剪切、粘贴、删除文本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Textpane .textp &#x27;My Textpane&#x27; at x 3 y 6 width 50 hei 6</span><br></pre></td></tr></table></figure>
+
+<img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240830201326.png" width="50%"/>
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://bootree.cn">大白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://bootree.cn/2024/08/29/PDMS/PML/PML%E5%9F%BA%E7%A1%80/">http://bootree.cn/2024/08/29/PDMS/PML/PML%E5%9F%BA%E7%A1%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://bootree.cn" target="_blank">生活中的tree</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/PDMS/">PDMS</a><a class="post-meta__tags" href="/tags/PML/">PML</a></div><div class="post_share"><div class="social-share" data-image="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240829195147.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/02/PDMS/DotNet/02PdmsAddin%E5%BC%80%E5%8F%91/" title="02PdmsAddin开发"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/pdms.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">02PdmsAddin开发</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/29/ASP.NETCore/13%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6/" title="13静态文件"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240826134256.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">13静态文件</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/08/PDMS/DotNet/01%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6%E7%A8%8B%E5%BA%8F/" title="01第一个插件程序"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/pdms.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-08</div><div class="title">01第一个插件程序</div></div></a></div><div><a href="/2024/09/02/PDMS/DotNet/03PML-NET%E5%BC%80%E5%8F%91/" title="03PML.NET开发"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/pdms.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-02</div><div class="title">03PML.NET开发</div></div></a></div><div><a href="/2024/09/02/PDMS/DotNet/02PdmsAddin%E5%BC%80%E5%8F%91/" title="02PdmsAddin开发"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/pdms.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-02</div><div class="title">02PdmsAddin开发</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">大白</div><div class="author-info__description">人不可能同时拥有青春和对青春的感受</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/cnlicm"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/cnlicm" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:codenobugs@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">A lazy guy. My dream is that generate electricity with love.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PML%E6%9E%84%E6%88%90"><span class="toc-number">2.</span> <span class="toc-text">PML构成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">简单示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%AE%8F"><span class="toc-number">3.1.</span> <span class="toc-text">简单的宏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%8C%96%E5%AE%8F"><span class="toc-number">3.2.</span> <span class="toc-text">参数化宏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">4.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">4.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.2.</span> <span class="toc-text">变量类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">4.3.</span> <span class="toc-text">变量操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">4.3.1.</span> <span class="toc-text">变量声明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%80%BC%E4%BF%AE%E6%94%B9"><span class="toc-number">4.3.2.</span> <span class="toc-text">变量值修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%8F%98%E9%87%8F"><span class="toc-number">4.3.3.</span> <span class="toc-text">查询变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%88%A0%E9%99%A4"><span class="toc-number">4.3.4.</span> <span class="toc-text">变量删除</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="toc-number">4.4.</span> <span class="toc-text">变量命名规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7"><span class="toc-number">5.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E6%8F%90%E5%8F%96%E5%B1%9E%E6%80%A7"><span class="toc-number">5.1.</span> <span class="toc-text">变量提取属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%BB%99%E5%B1%9E%E6%80%A7%E8%B5%8B%E5%80%BC"><span class="toc-number">5.2.</span> <span class="toc-text">变量给属性赋值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%92%8C%E5%87%BD%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">方法和函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95"><span class="toc-number">6.1.</span> <span class="toc-text">字符串方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0"><span class="toc-number">6.2.</span> <span class="toc-text">标准函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-number">6.3.</span> <span class="toc-text">自定义函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="toc-number">6.3.1.</span> <span class="toc-text">函数定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="toc-number">6.3.2.</span> <span class="toc-text">函数调用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%B4%E6%98%8E"><span class="toc-number">7.1.</span> <span class="toc-text">表达式说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6"><span class="toc-number">8.</span> <span class="toc-text">逻辑控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5"><span class="toc-number">8.1.</span> <span class="toc-text">分支语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="toc-number">8.2.</span> <span class="toc-text">循环语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E8%BD%AC%E8%AF%AD%E5%8F%A5"><span class="toc-number">8.3.</span> <span class="toc-text">跳转语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-number">8.4.</span> <span class="toc-text">错误处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA"><span class="toc-number">8.5.</span> <span class="toc-text">错误提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86-1"><span class="toc-number">8.6.</span> <span class="toc-text">错误处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%8A%9F%E8%83%BD"><span class="toc-number">9.</span> <span class="toc-text">通用功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-number">9.1.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%8D%B0"><span class="toc-number">9.2.</span> <span class="toc-text">打印</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%A2%E8%A1%8C"><span class="toc-number">9.3.</span> <span class="toc-text">换行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">10.</span> <span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%88%9B%E5%BB%BA"><span class="toc-number">10.1.</span> <span class="toc-text">数组创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95"><span class="toc-number">10.2.</span> <span class="toc-text">数组方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%BE%AA%E7%8E%AF"><span class="toc-number">10.3.</span> <span class="toc-text">数组循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95%E7%94%9F%E6%88%90%E6%95%B0%E7%BB%84"><span class="toc-number">10.4.</span> <span class="toc-text">特殊方法生成数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">10.4.1.</span> <span class="toc-text">基本用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6"><span class="toc-number">10.4.2.</span> <span class="toc-text">限制条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%99%90%E5%88%B6%E5%8C%BA%E5%9F%9F"><span class="toc-number">10.4.3.</span> <span class="toc-text">限制区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%BD%E5%8A%A0"><span class="toc-number">10.4.4.</span> <span class="toc-text">追加</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E5%80%BC"><span class="toc-number">10.5.</span> <span class="toc-text">求值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-number">11.</span> <span class="toc-text">文件处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">12.</span> <span class="toc-text">全局变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CE"><span class="toc-number">12.1.</span> <span class="toc-text">CE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Alert"><span class="toc-number">12.2.</span> <span class="toc-text">Alert</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Forms"><span class="toc-number">13.</span> <span class="toc-text">Forms</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FORM%E5%AE%9A%E4%B9%89"><span class="toc-number">13.1.</span> <span class="toc-text">FORM定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%92%8C%E9%9A%90%E8%97%8FForms"><span class="toc-number">13.2.</span> <span class="toc-text">显示和隐藏Forms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Forms%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="toc-number">13.3.</span> <span class="toc-text">Forms内置方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gadgets"><span class="toc-number">13.4.</span> <span class="toc-text">Gadgets</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="toc-number">13.4.1.</span> <span class="toc-text">内置方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Callbacks%E8%B0%83%E7%94%A8"><span class="toc-number">13.4.2.</span> <span class="toc-text">Callbacks调用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84Forms%E7%A4%BA%E4%BE%8B"><span class="toc-number">13.4.3.</span> <span class="toc-text">简单的Forms示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gadgets%E5%AE%9A%E4%B9%89"><span class="toc-number">13.4.4.</span> <span class="toc-text">Gadgets定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gadgets%E7%9A%84%E7%9B%B8%E5%AF%B9%E5%B8%83%E7%BD%AE"><span class="toc-number">13.4.5.</span> <span class="toc-text">Gadgets的相对布置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gadget%E5%B8%83%E7%BD%AE"><span class="toc-number">13.4.6.</span> <span class="toc-text">Gadget布置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8Gadgets"><span class="toc-number">13.4.7.</span> <span class="toc-text">常用Gadgets</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Paragraph"><span class="toc-number">13.4.7.1.</span> <span class="toc-text">Paragraph</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Button"><span class="toc-number">13.4.7.2.</span> <span class="toc-text">Button</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Frame"><span class="toc-number">13.4.7.3.</span> <span class="toc-text">Frame</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Text"><span class="toc-number">13.4.7.4.</span> <span class="toc-text">Text</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Textpane"><span class="toc-number">13.4.7.5.</span> <span class="toc-text">Textpane</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/20/Tools/oh-my-posh%E7%BE%8E%E5%8C%96%E7%BB%88%E7%AB%AF/" title="oh-my-posh美化终端"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240920223143.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="oh-my-posh美化终端"/></a><div class="content"><a class="title" href="/2024/09/20/Tools/oh-my-posh%E7%BE%8E%E5%8C%96%E7%BB%88%E7%AB%AF/" title="oh-my-posh美化终端">oh-my-posh美化终端</a><time datetime="2024-09-20T14:21:00.000Z" title="发表于 2024-09-20 22:21:00">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/04/Python/Python%E5%BA%93%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="Python库离线安装"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240904171053.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Python库离线安装"/></a><div class="content"><a class="title" href="/2024/09/04/Python/Python%E5%BA%93%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="Python库离线安装">Python库离线安装</a><time datetime="2024-09-04T08:34:34.000Z" title="发表于 2024-09-04 16:34:34">2024-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/03/ANSYS/ANSYS%E8%AE%A1%E7%AE%97/" title="ANSYS计算"><img src= "/img/loading.gif" data-lazy-src="https://jsd.012700.xyz/gh/jerryc127/CDN/img/material-7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ANSYS计算"/></a><div class="content"><a class="title" href="/2024/09/03/ANSYS/ANSYS%E8%AE%A1%E7%AE%97/" title="ANSYS计算">ANSYS计算</a><time datetime="2024-09-03T03:23:37.000Z" title="发表于 2024-09-03 11:23:37">2024-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/02/IDE/Rider/JetBrainsRider%E8%AE%BE%E8%AE%A1%E6%97%B6%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/" title="JetBrainsRider设计时资源加载"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240902145915.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JetBrainsRider设计时资源加载"/></a><div class="content"><a class="title" href="/2024/09/02/IDE/Rider/JetBrainsRider%E8%AE%BE%E8%AE%A1%E6%97%B6%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/" title="JetBrainsRider设计时资源加载">JetBrainsRider设计时资源加载</a><time datetime="2024-09-02T06:57:12.000Z" title="发表于 2024-09-02 14:57:12">2024-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/02/PDMS/DotNet/03PML-NET%E5%BC%80%E5%8F%91/" title="03PML.NET开发"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/pdms.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="03PML.NET开发"/></a><div class="content"><a class="title" href="/2024/09/02/PDMS/DotNet/03PML-NET%E5%BC%80%E5%8F%91/" title="03PML.NET开发">03PML.NET开发</a><time datetime="2024-09-02T06:32:39.000Z" title="发表于 2024-09-02 14:32:39">2024-09-02</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240829195147.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By 大白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/"><img class="icp-icon" src= "/img/loading.gif" data-lazy-src="/img/2020011362.png"><span>赣ICP备2020011362号-2</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/utils.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/main.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/tw_cn.min.js"></script><script src="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://jsd.012700.xyz/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://jsd.012700.xyz/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://jsd.012700.xyz/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script data-pjax src="/self/btf.js"></script><script defer="defer" id="ribbon" src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://jsd.012700.xyz/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/talking/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/search/local-search.min.js"></script></div></div></body></html>
