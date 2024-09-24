@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://bootree.cn/2024/09/24/Docker/tutorials/02Docker%E9%95%9C%E5%83%8F/</loc>
+    
+    <lastmod>2024-09-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://bootree.cn/2024/09/23/Docker/tutorials/01Docker%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2024-09-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://bootree.cn/2024/09/23/ASP.NETCore/middlewares/Identity%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/</loc>
+    
+    <lastmod>2024-09-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://bootree.cn/2024/09/22/ASP.NETCore/middlewares/Swagger%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3%E5%B7%A5%E5%85%B7/</loc>
     
     <lastmod>2024-09-22</lastmod>
@@ -643,7 +670,7 @@
 
   <url>
     <loc>http://bootree.cn/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -651,112 +678,119 @@
   
   <url>
     <loc>http://bootree.cn/tags/Hexo/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/WindowsUpdate/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/Git/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/IDE/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/Settings/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/ASPNETCORE/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/Python/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/PDMS/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/PML-NET/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/PML/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/JetBrainsRider/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/MQTT/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/51%E5%8D%95%E7%89%87%E6%9C%BA/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/WPF%E7%BC%96%E7%A8%8B%E5%AE%9D%E5%85%B8/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/PythonTutorials/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/tags/Middleware/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://bootree.cn/tags/DockerTutorials/</loc>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -765,133 +799,140 @@
   
   <url>
     <loc>http://bootree.cn/categories/Hexo/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/C/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/C/WPF/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/MQTT/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/Tool/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/Linux/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/Tool/Cmd/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/Embedded/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/Embedded/STC51/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/C/ASP-NET-Core/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/Git/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/Windows/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/Python/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/PDMS/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/IDE/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/PDMS/PML-NET/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/PDMS/PML/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/IDE/JetBrainsRider/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://bootree.cn/categories/C/ASP-NET-Core/Middleware/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://bootree.cn/categories/Docker/</loc>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
