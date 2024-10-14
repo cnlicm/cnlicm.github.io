@@ -1,0 +1,473 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>21DS18B20温湿度传感器实验 | 生活中的tree</title><meta name="author" content="大白"><meta name="copyright" content="大白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="DS18B20介绍   DS18B20 是由 DALLAS 半导体公司推出的一种的“一线总线（单总线）”接口的温度传感器。与传统的热敏电阻等测温元件相比，它是一种新型的体积小、适用电压宽、与微处理器接口简单的数字化温度传感器。   DS18B20 温度传感器具有如下特点：  适应电压范围更宽，电压范围：3.0～5.5V，在寄生电源方式下可由数据线供电。 独特的单线接口方式，DS18B20 在与微处">
+<meta property="og:type" content="article">
+<meta property="og:title" content="21DS18B20温湿度传感器实验">
+<meta property="og:url" content="http://bootree.cn/2024/10/05/51Microcontroller/21DS18B20%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E5%AE%9E%E9%AA%8C/index.html">
+<meta property="og:site_name" content="生活中的tree">
+<meta property="og:description" content="DS18B20介绍   DS18B20 是由 DALLAS 半导体公司推出的一种的“一线总线（单总线）”接口的温度传感器。与传统的热敏电阻等测温元件相比，它是一种新型的体积小、适用电压宽、与微处理器接口简单的数字化温度传感器。   DS18B20 温度传感器具有如下特点：  适应电压范围更宽，电压范围：3.0～5.5V，在寄生电源方式下可由数据线供电。 独特的单线接口方式，DS18B20 在与微处">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png">
+<meta property="article:published_time" content="2024-10-05T09:32:01.000Z">
+<meta property="article:modified_time" content="2024-10-06T07:48:35.772Z">
+<meta property="article:author" content="大白">
+<meta property="article:tag" content="51单片机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://bootree.cn/2024/10/05/51Microcontroller/21DS18B20%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E5%AE%9E%E9%AA%8C/index.html"><link rel="preconnect" href="https://jsd.012700.xyz"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="NdIUXAOVyGnnBhcrip0ksCawbdAzT0hlBZDE9u4jx6k"/><meta name="msvalidate.01" content="567E47D75E8DCF1282B9623AD914701E"/><meta name="baidu-site-verification" content="code-pE5rnuxcfD"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: 大白","link":"链接: ","source":"来源: 生活中的tree","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://jsd.012700.xyz/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '21DS18B20温湿度传感器实验',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-06 15:48:35'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="preconnect" href="https://jsd.012700.xyz"><link href="/self/btf.css" rel="stylesheet"><link rel="alternate" href="/atom.xml" title="生活中的tree" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png')"><nav id="nav"><span id="blog-info"><a href="/" title="生活中的tree"><span class="site-name">生活中的tree</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">21DS18B20温湿度传感器实验<a class="post-edit-link" href="https://github.com/cnlicm/HexoBlog/tree/main/source/_posts/51Microcontroller/21DS18B20温湿度传感器实验.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-10-05T09:32:01.000Z" title="发表于 2024-10-05 17:32:01">2024-10-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Embedded/">Embedded</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Embedded/89C51/">89C51</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="21DS18B20温湿度传感器实验"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="ds18b20介绍">DS18B20介绍</h2>
+<p>  DS18B20 是由 DALLAS 半导体公司推出的一种的“一线总线（单总线）”接口的温度传感器。与传统的热敏电阻等测温元件相比，它是一种新型的体积小、适用电压宽、与微处理器接口简单的数字化温度传感器。</p>
+<p>  DS18B20 温度传感器具有如下特点：</p>
+<ol>
+<li>适应电压范围更宽，电压范围：3.0～5.5V，在寄生电源方式下可由数据线供电。</li>
+<li>独特的单线接口方式，DS18B20 在与微处理器连接时仅需要一条口线即可实现微处理器与DS18B20的双向通讯</li>
+<li>DS18B20 支持多点组网功能，多个 DS18B20 可以并联在唯一的三线上，实现组网多点测温。</li>
+<li>DS18B20 在使用中不需要任何外围元件，全部传感元件及转换电路集成在形如一只三极管的集成电路内。</li>
+<li>温范围－55℃ —— +125℃，在-10 —— +85℃时精度为±0.5℃</li>
+<li>可编程的分辨率为 9～12 位，对应的可分辨温度分别为 0.5℃、0.25℃、0.125℃ 和 0.0625℃，可实现高精度测温。</li>
+<li>在 9 位分辨率时最多在 93.75ms 内把温度转换为数字，12 位分辨率时最多在 750ms 内把温度值转换为数字，速度更快。</li>
+<li>测量结果直接输出数字温度信号，以&quot;一根总线&quot;串行传送给 CPU，同时可传送 CRC 校验码，具有极强的抗干扰纠错能力。</li>
+<li>负压特性：电源极性接反时，芯片不会因发热而烧毁，但不能正常工作。</li>
+</ol>
+<center>DS18B20外观实物</center>
+<img width="40%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241005173930.png"/>
+<p>  从 DS18B20 外观图可以看到，当我们正对传感器切面（传感器型号字符那一面）时，传感器的管脚顺序是从左到右排列。管脚 1 为 GND，管脚 2 为数据DQ，管脚 3 为 VDD。如果把传感器插反，那么电源将短路，传感器就会发烫，很容易损坏，所以一定要注意传感器方向，通常我们在开发板上都会标出传感器的凸起出，所以只需要把传感器凸起的方向对着开发板凸起方向插入即可。</p>
+<center>DS18B20内部结构</center>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241005174217.png"/>
+<p>  ROM 中的 64 位序列号是出厂前被光刻好的，它可以看作是该 DS18B20 的地址序列号。64 位光刻 ROM 的排列是：开始 8 位（28H）是产品类型标号，接着的48 位是该 DS18B20 自身的序列号，最后 8 位是前面 56 位的循环冗余校验码。光刻 ROM 的作用是使每一个 DS18B20 都各不相同，这样就可以实现一根总线上挂接多个DS18B20 的目的。</p>
+<p>  DS18B20 温度传感器的内部存储器包括一个高速的暂存器 RAM 和一个非易失性的可电擦除的 EEPROM,后者存放高温度和低温度触发器TH、TL和配置寄存器。</p>
+<p>  配置寄存器是配置不同的位数来确定温度和数字的转化，配置寄存器结构如下：</p>
+<table>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>   
+    <tr>
+        <td>TM</td>
+        <td>R1</td>
+        <td>R0</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+</table>
+<p>  低五位一直都是&quot;1&quot;，TM 是测试模式位，用于设置 DS18B20 在工作模式还是在测试模式。在 DS18B20 出厂时该位被设置为 0，用户不需要去改动。<strong>R1 和R0 用来设置 DS18B20 的精度（分辨率），可设置为 9，10，11 或 12 位，对应的分辨率温度是 0.5℃，0.25℃，0.125℃和 0.0625℃</strong>。R0 和 R1 配置如下图：</p>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241006090400.png"/>
+<p>  在初始状态下默认的精度是 12 位，即 R0=1、R1=1。高速暂存存储器由 9 个字节组成，其分配如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">寄存器内容</th>
+<th style="text-align:center">字节地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">温湿度低位（LS Byte）</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">温湿度高位（MS Byte）</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">高温限值(TH)</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">低温限值(TL)</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">配置寄存器</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">保留</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">保留</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">保留</td>
+<td style="text-align:center">7</td>
+</tr>
+<tr>
+<td style="text-align:center">CRC校验值</td>
+<td style="text-align:center">8</td>
+</tr>
+</tbody>
+</table>
+<p>  当温度转换命令（44H）发布后，经转换所得的温度值以二字节补码形式存放在高速暂存存储器的第 0 和第 1 个字节。存储的两个字节，高字节的前 5 位是符号位S，单片机可通过单线接口读到该数据，读取时低位在前，高位在后，</p>
+<center>温度寄存器格式</center>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241006090900.png"/>
+<p>  <strong>如果测得的温度大于 0，这 5 位为‘0’，只要将测到的数值乘以 0.0625（默认精度是 12 位）即可得到实际温度；如果温度小于 0，这 5 位为‘1’，测到的数值需要取反加 1 再乘以 0.0625 即可得到实际温度。</strong> 温度与数据对应关系如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">温度℃</th>
+<th style="text-align:center">数据输出（二进制）</th>
+<th style="text-align:center">数据输出（十六进制）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">+125</td>
+<td style="text-align:center">0000 0111 1101 0000</td>
+<td style="text-align:center">07D0h</td>
+</tr>
+<tr>
+<td style="text-align:center">+85</td>
+<td style="text-align:center">0000 0101 0101 0000</td>
+<td style="text-align:center">0550h</td>
+</tr>
+<tr>
+<td style="text-align:center">+25.0625</td>
+<td style="text-align:center">0000 0001 1001 0001</td>
+<td style="text-align:center">0191h</td>
+</tr>
+<tr>
+<td style="text-align:center">+10.125</td>
+<td style="text-align:center">0000 0000 1010 0010</td>
+<td style="text-align:center">00A2h</td>
+</tr>
+<tr>
+<td style="text-align:center">+0.5</td>
+<td style="text-align:center">0000 0000 0000 1000</td>
+<td style="text-align:center">0008h</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0000 0000 0000 0000</td>
+<td style="text-align:center">0000h</td>
+</tr>
+<tr>
+<td style="text-align:center">-0.5</td>
+<td style="text-align:center">1111 1111 1111 1000</td>
+<td style="text-align:center">FFF8h</td>
+</tr>
+<tr>
+<td style="text-align:center">-10.125</td>
+<td style="text-align:center">1111 1111 0101 1110</td>
+<td style="text-align:center">FF5Eh</td>
+</tr>
+<tr>
+<td style="text-align:center">-25.0625</td>
+<td style="text-align:center">1111 1110 0110 1111</td>
+<td style="text-align:center">FE6Eh</td>
+</tr>
+<tr>
+<td style="text-align:center">-55</td>
+<td style="text-align:center">1111 1100 1001 0000</td>
+<td style="text-align:center">FC90h</td>
+</tr>
+</tbody>
+</table>
+<center>*上电复位时温度寄存器默认值为+85℃</center>
+<p>  比如我们要计算+85 度，数据输出十六进制是 0X0550，因为高字节的高 5位为 0，表明检测的温度是正温度，0X0550 对应的十进制为 1360，将这个值乘以 12 位精度 0.0625，所以可以得到+85 度。</p>
+<p>  由于DS18B20是单总线器件，<code>所有的单总线器件都要求采用严格的信号时序，以保证 数据的完整性</code>。DS18B20 时序包括如下几种：初始化时序、写（0 和 1）时序、 读（0和 1）时序。 DS18B20 发送所有的命令和数据都是字节的低位在前。这里我们简单介绍这几个信号的时序：</p>
+<h3 id="初始化时序">初始化时序</h3>
+<p>  单总线上的所有通信都是以初始化序列开始。主机输出低电平，保持低电平时间至少 480us（该时间的时间范围可以从 480 到 960 微妙），以产生复位脉冲。接着主机释放总线，外部的上拉电阻将单总线拉高，延时 15～60us，并进入接收模式。接着 DS18B20 拉低总线 60~240 us，以产生低电平应答脉冲，若为低电平，还要做延时，其延时的时间从外部上拉电阻将单总线拉高算起最少要480 微妙。初始化时序图如下：</p>
+<center>初始化时序</center>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241006092742.png"/>
+<h3 id="写时序">写时序</h3>
+<p>  写时序包括写 0 时序和写 1 时序。所有写时序至少需要 60us，且在 2 次独立的写时序之间至少需要 1us 的恢复时间，两种写时序均起始于主机拉低总线。写 1 时序：主机输出低电平，延时 2us，然后释放总线，延时 60us。写 0时序：主机输出低电平，延时 60us，然后释放总线，延时 2us。写时序图如下：</p>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241006093014.png"/>
+<h3 id="读时序">读时序</h3>
+<p>  单总线器件仅在主机发出读时序时，才向主机传输数据，所以，在主机发出读数据命令后，必须马上产生读时序，以便从机能够传输数据。所有读时序至少需要 60us，且在 2 次独立的读时序之间至少需要 1us 的恢复时间。每个读时序都由主机发起，至少拉低总线 1us。主机在读时序期间必须释放总线，并且在时序起始后的 15us 之内采样总线状态。读时序图如下：</p>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241006093200.png"/>
+<p>  典型的读时序过程为：主机输出低电平延时 2us，然后主机转入输入模式延时 12us，然后读取单总线当前的电平，然后延时 50us。</p>
+<p>  在了解了单总线时序之后，我们来看看 DS18B20 的典型温度读取过程，<strong>DS18B20 的典型温度读取过程为：复位→发 SKIPROM 命令（0XCC）→发开始转换命令（0X44）→延时→复位→发送 SKIPROM 命令（0XCC）→发读存储器命令（0XBE）→连续读出两个字节数据(即温度)→结束。</strong></p>
+<h2 id="硬件设计">硬件设计</h2>
+<p>  本实验使用到硬件资源如下：</p>
+<ol>
+<li>动态数码管</li>
+<li>DS18B20</li>
+</ol>
+<center>DS18B20模块电路</center>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241006093622.png"/>
+<p>  从上图中可以看出，该电路是独立的，并且该接口可以支持DS18B20温度传感器和DHT11温湿度传感器。</p>
+<h2 id="软件设计">软件设计</h2>
+<p>  本实验要实现的功能时：插上DS18B20温度传感器，数码管显示检测的温度值。</p>
+<p>  程序框架如下：</p>
+<ol>
+<li>编写数码管显示功能</li>
+<li>编写DS18B20读取温度功能</li>
+<li>编写主函数</li>
+</ol>
+<center>实物接线图</center>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241006100809.png"/>
+<div class="tabs" id="code"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="code-1">main.c</button><button type="button" class="tab " data-href="code-2">smg.c</button><button type="button" class="tab " data-href="code-3">ds18b20.c</button><button type="button" class="tab " data-href="code-4">public.c</button></ul><div class="tab-contents"><div class="tab-item-content active" id="code-1"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;public.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;smg.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;ds18b20.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名       : main</span></span><br><span class="line"><span class="comment">* 函数功能		 : 主函数</span></span><br><span class="line"><span class="comment">* 输    入       : 无</span></span><br><span class="line"><span class="comment">* 输    出    	 : 无</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;	</span><br><span class="line">	u8 i = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> temp_value;</span><br><span class="line">	u8 temp_buf[<span class="number">5</span>];</span><br><span class="line">	</span><br><span class="line">	ds18b20_init(); <span class="comment">// 初始化DS18B20</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">if</span>(i % <span class="number">50</span> == <span class="number">0</span>) <span class="comment">// 间隔一段时间读取温度值，间隔时间要大于温度传感器转换温度时间</span></span><br><span class="line">			temp_value = ds18b20_read_temperture() * <span class="number">10</span>; <span class="comment">// 保留温度值小数后一位</span></span><br><span class="line">		<span class="keyword">if</span>(temp_value &lt; <span class="number">0</span>) <span class="comment">// 负温度</span></span><br><span class="line">		&#123;</span><br><span class="line">			temp_value = -temp_value;</span><br><span class="line">			temp_buf[<span class="number">0</span>] = <span class="number">0x40</span>; <span class="comment">// 显示负号</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			temp_buf[<span class="number">0</span>] = <span class="number">0x00</span>; <span class="comment">// 不显示</span></span><br><span class="line">		</span><br><span class="line">		temp_buf[<span class="number">1</span>] = gsmg_code[temp_value / <span class="number">1000</span>]; <span class="comment">// 百位</span></span><br><span class="line">		temp_buf[<span class="number">2</span>] = gsmg_code[temp_value % <span class="number">1000</span> / <span class="number">100</span>]; <span class="comment">// 十位</span></span><br><span class="line">		temp_buf[<span class="number">3</span>] = gsmg_code[temp_value % <span class="number">1000</span> % <span class="number">100</span> / <span class="number">10</span>] | <span class="number">0x80</span>; <span class="comment">// 个位+小数点</span></span><br><span class="line">		temp_buf[<span class="number">4</span>] = gsmg_code[temp_value % <span class="number">1000</span> % <span class="number">100</span> % <span class="number">10</span>]; <span class="comment">// 小数点后一位</span></span><br><span class="line">		smg_display(temp_buf,<span class="number">4</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="code-2"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;smg.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//共阴极数码管显示0~F的段码数据</span></span><br><span class="line">u8 gsmg_code[<span class="number">17</span>]=&#123;<span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,<span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">				<span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,<span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名       : smg_display</span></span><br><span class="line"><span class="comment">* 函数功能		 : 动态数码管显示</span></span><br><span class="line"><span class="comment">* 输    入       : dat：要显示的数据</span></span><br><span class="line"><span class="comment">				   pos：从左开始第几个位置开始显示，范围1-8</span></span><br><span class="line"><span class="comment">* 输    出    	 : 无</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">smg_display</span><span class="params">(u8 dat[],u8 pos)</span></span><br><span class="line">&#123;</span><br><span class="line">	u8 i=<span class="number">0</span>;</span><br><span class="line">	u8 pos_temp=pos<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i=pos_temp;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">	   	<span class="keyword">switch</span>(<span class="number">7</span>-i)<span class="comment">//位选</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">0</span>: LSC=<span class="number">1</span>;LSB=<span class="number">1</span>;LSA=<span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">1</span>: LSC=<span class="number">1</span>;LSB=<span class="number">1</span>;LSA=<span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">2</span>: LSC=<span class="number">1</span>;LSB=<span class="number">0</span>;LSA=<span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">3</span>: LSC=<span class="number">1</span>;LSB=<span class="number">0</span>;LSA=<span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">4</span>: LSC=<span class="number">0</span>;LSB=<span class="number">1</span>;LSA=<span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">5</span>: LSC=<span class="number">0</span>;LSB=<span class="number">1</span>;LSA=<span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">6</span>: LSC=<span class="number">0</span>;LSB=<span class="number">0</span>;LSA=<span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">7</span>: LSC=<span class="number">0</span>;LSB=<span class="number">0</span>;LSA=<span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		SMG_A_DP_PORT=dat[i-pos_temp];<span class="comment">//传送段选数据</span></span><br><span class="line">		delay_10us(<span class="number">100</span>);<span class="comment">//延时一段时间，等待显示稳定</span></span><br><span class="line">		SMG_A_DP_PORT=<span class="number">0x00</span>;<span class="comment">//消音</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="code-3"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;ds18b20.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;intrins.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名         : ds18b20_reset</span></span><br><span class="line"><span class="comment">* 函数功能		   : 复位DS18B20  </span></span><br><span class="line"><span class="comment">* 输    入         : 无</span></span><br><span class="line"><span class="comment">* 输    出         : 无</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ds18b20_reset</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	DS18B20_PORT=<span class="number">0</span>;	<span class="comment">//拉低DQ</span></span><br><span class="line">	delay_10us(<span class="number">75</span>);	<span class="comment">//拉低750us</span></span><br><span class="line">	DS18B20_PORT=<span class="number">1</span>;	<span class="comment">//DQ=1</span></span><br><span class="line">	delay_10us(<span class="number">2</span>);	<span class="comment">//20US</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名         : ds18b20_check</span></span><br><span class="line"><span class="comment">* 函数功能		   : 检测DS18B20是否存在</span></span><br><span class="line"><span class="comment">* 输    入         : 无</span></span><br><span class="line"><span class="comment">* 输    出         : 1:未检测到DS18B20的存在，0:存在</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line">u8 <span class="title function_">ds18b20_check</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	u8 time_temp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(DS18B20_PORT&amp;&amp;time_temp&lt;<span class="number">20</span>)	<span class="comment">//等待DQ为低电平</span></span><br><span class="line">	&#123;</span><br><span class="line">		time_temp++;</span><br><span class="line">		delay_10us(<span class="number">1</span>);	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(time_temp&gt;=<span class="number">20</span>)<span class="keyword">return</span> <span class="number">1</span>;	<span class="comment">//如果超时则强制返回1</span></span><br><span class="line">	<span class="keyword">else</span> time_temp=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>((!DS18B20_PORT)&amp;&amp;time_temp&lt;<span class="number">20</span>)	<span class="comment">//等待DQ为高电平</span></span><br><span class="line">	&#123;</span><br><span class="line">		time_temp++;</span><br><span class="line">		delay_10us(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(time_temp&gt;=<span class="number">20</span>)<span class="keyword">return</span> <span class="number">1</span>;	<span class="comment">//如果超时则强制返回1</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名         : ds18b20_read_bit</span></span><br><span class="line"><span class="comment">* 函数功能		   : 从DS18B20读取一个位</span></span><br><span class="line"><span class="comment">* 输    入         : 无</span></span><br><span class="line"><span class="comment">* 输    出         : 1/0</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line">u8 <span class="title function_">ds18b20_read_bit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	u8 dat=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	DS18B20_PORT=<span class="number">0</span>;</span><br><span class="line">	_nop_();_nop_();</span><br><span class="line">	DS18B20_PORT=<span class="number">1</span>;	</span><br><span class="line">	_nop_();_nop_(); <span class="comment">//该段时间不能过长，必须在15us内读取数据</span></span><br><span class="line">	<span class="keyword">if</span>(DS18B20_PORT)dat=<span class="number">1</span>;	<span class="comment">//如果总线上为1则数据dat为1，否则为0</span></span><br><span class="line">	<span class="keyword">else</span> dat=<span class="number">0</span>;</span><br><span class="line">	delay_10us(<span class="number">5</span>);</span><br><span class="line">	<span class="keyword">return</span> dat;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名         : ds18b20_read_byte</span></span><br><span class="line"><span class="comment">* 函数功能		   : 从DS18B20读取一个字节</span></span><br><span class="line"><span class="comment">* 输    入         : 无</span></span><br><span class="line"><span class="comment">* 输    出         : 一个字节数据</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line">u8 <span class="title function_">ds18b20_read_byte</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	u8 i=<span class="number">0</span>;</span><br><span class="line">	u8 dat=<span class="number">0</span>;</span><br><span class="line">	u8 temp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)<span class="comment">//循环8次，每次读取一位，且先读低位再读高位</span></span><br><span class="line">	&#123;</span><br><span class="line">		temp=ds18b20_read_bit();</span><br><span class="line">		dat=(temp&lt;&lt;<span class="number">7</span>)|(dat&gt;&gt;<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dat;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名         : ds18b20_write_byte</span></span><br><span class="line"><span class="comment">* 函数功能		   : 写一个字节到DS18B20</span></span><br><span class="line"><span class="comment">* 输    入         : dat：要写入的字节</span></span><br><span class="line"><span class="comment">* 输    出         : 无</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ds18b20_write_byte</span><span class="params">(u8 dat)</span></span><br><span class="line">&#123;</span><br><span class="line">	u8 i=<span class="number">0</span>;</span><br><span class="line">	u8 temp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)<span class="comment">//循环8次，每次写一位，且先写低位再写高位</span></span><br><span class="line">	&#123;</span><br><span class="line">		temp=dat&amp;<span class="number">0x01</span>;<span class="comment">//选择低位准备写入</span></span><br><span class="line">		dat&gt;&gt;=<span class="number">1</span>;<span class="comment">//将次高位移到低位</span></span><br><span class="line">		<span class="keyword">if</span>(temp)</span><br><span class="line">		&#123;</span><br><span class="line">			DS18B20_PORT=<span class="number">0</span>;</span><br><span class="line">			_nop_();_nop_();</span><br><span class="line">			DS18B20_PORT=<span class="number">1</span>;	</span><br><span class="line">			delay_10us(<span class="number">6</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			DS18B20_PORT=<span class="number">0</span>;</span><br><span class="line">			delay_10us(<span class="number">6</span>);</span><br><span class="line">			DS18B20_PORT=<span class="number">1</span>;</span><br><span class="line">			_nop_();_nop_();	</span><br><span class="line">		&#125;	</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名         : ds18b20_start</span></span><br><span class="line"><span class="comment">* 函数功能		   : 开始温度转换</span></span><br><span class="line"><span class="comment">* 输    入         : 无</span></span><br><span class="line"><span class="comment">* 输    出         : 无</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ds18b20_start</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	ds18b20_reset();<span class="comment">//复位</span></span><br><span class="line">	ds18b20_check();<span class="comment">//检查DS18B20</span></span><br><span class="line">	ds18b20_write_byte(<span class="number">0xcc</span>);<span class="comment">//SKIP ROM</span></span><br><span class="line">    ds18b20_write_byte(<span class="number">0x44</span>);<span class="comment">//转换命令	</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名         : ds18b20_init</span></span><br><span class="line"><span class="comment">* 函数功能		   : 初始化DS18B20的IO口 DQ 同时检测DS的存在</span></span><br><span class="line"><span class="comment">* 输    入         : 无</span></span><br><span class="line"><span class="comment">* 输    出         : 1:不存在，0:存在</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span> </span><br><span class="line">u8 <span class="title function_">ds18b20_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	ds18b20_reset();</span><br><span class="line">	<span class="keyword">return</span> ds18b20_check();	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名         : ds18b20_read_temperture</span></span><br><span class="line"><span class="comment">* 函数功能		   : 从ds18b20得到温度值</span></span><br><span class="line"><span class="comment">* 输    入         : 无</span></span><br><span class="line"><span class="comment">* 输    出         : 温度数据</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"><span class="type">float</span> <span class="title function_">ds18b20_read_temperture</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">float</span> temp;</span><br><span class="line">	u8 dath=<span class="number">0</span>;</span><br><span class="line">	u8 datl=<span class="number">0</span>;</span><br><span class="line">	u16 value=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	ds18b20_start();<span class="comment">//开始转换</span></span><br><span class="line">	ds18b20_reset();<span class="comment">//复位</span></span><br><span class="line">	ds18b20_check();</span><br><span class="line">	ds18b20_write_byte(<span class="number">0xcc</span>);<span class="comment">//SKIP ROM</span></span><br><span class="line">    ds18b20_write_byte(<span class="number">0xbe</span>);<span class="comment">//读存储器</span></span><br><span class="line"></span><br><span class="line">	datl=ds18b20_read_byte();<span class="comment">//低字节</span></span><br><span class="line">	dath=ds18b20_read_byte();<span class="comment">//高字节</span></span><br><span class="line">	value=(dath&lt;&lt;<span class="number">8</span>)+datl;<span class="comment">//合并为16位数据</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>((value&amp;<span class="number">0xf800</span>)==<span class="number">0xf800</span>)<span class="comment">//判断符号位，负温度</span></span><br><span class="line">	&#123;</span><br><span class="line">		value=(~value)+<span class="number">1</span>; <span class="comment">//数据取反再加1</span></span><br><span class="line">		temp=value*(<span class="number">-0.0625</span>);<span class="comment">//乘以精度	</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="comment">//正温度</span></span><br><span class="line">	&#123;</span><br><span class="line">		temp=value*<span class="number">0.0625</span>;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="code-4"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;public.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名       : delay_10us</span></span><br><span class="line"><span class="comment">* 函数功能		 : 延时函数，ten_us=1时，大约延时10us</span></span><br><span class="line"><span class="comment">* 输    入       : ten_us</span></span><br><span class="line"><span class="comment">* 输    出    	 : 无</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay_10us</span><span class="params">(u16 ten_us)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">while</span>(ten_us--);	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">* 函 数 名       : delay_ms</span></span><br><span class="line"><span class="comment">* 函数功能		 : ms延时函数，ms=1时，大约延时1ms</span></span><br><span class="line"><span class="comment">* 输    入       : ms：ms延时时间</span></span><br><span class="line"><span class="comment">* 输    出    	 : 无</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay_ms</span><span class="params">(u16 ms)</span></span><br><span class="line">&#123;</span><br><span class="line">	u16 i,j;</span><br><span class="line">	<span class="keyword">for</span>(i=ms;i&gt;<span class="number">0</span>;i--)</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">110</span>;j&gt;<span class="number">0</span>;j--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+<p>  相关头文件</p>
+<div class="tabs" id="headercodes"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="headercodes-1">ds18b20.h</button><button type="button" class="tab " data-href="headercodes-2">smg.h</button><button type="button" class="tab " data-href="headercodes-3">public.h</button></ul><div class="tab-contents"><div class="tab-item-content active" id="headercodes-1"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _ds18b20_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _ds18b20_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;public.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//管脚定义</span></span><br><span class="line">sbit DS18B20_PORT=P3^<span class="number">7</span>;	<span class="comment">//DS18B20数据口定义</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//函数声明</span></span><br><span class="line">u8 <span class="title function_">ds18b20_init</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">float</span> <span class="title function_">ds18b20_read_temperture</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="headercodes-2"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _smg_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _smg_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;public.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SMG_A_DP_PORT	P0	<span class="comment">//使用宏定义数码管段码口</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义数码管位选信号控制脚</span></span><br><span class="line">sbit LSA=P2^<span class="number">2</span>;</span><br><span class="line">sbit LSB=P2^<span class="number">3</span>;</span><br><span class="line">sbit LSC=P2^<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> u8 gsmg_code[<span class="number">17</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">smg_display</span><span class="params">(u8 dat[],u8 pos)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="headercodes-3"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _public_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _public_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;reg52.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> u16;	<span class="comment">//对系统默认数据类型进行重定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> u8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay_10us</span><span class="params">(u16 ten_us)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">delay_ms</span><span class="params">(u16 ms)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://bootree.cn">大白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://bootree.cn/2024/10/05/51Microcontroller/21DS18B20%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E5%AE%9E%E9%AA%8C/">http://bootree.cn/2024/10/05/51Microcontroller/21DS18B20%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E5%AE%9E%E9%AA%8C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://bootree.cn" target="_blank">生活中的tree</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/51%E5%8D%95%E7%89%87%E6%9C%BA/">51单片机</a></div><div class="post_share"><div class="social-share" data-image="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/10/06/51Microcontroller/22DS1302%E6%97%B6%E9%92%9F%E5%AE%9E%E9%AA%8C/" title="22DS1302时钟实验"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">22DS1302时钟实验</div></div></a></div><div class="next-post pull-right"><a href="/2024/10/05/51Microcontroller/20I2C-EEPROM%E5%AE%9E%E9%AA%8C/" title="20I2C-EEPROM实验"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">20I2C-EEPROM实验</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/06/16/51Microcontroller/01Keil5%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" title="01Keil5安装配置"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204123.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-16</div><div class="title">01Keil5安装配置</div></div></a></div><div><a href="/2024/06/20/51Microcontroller/02%E5%8D%95%E7%89%87%E6%9C%BA%E4%BB%8B%E7%BB%8D/" title="51单片机 - 02_51单片机介绍"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-20</div><div class="title">51单片机 - 02_51单片机介绍</div></div></a></div><div><a href="/2024/06/24/51Microcontroller/03%E5%8D%95%E7%89%87%E6%9C%BA%E6%9C%80%E5%B0%8F%E7%B3%BB%E7%BB%9F/" title="51单片机 - 03单片机最小系统"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-24</div><div class="title">51单片机 - 03单片机最小系统</div></div></a></div><div><a href="/2024/06/24/51Microcontroller/04%E5%8D%95%E7%89%87%E6%9C%BA%E5%B7%A5%E7%A8%8B%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA/" title="51单片机 - 04单片机工程模板创建"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-24</div><div class="title">51单片机 - 04单片机工程模板创建</div></div></a></div><div><a href="/2024/10/01/51Microcontroller/06%E8%9C%82%E9%B8%A3%E5%99%A8%E5%AE%9E%E9%AA%8C/" title="06蜂鸣器实验"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-01</div><div class="title">06蜂鸣器实验</div></div></a></div><div><a href="/2024/06/25/51Microcontroller/05%E7%82%B9%E4%BA%AE%E7%AC%AC%E4%B8%80%E4%B8%AALED/" title="51单片机 - 05LED实验"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-25</div><div class="title">51单片机 - 05LED实验</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">大白</div><div class="author-info__description">知足而上进，温柔且坚定</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/cnlicm"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/cnlicm" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:codenobugs@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">A lazy guy. My dream is that generate electricity with love.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ds18b20%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">DS18B20介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%97%B6%E5%BA%8F"><span class="toc-number">1.1.</span> <span class="toc-text">初始化时序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E6%97%B6%E5%BA%8F"><span class="toc-number">1.2.</span> <span class="toc-text">写时序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E6%97%B6%E5%BA%8F"><span class="toc-number">1.3.</span> <span class="toc-text">读时序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">硬件设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">软件设计</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/10/12/408/ComputerOrganization/10%E6%90%AD%E5%BB%BA%E4%B8%80%E5%8F%B0%E7%AE%80%E6%98%93%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA/" title="10搭建一台简易的计算机"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241008203856.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="10搭建一台简易的计算机"/></a><div class="content"><a class="title" href="/2024/10/12/408/ComputerOrganization/10%E6%90%AD%E5%BB%BA%E4%B8%80%E5%8F%B0%E7%AE%80%E6%98%93%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA/" title="10搭建一台简易的计算机">10搭建一台简易的计算机</a><time datetime="2024-10-12T12:54:53.000Z" title="发表于 2024-10-12 20:54:53">2024-10-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/11/408/ComputerOrganization/09%E5%86%85%E5%AD%98/" title="09内存"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241008203856.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="09内存"/></a><div class="content"><a class="title" href="/2024/10/11/408/ComputerOrganization/09%E5%86%85%E5%AD%98/" title="09内存">09内存</a><time datetime="2024-10-11T14:12:31.000Z" title="发表于 2024-10-11 22:12:31">2024-10-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/11/408/ComputerOrganization/08%E6%97%B6%E9%92%9F/" title="08时钟"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241008203856.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="08时钟"/></a><div class="content"><a class="title" href="/2024/10/11/408/ComputerOrganization/08%E6%97%B6%E9%92%9F/" title="08时钟">08时钟</a><time datetime="2024-10-11T12:45:27.000Z" title="发表于 2024-10-11 20:45:27">2024-10-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/10/408/ComputerOrganization/07%E5%AF%84%E5%AD%98%E5%99%A8/" title="07寄存器"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241008203856.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="07寄存器"/></a><div class="content"><a class="title" href="/2024/10/10/408/ComputerOrganization/07%E5%AF%84%E5%AD%98%E5%99%A8/" title="07寄存器">07寄存器</a><time datetime="2024-10-10T15:04:41.000Z" title="发表于 2024-10-10 23:04:41">2024-10-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/10/408/ComputerOrganization/06%E9%94%81%E5%AD%98%E5%99%A8/" title="06锁存器"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241008203856.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="06锁存器"/></a><div class="content"><a class="title" href="/2024/10/10/408/ComputerOrganization/06%E9%94%81%E5%AD%98%E5%99%A8/" title="06锁存器">06锁存器</a><time datetime="2024-10-10T14:32:43.000Z" title="发表于 2024-10-10 22:32:43">2024-10-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240620204535.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By 大白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/"><img class="icp-icon" src= "/img/loading.gif" data-lazy-src="/img/2020011362.png"><span>赣ICP备2020011362号-2</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/utils.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/main.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/tw_cn.min.js"></script><script src="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://jsd.012700.xyz/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://jsd.012700.xyz/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://jsd.012700.xyz/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script data-pjax src="/self/btf.js"></script><script defer="defer" id="ribbon" src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://jsd.012700.xyz/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/talking/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/search/local-search.min.js"></script></div></div></body></html>
