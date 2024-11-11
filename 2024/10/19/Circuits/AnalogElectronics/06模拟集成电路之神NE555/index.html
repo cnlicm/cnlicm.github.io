@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>06模拟集成电路之神-NE555 | 生活中的tree</title><meta name="author" content="大白"><meta name="copyright" content="大白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="NE555简介   NE555是一种集成电路，也被称为555计时器，它广泛应用于模拟电路中。NE555集成电路具有多种应用，包括方波发生器、多谐振荡器、脉冲宽度调制器、定时器等。它是一种通用、可靠、经济实惠的电路元件，可用于各种模拟电路设计。NE555集成电路是模拟电路中非常重要的元件之一，它的多种应用使得它在各种电子设备中广泛使用。立创商城搜C5157696，这是国产NE555芯片手册 功能框图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="06模拟集成电路之神-NE555">
+<meta property="og:url" content="http://bootree.cn/2024/10/19/Circuits/AnalogElectronics/06%E6%A8%A1%E6%8B%9F%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E4%B9%8B%E7%A5%9ENE555/index.html">
+<meta property="og:site_name" content="生活中的tree">
+<meta property="og:description" content="NE555简介   NE555是一种集成电路，也被称为555计时器，它广泛应用于模拟电路中。NE555集成电路具有多种应用，包括方波发生器、多谐振荡器、脉冲宽度调制器、定时器等。它是一种通用、可靠、经济实惠的电路元件，可用于各种模拟电路设计。NE555集成电路是模拟电路中非常重要的元件之一，它的多种应用使得它在各种电子设备中广泛使用。立创商城搜C5157696，这是国产NE555芯片手册 功能框图">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png">
+<meta property="article:published_time" content="2024-10-19T09:16:18.000Z">
+<meta property="article:modified_time" content="2024-10-20T09:45:13.574Z">
+<meta property="article:author" content="大白">
+<meta property="article:tag" content="模拟电子技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://bootree.cn/2024/10/19/Circuits/AnalogElectronics/06%E6%A8%A1%E6%8B%9F%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E4%B9%8B%E7%A5%9ENE555/index.html"><link rel="preconnect" href="https://jsd.012700.xyz"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="NdIUXAOVyGnnBhcrip0ksCawbdAzT0hlBZDE9u4jx6k"/><meta name="msvalidate.01" content="567E47D75E8DCF1282B9623AD914701E"/><meta name="baidu-site-verification" content="code-pE5rnuxcfD"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: 大白","link":"链接: ","source":"来源: 生活中的tree","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://jsd.012700.xyz/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '06模拟集成电路之神-NE555',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-20 17:45:13'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="preconnect" href="https://jsd.012700.xyz"><link href="/self/btf.css" rel="stylesheet"><link rel="alternate" href="/atom.xml" title="生活中的tree" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">115</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png')"><nav id="nav"><span id="blog-info"><a href="/" title="生活中的tree"><span class="site-name">生活中的tree</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">06模拟集成电路之神-NE555<a class="post-edit-link" href="https://github.com/cnlicm/HexoBlog/tree/main/source/_posts/Circuits/AnalogElectronics/06模拟集成电路之神NE555.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-10-19T09:16:18.000Z" title="发表于 2024-10-19 17:16:18">2024-10-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Handware/">Handware</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Handware/%E6%A8%A1%E6%8B%9F%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF/">模拟电子技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="06模拟集成电路之神-NE555"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="ne555简介">NE555简介</h2>
+<p>  NE555是一种集成电路，也被称为555计时器，它广泛应用于模拟电路中。NE555集成电路具有多种应用，包括方波发生器、多谐振荡器、脉冲宽度调制器、定时器等。它是一种通用、可靠、经济实惠的电路元件，可用于各种模拟电路设计。NE555集成电路是模拟电路中非常重要的元件之一，它的多种应用使得它在各种电子设备中广泛使用。立创商城搜<code>C5157696</code>，这是<a target="_blank" rel="noopener external nofollow noreferrer" href="https://so.szlcsc.com/global.html?k=C5157696&amp;hot-key=GRM31CZ72A475KE11L">国产NE555芯片手册</a></p>
+<center>功能框图</center>
+<img width="80%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241020151956.png"/>
+<h3 id="运放器">运放器</h3>
+<p>  运放一般是通过比较输入信号的电压大小来产生输出信号的。在运放的差分输入端口，通常会接入两个电压信号，一个是（+IN）的电压，一个是（-IN）的电压。运放会通过放大、比较这两个电压信号的大小关系，然后产生一个输出电压信号。</p>
+<p>  需要配置输出的高电压，低电压和运放的阻抗。阻抗越大，运放对电路的影响越小。</p>
+<img width="80%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/circuitjs1_HEONqzhBgL.gif"/>
+<ul>
+<li>配置运放器的最大输出(5V)和最小输出(0V)后，当正极电压大于负极电压，则输出5V；当正极电压小于负极电压时输出0V</li>
+</ul>
+<h3 id="双稳态触发器">双稳态触发器</h3>
+<p>  电子电路中一种常见的元器件，输出的电压根据你第一次输入的电压相关，具有记忆功能，直到R端被高电压电压重置。</p>
+<ol>
+<li>有两个稳定状态低电压0态和高电压1态；</li>
+<li>能根据输入信号S将触发置成0或1态；</li>
+<li>输入信号消失后，被置成的0或1态能保存下来，</li>
+<li>即具有记忆功能，直到R端高电压重置为止。</li>
+</ol>
+<img width="80%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/circuitjs1_QRLS1v4CM3.gif"/>
+<h3 id="ne555原理">NE555原理</h3>
+<p>  NE555振荡电路如下所示：</p>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241020171114.png"/>
+<ol>
+<li>8号引脚和7号引脚之间接一个1k电阻</li>
+<li>7号引脚和6号引脚之间接一个100K电阻</li>
+<li>6号引脚和2号引脚之间短接</li>
+<li>2号引脚连接一个100nf的电容</li>
+<li>4号引脚拉高，不重置芯片</li>
+<li>5号引脚可以接一个0.01uf的电容滤波</li>
+</ol>
+<p>  通过上图连接的仿真模拟电路如下所示：</p>
+<img width="80%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/circuitjs1_WqKEjYZCG9.gif"/>
+<!-- - **充电过程** ：刚开始电源会经过左侧两个电阻持续给电容充电，充电过程中6脚和2脚电压会慢慢升高，当2脚的电压大于1.7V时下方的比较器输出低电平然后再输入到RS触发器中3脚输出高电平
+- **放电过程** ：当$\overline{Q}$为低电平时导通NPN型三极管，电容相当于接着7脚再接GND在放电，放完电后6脚和2脚电压下降在比较器的作用下经过RS双稳态触发器持续振荡（充放电过程） -->
+<p>  <strong>当电源电压Vcc被接通时，电路开始工作，电容器C开始充电，直到其电压达到2/3的Vcc时，内部比较器的输出将变为高电平。此时，输出OUT也会由低电平变为高电平。当电容器C电压下降到1/3的Vcc时，内部比较器的输出将变为低电平，此时输出OUT也会由高电平变为低电平。电容器C又开始充电，电路又开始了一个新的周期。</strong></p>
+<p>  周期T（秒）是由外部电容器C和两个外部电阻R1、R2的值决定的，公式为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>0.693</mn><mo>×</mo><mo stretchy="false">(</mo><msub><mi>R</mi><mi>A</mi></msub><mo>+</mo><mn>2</mn><msub><mi>R</mi><mi>B</mi></msub><mo stretchy="false">)</mo><mo>×</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">T=0.693×(R_A+2R_B)×C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">6</span><span class="mord">9</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>。占空比D是指方波周期中高电平的时间比例，公式为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><msub><mi>R</mi><mi>B</mi></msub><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><msub><mi>R</mi><mi>A</mi></msub><mo>+</mo><mn>2</mn><msub><mi>R</mi><mi>B</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">D=R_B / (R_A + 2R_B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">/</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。因此，通过改变电容器C和电阻R1、R2的值，可以改变方波波形的周期和占空比。</p>
+<p>  总之，NE555工作的原理是基于时序电路的构建，通过改变外部电容器和电阻的数值来控制周期和占空比，实现各种脉冲波形的产生。</p>
+<div class="note info flat"><p>0.693是自然对数e的一个近似值，通常也用符号ln(2)表示。在NE555定时器的工作原理中，0.693是指电容器C充电或放电的时间常数，可以用来计算电容器充电或放电的时间。具体来说，当电容器充电或放电时，其电压会以指数形式增加或减小，电容器电压到达63.2%（即1-1/e）时，电容器的充电或放电时间就等于0.693×R×C，其中R是电阻的值，C是电容器的电容值。因此，0.693常常被用于计算电容器充电或放电的时间。在NE555定时器中，由于电容器充电或放电的时间常数是0.693×(R1+2×R2)×C，所以0.693也会出现在计算定时器的周期和占空比的公式中。</p>
+</div>
+<h2 id="ne555应用">NE555应用</h2>
+<h3 id="电子琴">电子琴</h3>
+<p>  声音和频率是有关系的，哆瑞咪发嗦啦西跟频率有关</p>
+<ul>
+<li><code>F =  1/T = 1 / (( RA+2RB ) * C*0.693) </code> 使用不同的电阻配出来类似的声音</li>
+</ul>
+<center>声音频率</center>
+<img width="60%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241020171539.png"/>
+<center>电子琴电路</center>
+<img width="100%" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241020172059.png"/>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://bootree.cn">大白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://bootree.cn/2024/10/19/Circuits/AnalogElectronics/06%E6%A8%A1%E6%8B%9F%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E4%B9%8B%E7%A5%9ENE555/">http://bootree.cn/2024/10/19/Circuits/AnalogElectronics/06%E6%A8%A1%E6%8B%9F%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E4%B9%8B%E7%A5%9ENE555/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://bootree.cn" target="_blank">生活中的tree</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A8%A1%E6%8B%9F%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF/">模拟电子技术</a></div><div class="post_share"><div class="social-share" data-image="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/10/20/Circuits/PcbDesign/01PCB%E7%AE%80%E4%BB%8B/" title="01PCB简介"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241020174157.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">01PCB简介</div></div></a></div><div class="next-post pull-right"><a href="/2024/10/19/Circuits/AnalogElectronics/05%E4%B8%89%E6%9E%81%E7%AE%A1%E5%8E%9F%E7%90%86/" title="05三极管原理"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">05三极管原理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/15/Circuits/AnalogElectronics/01%E5%9F%BA%E6%9C%AC%E5%B8%B8%E8%AF%86/" title="01基本常识"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-15</div><div class="title">01基本常识</div></div></a></div><div><a href="/2024/10/18/Circuits/AnalogElectronics/03circuitJs%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF/" title="03circuitJs仿真电路"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-18</div><div class="title">03circuitJs仿真电路</div></div></a></div><div><a href="/2024/10/19/Circuits/AnalogElectronics/04%E7%BB%A7%E7%94%B5%E5%99%A8%E5%8E%9F%E7%90%86/" title="04继电器原理"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-19</div><div class="title">04继电器原理</div></div></a></div><div><a href="/2024/10/19/Circuits/AnalogElectronics/05%E4%B8%89%E6%9E%81%E7%AE%A1%E5%8E%9F%E7%90%86/" title="05三极管原理"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-19</div><div class="title">05三极管原理</div></div></a></div><div><a href="/2024/10/15/Circuits/AnalogElectronics/02%E5%B8%B8%E8%A7%81%E5%85%83%E5%99%A8%E4%BB%B6/" title="02常见元器件"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-15</div><div class="title">02常见元器件</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">大白</div><div class="author-info__description">知足而上进，温柔且坚定</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">115</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/cnlicm"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/cnlicm" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:codenobugs@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">A lazy guy. My dream is that generate electricity with love.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ne555%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">NE555简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E6%94%BE%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">运放器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E7%A8%B3%E6%80%81%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">双稳态触发器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ne555%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">NE555原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ne555%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">NE555应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%AD%90%E7%90%B4"><span class="toc-number">2.1.</span> <span class="toc-text">电子琴</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/09/IDE/Keil/AStyle%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%B7%A5%E5%85%B7/" title="AStyle格式化工具"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241109172550.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AStyle格式化工具"/></a><div class="content"><a class="title" href="/2024/11/09/IDE/Keil/AStyle%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%B7%A5%E5%85%B7/" title="AStyle格式化工具">AStyle格式化工具</a><time datetime="2024-11-09T09:23:21.000Z" title="发表于 2024-11-09 17:23:21">2024-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/09/IDE/Rider/JetBrainsRider%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/" title="JetBrainsRider插件汇总"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240902145915.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JetBrainsRider插件汇总"/></a><div class="content"><a class="title" href="/2024/11/09/IDE/Rider/JetBrainsRider%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/" title="JetBrainsRider插件汇总">JetBrainsRider插件汇总</a><time datetime="2024-11-09T09:21:50.000Z" title="发表于 2024-11-09 17:21:50">2024-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/09/IDE/Rider/JetBrainsRider%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="JetBrainsRider快捷键"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20240902145915.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JetBrainsRider快捷键"/></a><div class="content"><a class="title" href="/2024/11/09/IDE/Rider/JetBrainsRider%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="JetBrainsRider快捷键">JetBrainsRider快捷键</a><time datetime="2024-11-09T09:18:55.000Z" title="发表于 2024-11-09 17:18:55">2024-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/21/Circuits/PcbDesign/02%E5%98%89%E7%AB%8B%E5%88%9BEDA%E4%BD%BF%E7%94%A8/" title="02嘉立创EDA使用"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241020174157.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="02嘉立创EDA使用"/></a><div class="content"><a class="title" href="/2024/10/21/Circuits/PcbDesign/02%E5%98%89%E7%AB%8B%E5%88%9BEDA%E4%BD%BF%E7%94%A8/" title="02嘉立创EDA使用">02嘉立创EDA使用</a><time datetime="2024-10-21T12:08:46.000Z" title="发表于 2024-10-21 20:08:46">2024-10-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/20/Circuits/PcbDesign/01PCB%E7%AE%80%E4%BB%8B/" title="01PCB简介"><img src= "/img/loading.gif" data-lazy-src="https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241020174157.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="01PCB简介"/></a><div class="content"><a class="title" href="/2024/10/20/Circuits/PcbDesign/01PCB%E7%AE%80%E4%BB%8B/" title="01PCB简介">01PCB简介</a><time datetime="2024-10-20T09:40:03.000Z" title="发表于 2024-10-20 17:40:03">2024-10-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cnlicm-blog-image.oss-cn-shenzhen.aliyuncs.com/img/20241015204539.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By 大白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/"><img class="icp-icon" src= "/img/loading.gif" data-lazy-src="/img/2020011362.png"><span>赣ICP备2020011362号-2</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/utils.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/main.min.js"></script><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/tw_cn.min.js"></script><script src="https://jsd.012700.xyz/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://jsd.012700.xyz/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://jsd.012700.xyz/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://jsd.012700.xyz/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script data-pjax src="/self/btf.js"></script><script defer="defer" id="ribbon" src="https://jsd.012700.xyz/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://jsd.012700.xyz/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/talking/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://jsd.012700.xyz/npm/hexo-theme-butterfly@4.13.0/source/js/search/local-search.min.js"></script></div></div></body></html>
